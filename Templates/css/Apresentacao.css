@@ -1,0 +1,127 @@
+@font-face {
+  font-family: 'NexaText';
+  src: url('../../fonts/nexa-trial-light.otf') format('opentype');
+  font-weight: 400;
+  font-style: light;
+}
+
+@font-face {
+  font-family: 'NexaText';
+  src: url('../../fonts/nexa-trial-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NexaText';
+  src: url('../../fonts/nexa-trial-thinitalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Nexa';
+  src: url('../../fonts/nexa-trial-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Nexa';
+  src: url('fonts/nexa-trial-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    color: white;
+    font-family: 'NexaText', Arial, Helvetica, sans-serif;
+    background-color: #270047;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0,0,0,0.2);
+    padding-left: 4rem;
+    padding-right: 4rem;
+    align-items: center;
+}
+
+.pesquisa {
+    display: flex;
+    justify-content: space-between;
+    height: 3rem;
+    width: 18rem;
+    font-size: 1.3rem;
+    align-items: center;
+    background-color: #512377;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%); /* quebra diagonal */
+    border-radius: 4px;
+
+}
+
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.slider-track {
+  display: flex;
+  width: calc(300px * 8); /* 8 cards (4 originais + 4 clones) */
+  gap: 1rem;
+}
+
+.card {
+  background-color: #ede1ff;
+  color: #000;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  min-width: 300px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Animação esquerda */
+.slider-track.esquerda {
+  animation: scrollEsquerda 20s linear infinite;
+}
+
+/* Animação direita */
+.slider-track.direita {
+  animation: scrollDireita 20s linear infinite;
+}
+
+/* KEYFRAMES - movimentos opostos */
+@keyframes scrollEsquerda {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Move metade da largura, pois duplicou */
+}
+
+@keyframes scrollDireita {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Pausar no hover */
+.slider-track:hover {
+  animation-play-state: paused;
+}
