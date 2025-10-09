@@ -1,0 +1,17 @@
+body {
+    background-color: #270047;
+}
+
+.container {
+    background-image: '../../Images/Login/background.png';
+}
+
+.conteudo_principal{
+    background-color: #140025;
+    display: inline;
+}
+
+form{
+    display: block;
+    flex-direction: column;
+}

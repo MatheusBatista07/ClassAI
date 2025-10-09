@@ -3,12 +3,14 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Ivy\\Classai\\": "src/"
+            "Ivy\\Classai\\": "src/",
+            "Controller\\": "Controller/",
+            "Model\\": "Model/"
         }
     },
     "authors": [
         {
-            "name": "ReynanSantts, Raphael Esposito, Matheus Batista, Lucas Chaves"
+            "name": "ReynanSantts, Raphael Esposito, Matheus Batista, Lucas Chaves, ivyevellinti"
         }
     ],
     "minimum-stability": "dev",
