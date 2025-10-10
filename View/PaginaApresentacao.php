@@ -268,9 +268,53 @@
       </div>
     </div>
   </div>
-  
-  
-    </section>
+  </section>
+
+  <section class="Matricule-se">
+    <img src="../Images/Página de Apresentação/Mão_homem.png" alt="Mão humana esticada para pegar em outra mão">
+    <div class="txt_matricule">
+        <h1>Vem aprender IA com a gente também!</h1>
+        <img src="../Images/Página de Apresentação/Linha_verde.png" alt="Linha verde">
+        <p>O futuro está chamando! Vamos juntos nessa?</p>
+        <button class="Matricular">Matricule-se</button>
+    </div>
+    <img src="../Images/Página de Apresentação/Mão_robô.png" alt="Mão de um robô estendida para pegar em outra mão">
+  </section>
+
+  <section class="lazo">
+    <div class="tudo">
+        <div class="nameLazo">
+            <h1>Lazo lazo lazo lazo lazo lazo</h1>
+            <h1>Lazo lazo lazo lazo lazo lazo</h1>
+            
+        </div>
+        <div class="geral">
+            <div class="org_esqr">
+                <div class="lazo1">
+                    <h2>Olá, eu sou a Lazo!</h2>
+                    <p>A IA que vai te ajudar a estudar</p>
+                </div>
+            
+                <div class="lazo2">
+                    <p>Servirei como apoio nas aulas e tirarei dúvidas</p>
+                </div>
+            </div>
+        
+            <img src="../Images/Página de Apresentação/Lazo.png" alt="Imagem de Robô branco e roxo usando capacete de trabalhador">
+        
+            <div class="org_dir">
+                <div class="lazo3">
+                    <p>Eu vou te ajudar a se aprofundar nos assuntos que tem mais dificuldade</p>
+                </div>
+            
+                <div class="lazo4">
+                    <p>Além do mais, vou gerar atividades e simulações para te deixar preparado!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </section>
 </body>
 <script src="script.js"></script>
 </html>
