@@ -63,6 +63,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -71,103 +72,120 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - José Felipe</title>
     <link rel="stylesheet" href="../Templates/css/Pagina-perfil-amigo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
+
+    <header class="main-header">
+        <div class="logo">
+            <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="ClassAIB Logo">
+        </div>
+    </header>
+
     <div class="container">
-        <!-- Coluna da Esquerda - Perfil -->
         <div class="left-column">
+
             <div class="profile-card">
-                <div class="profile-header">
-                    <img src="../Images/Fotos Pagina Perfil amigo/Jose-Felipe.png" alt="José Felipe"
-                        class="profile-photo">
-                    <div class="profile-info">
-                        <h1 class="profile-name">José Felipe</h1>
-                        <div class="profile-username">@felipejose</div>
-                        <div class="profile-title">Técnico em Logística Aluno</div>
-                    </div>
+                <div class="back-arrow">
+                    <i class="fas fa-arrow-left"></i>
                 </div>
-
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-value">Seguindo</div>
-                        <div class="stat-number">50</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">Seguidores</div>
-                        <div class="stat-number">60</div>
-                    </div>
+                <img src="../Images/Fotos Pagina Perfil amigo/Jose-Felipe.png" alt="José Felipe" class="profile-photo">
+                <h1 class="profile-name">José Felipe</h1>
+                <div class="profile-username">@felipejose</div>
+                <div class="profile-title">Técnico em Logística</div>
+                <div class="profile-title">Aluno</div>
+                <div class="profile-buttons">
+                    <button class="btn btn-primary">Seguindo</button>
+                    <button class="btn btn-secondary">Chat</button>
                 </div>
-
-                <div class="navigation">
-                    <div class="nav-item active">Chat</div>
+                <div class="social-stats">
+                    <div class="stats-pill">
+                        <span>Segue <strong>50</strong></span>
+                        <span>Seguido por <strong>60</strong></span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sugestão de Amigos -->
             <div class="friends-section">
                 <h3 class="section-title">Sugestão de amigos</h3>
-                <div id="friends-list" class="friends-grid">
-                    <div class="loading">Carregando amigos...</div>
+
+                <div class="friends-list-wrapper">
+                    <div id="friends-list" class="friends-grid">
+                        <div class="loading">Carregando amigos...</div>
+                    </div>
+                    <div class="see-more">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>Ver mais</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-section">
+                <div class="description-content">
+                    <p>Tenho 23 anos, sou formado como Técnico em Logística e atualmente sou aluno dessa plataforma de
+                        ensino online. Gosto de aprender coisas novas, estou sempre em busca de me aprimorar e
+                        aplicar o
+                        que estudo na prática, buscando crescer tanto profissional quanto pessoalmente.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Coluna da Direita - Conteúdo -->
         <div class="right-column">
-            <!-- Descrição do Perfil -->
-            <div class="description-section">
-                <h3 class="section-title">Sobre</h3>
-                <div class="description-content">
-                    <p>Tenho 23 anos, sou formado como Técnico em Logística e atualmente sou aluno dessa plataforma de
-                        ensino online. Gosto de aprender coisas novas, estou sempre em busca de me aprimorar e aplicar o
-                        que estudo na prática, buscando crescer tanto profissional quanto pessoalmente.</p>
-                </div>
-            </div>
-
-            <!-- Histórico na Plataforma -->
-            <div class="profile-content">
-                <div class="platform-history">
-                    <h2 class="section-title">Histórico na plataforma</h2>
-                    <div class="stats-cards">
+            <div class="platform-history">
+                <h2 class="section-title">Histórico na plataforma</h2>
+                <div class="stats-cards">
+                    <!-- INÍCIO DA ALTERAÇÃO: Novo grupo para os cards de cima -->
+                    <div class="stats-cards-row">
                         <div class="stat-card">
-                            <div class="card-bg">
-                                <img src="../Images/Fotos Pagina Perfil amigo/Fundo-Curso-Andamento.png" alt="Fundo Curso Andamento" class="bg-image">
-                                <img src="../Images/Fotos Pagina Perfil amigo/Cursos-Andamento.png" alt="Cursos Andamento" class="main-image">
+                            <div class="stat-card-icon">
+                                <img src="../Images/Fotos Pagina Perfil amigo/Fundo-Curso-Andamento.png" alt=""
+                                    class="icon-background">
+                                <img src="../Images/Fotos Pagina Perfil amigo/Cursos-Andamento.png"
+                                    alt="Ícone de Cursos em Andamento" class="icon-foreground">
                             </div>
-                            <div class="card-content">
-                                <div class="stat-number">1</div>
-                                <div class="stat-label">Cursos em Andamento</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="card-bg">
-                                <img src="../Images/Fotos Pagina Perfil amigo/Fundo-Curso-Concluido.png" alt="Fundo Curso Concluído" class="bg-image">
-                                <img src="../Images/Fotos Pagina Perfil amigo/Cursos-Concluidos.png" alt="Cursos Concluídos" class="main-image">
-                            </div>
-                            <div class="card-content">
-                                <div class="stat-number">10</div>
-                                <div class="stat-label">Cursos Concluídos</div>
+                            <div class="stat-card-info">
+                                <p>Cursos em Andamento</p>
+                                <span>1 Curso</span>
                             </div>
                         </div>
 
-                            <!-- Dias de Constância -->
-                            <div class="consistency-section">
-                                <h3 class="section-title">22 dias de Constância</h3>
-                                <div class="consistency-number">22</div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">
+                                <img src="../Images/Fotos Pagina Perfil amigo/Fundo-Curso-Concluido.png" alt=""
+                                    class="icon-background">
+                                <img src="../Images/Fotos Pagina Perfil amigo/Cursos-Concluidos.png"
+                                    alt="Ícone de Cursos Concluídos" class="icon-foreground">
                             </div>
-
-                            <!-- Cursos mais bem avaliados -->
-                            <div class="courses-section">
-                                <h3 class="section-title">Cursos mais bem avaliados</h3>
-                                <div id="courses-list" class="courses-list">
-                                    <div class="loading">Carregando cursos...</div>
-                                </div>
+                            <div class="stat-card-info">
+                                <p>Cursos Concluídos</p>
+                                <span>10 Cursos</span>
                             </div>
                         </div>
                     </div>
+                    <!-- FIM DO NOVO GRUPO -->
 
-                    <script src="../Templates/js/Pagina-perfil-amigo.js"></script>
+                    <!-- Card de constância agora fica "sozinho" -->
+                    <div class="consistency-section">
+                        <h3 class="section-title" style="display: none;">22 dias de Constância</h3>
+                        <div class="consistency-number">22</div>
+                        <span>dias de
+                            Constância</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="courses-section">
+                <h3 class="section-title">Cursos mais bem avaliados</h3>
+                <div id="courses-list" class="courses-list">
+                    <div class="loading">Carregando cursos...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../Templates/js/Pagina-perfil-amigo.js"></script>
 </body>
 
 </html>

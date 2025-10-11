@@ -1,365 +1,514 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+/* --- GERAL E VARIÁVEIS --- */
+
+:root {
+    --background-color: #1a0f2a;
+    --card-bg: #2c1f4a;
+    --primary-purple: #6d3dff;
+    --light-purple-bg: #3a2d5c;
+    --friends-card-bg: #221638;
+    --primary-green: #1ed760;
+    --text-color: #ffffff;
+    --text-muted: #b3b3b3;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
 }
 
 body {
-    background: #f8f9fa;
-    color: #2d3748;
-    line-height: 1.6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
     padding: 20px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 24px;
-    align-items: start;
-}
 
-/* Coluna Esquerda */
-.left-column {
+/* --- HEADER E LINHAS DIVISÓRIAS --- */
+
+.main-header {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--light-purple-bg);
 }
 
-/* Cartão de Perfil */
-.profile-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+.logo img {
+    height: 45px;
 }
 
-.profile-header {
+.user-menu {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.profile-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #667eea;
-}
-
-.profile-info {
-    flex: 1;
-}
-
-.profile-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: #2d3748;
-    margin-bottom: 4px;
-}
-
-.profile-username {
-    color: #667eea;
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.profile-title {
-    color: #718096;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-/* Stats */
-.profile-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding: 16px;
-    background: #f8f9fa;
-    border-radius: 12px;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-value {
-    font-size: 12px;
-    color: #718096;
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-
-.stat-number {
-    font-size: 18px;
-    font-weight: 700;
-    color: #2d3748;
-}
-
-/* Navigation */
-.navigation {
-    margin-top: 16px;
-}
-
-.nav-item {
-    padding: 12px 16px;
-    border-radius: 10px;
+    gap: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 600;
-    color: #718096;
 }
 
-.nav-item.active {
-    background: #667eea;
-    color: white;
+.menu-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
-.nav-item:hover:not(.active) {
-    background: #f7fafc;
-    color: #2d3748;
-}
-
-/* Friends Section */
-.friends-section {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+.container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 .section-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #2d3748;
+    font-size: 22px;
+    font-weight: bold;
     margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #e2e8f0;
+}
+
+.right-column .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+
+/* --- COLUNA DA ESQUERDA --- */
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border-right: 1px solid var(--light-purple-bg);
+    padding-right: 40px;
+    max-width: 420px;
+}
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.profile-card {
+    padding: 25px;
+    position: relative;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-purple);
+    margin-bottom: 15px;
+}
+
+.profile-name {
+    font-size: 24px;
+    margin: 0;
+}
+
+.profile-username {
+    color: var(--text-muted);
+    margin: 5px 0;
+}
+
+.profile-title {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.profile-buttons {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--primary-purple);
+    color: var(--text-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--light-purple-bg);
+}
+
+.social-stats {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.stats-pill {
+    background-color: #10081c;
+    border: 1px solid #3a2d5c;
+    border-radius: 50px;
+    padding: 10px 25px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.stats-pill span {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.stats-pill strong {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+/* --- SEÇÃO DE AMIGOS --- */
+
+.friends-section {
+    background-color: transparent;
+    padding: 0;
+}
+
+.friends-list-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .friends-grid {
     display: grid;
-    gap: 12px;
+    grid-template-columns: repeat(3, 120px);
+    gap: 15px;
 }
 
 .friend-item {
+    background-color: var(--friends-card-bg);
+    padding: 20px 10px;
+    border-radius: 22px;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 10px;
-    transition: all 0.2s ease;
-    border: 1px solid #e2e8f0;
+    justify-content: space-between;
+    min-height: 180px;
 }
 
-.friend-item:hover {
-    border-color: #667eea;
-    background: #f8f9ff;
-}
-
-.friend-photo {
-    width: 40px;
-    height: 40px;
+.friend-item img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #e2e8f0;
+    margin-bottom: 10px;
 }
 
-.friend-info {
-    flex: 1;
+.friend-details {
+    margin-bottom: 15px;
 }
 
-.friend-name {
-    font-weight: 600;
-    color: #2d3748;
-    font-size: 14px;
-    margin-bottom: 2px;
+.friend-item .friend-name {
+    font-weight: bold;
+    font-size: 15px;
+    margin: 0;
 }
 
-.friend-role {
-    color: #718096;
-    font-size: 12px;
+.friend-item .friend-role {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.3;
 }
 
-.friend-action {
-    background: #667eea;
-    color: white;
+.friend-item .friend-action {
+    background-color: var(--primary-purple);
+    color: var(--text-color);
     border: none;
-    padding: 6px 12px;
-    border-radius: 16px;
+    border-radius: 8px;
+    padding: 8px 24px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.see-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    color: var(--text-muted);
+    cursor: pointer;
+    align-self: center;
 }
 
-.friend-action:hover {
-    background: #5a6fd8;
-    transform: translateY(-1px);
+.see-more i {
+    border: 1px solid var(--text-muted);
+    border-radius: 50%;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s;
 }
 
-/* Coluna Direita */
+.see-more:hover i {
+    background-color: var(--light-purple-bg);
+}
+
+
+/* --- COLUNA DA DIREITA --- */
+
 .right-column {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 30px;
 }
 
-/* Description Section */
 .description-section {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    padding: 25px;
 }
 
-.description-content {
-    color: #4a5568;
-    font-size: 14px;
+.description-content p {
+    color: var(--text-muted);
     line-height: 1.6;
+    margin: 0;
 }
 
-/* History Section */
-.history-section {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+.platform-history {
+    padding: 25px;
 }
 
-.history-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.history-item {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.platform-history .section-title {
     color: white;
+}
+
+.stats-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.stats-cards-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.stat-card {
+    background-color: #fff;
+    color: #000;
+    border-radius: var(--border-radius-lg);
     padding: 20px;
-    border-radius: 12px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
 }
 
-.history-title {
-    font-size: 12px;
-    opacity: 0.9;
-    margin-bottom: 8px;
-    font-weight: 500;
+.stat-card-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
 }
 
-.history-number {
-    font-size: 24px;
-    font-weight: 700;
+.stat-card-icon .icon-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-/* Consistency Section */
+.stat-card-icon .icon-foreground {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+.stat-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card-info p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+}
+
+.stat-card-info span {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
 .consistency-section {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
-    text-align: center;
+    background-color: var(--primary-green);
+    color: var(--background-color);
+    border-radius: 50px;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
 }
 
 .consistency-number {
-    font-size: 48px;
-    font-weight: 800;
-    color: #48bb78;
-    margin-top: 8px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
 }
 
-/* Courses Section */
+.consistency-section span {
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: left;
+    color: var(--background-color);
+}
+
 .courses-section {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.courses-section .section-title {
+    color: white;
 }
 
 .courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.course-card {
+    background-color: #000;
+    border: 1px solid var(--light-purple-bg);
+    border-radius: var(--border-radius-lg);
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
 }
 
-.course-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    transition: all 0.2s ease;
+.course-image-container {
+    position: relative;
+    margin-bottom: 15px;
 }
 
-.course-item:hover {
-    border-color: #667eea;
-    background: #f8f9ff;
-}
-
-.course-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
+.course-image {
+    width: 100%;
+    height: 180px;
     object-fit: cover;
+    border-radius: var(--border-radius-md);
+}
+
+.course-image-container .fa-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #ff4d4d;
+    font-size: 20px;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
 .course-info {
-    flex: 1;
+    flex-grow: 1;
 }
 
-.course-name {
-    font-weight: 600;
-    color: #2d3748;
-    font-size: 14px;
-    margin-bottom: 4px;
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
 }
 
-.course-instructor {
+.course-author {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #718096;
-    font-size: 12px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.instructor-photo {
-    width: 20px;
-    height: 20px;
+.course-author img {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    object-fit: cover;
 }
 
-.course-status {
-    background: #48bb78;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
+.course-author span {
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
-/* Estados de Loading e Error */
-.loading, .error, .no-friends, .no-courses {
-    text-align: center;
-    padding: 20px;
-    color: #718096;
-    font-style: italic;
+.btn-course {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-purple);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.error {
-    color: #e53e3e;
+.btn-course:hover {
+    background-color: #5a25d7;
+}
+
+.loading {
+    color: var(--text-muted);
+}
+
+.course-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* O título do curso (H3) */
+
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0;
+    flex-grow: 1;
+    /* Permite que o título ocupe o espaço */
+    min-width: 0;
+    /* Impede que o título empurre o coração para fora */
+}
+
+
+/* O ícone de coração (agora dentro do wrapper) */
+
+.course-title-wrapper .fa-heart {
+    color: #ff4d4d;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+    /* Impede que o coração seja espremido */
 }
