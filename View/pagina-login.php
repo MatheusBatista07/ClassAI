@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../Templates/css/pagina-login.css">
 </head>
 <body>
-    <div class="container">
+    
     <header>
         <a href="">
             <figure>
@@ -15,10 +15,10 @@
             </figure>
         </a>
     </header>
-
-    <main>
+<div class="container">
+        <main>
         <div class="conteudo_principal">
-        <form action="" style="display: block">
+        <form action="" class="formulario" style="display: block; justify-content: center; align-items: center"">
             <h1 style="color: white">Bem vindo de volta!</h1>
             <h2 style="color: white">O que vamos aprender hoje?</h2>
             
@@ -33,12 +33,12 @@
                 <button> <img class="logoApple" src="../Images/Login/Logo Apple.png" alt="Logo Apple"> Continuar com a Apple</button>
                 <button>Entrar</button>
             </div>
-            <p class="nao_tem_conta">Não tem conta? <a class="cadastre_se" href="">Cadastre-se</a></p>
+            <p class="nao_tem_conta" style="color: #C37BFF">Não tem conta? <a class="cadastre_se" href="" style="color: #C37BFF">Cadastre-se</a></p>
         </form>
 
         <div class="lazzo">
             <figure>
-                <img src="../Images/Login/LazzoTexto.png" alt="Lazzo">
+                <img class="lazzoImg" src="../Images/Login/LazzoTexto.png" alt="Lazzo">
             </figure>
         </div>
         </div>

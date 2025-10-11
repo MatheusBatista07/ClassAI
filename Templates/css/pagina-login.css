@@ -1,17 +1,44 @@
 body {
     background-color: #270047;
+    /* background-image: '../../Images/Login/background.php'; */
 }
 
-.container {
-    background-image: '../../Images/Login/background.png';
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .conteudo_principal{
     background-color: #140025;
-    display: inline;
+    border-radius: 3.0rem;
+    display: flex;
+    width: 70.0rem;
+    justify-content: center;
+    align-items: center;
 }
 
-form{
-    display: block;
+h2{
+    font-weight: 10%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 25.0rem;
+}
+
+.inputs::placeholder {
+  text-align: center;
+}
+
+
+.buttons{
+    display: flex;
     flex-direction: column;
 }
+
+.lazzoImg{
+    width: 30.0rem;
+}
+
