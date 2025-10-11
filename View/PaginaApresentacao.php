@@ -10,22 +10,27 @@
     <header>
         <img src="../Images/Página de Apresentação/Logo_verde.png" alt="Logo ClassAi">
         <div class="pesquisa">
-            <p>O que desejas?</p>
-            <img src="../Images/Página de Apresentação/pesquisar.png" alt="Lupa de Pesquisa">
+            <input type="text" placeholder="O que desejas">
+            <!-- <p>O que desejas?</p> -->
+             <button class="btn_pesquisa">
+                 <img src="../Images/Página de Apresentação/lupa_roxa.png" alt="Lupa de Pesquisa">
+             </button>
         </div>
     </header>
 
-    <main>
-        <div class="principal">
-            <img src="../Images/Página de Apresentação/Trabalhador_computador.png" alt="Imagem de homem com roupa e capacete de trabalhador mexendo em um computador">
-            <div class="txt_principal">
-                <h1>Onde o trabalho encontra seu FUTURO!</h1>
-                <P>Domine a inteligência artificial, se reintegre ao mercado e transforme sua carreira com os cursos da ClassAI — a plataforma que conecta você ao futuro do trabalho com IA.</P>
+    <main class="hero" >
+            <div class="principal">
+                <img src="../Images/Página de Apresentação/Trabalhador_computador.png" alt="Imagem de homem com roupa e capacete de trabalhador mexendo em um computador">
+                <div class="txt_principal">
+                    <h1>Onde o trabalho encontra seu <span style="color: #09FF00">FUTURO!</span></h1>
+                    <P>Domine a inteligência artificial, se reintegre ao mercado e transforme sua carreira com os cursos da ClassAI — a plataforma que conecta você ao futuro do trabalho com IA.</P>
+                </div>
             </div>
-        </div>
+            <div class="comecando">
+                <button class="comecar">Começar Agora</button>
+                <img src="../Images/Página de Apresentação/Seta_roxa.png" alt="Duas setas roxas apontadas para baixo">
+            </div>
 
-        <button>Começar Agora</button>
-        <img src="../Images/Página de Apresentação/Seta_roxa.png" alt="Duas setas roxas apontadas para baixo">
     </main>
 
     <section class="comentarios">
@@ -42,7 +47,7 @@
                 <p>Auxiliar administrativa</p>
             </div>
         </div>
-        <p>No começo eu achei que IA era coisa de filme, mas com a plataforma, entendi como pode me ajudar no dia a dia. Estou usando IA para organizar melhor minhas tarefas e ganhar tempo!</p>
+        <p class="prcp">No começo eu achei que IA era coisa de filme, mas com a plataforma, entendi como pode me ajudar no dia a dia. Estou usando IA para organizar melhor minhas tarefas e ganhar tempo!</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -61,7 +66,7 @@
                 <p>Técnico em Logística</p>
             </div>
         </div>
-        <p>A plataforma abriu minha mente! Agora sei como usar IA para otimizar rotas e prever demandas no estoque. Nunca pensei que fosse aprender algo tão atual!</p>
+        <p class="prcp" class="prcp">A plataforma abriu minha mente! Agora sei como usar IA para otimizar rotas e prever demandas no estoque. Nunca pensei que fosse aprender algo tão atual!</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -80,7 +85,7 @@
                 <p>Professora</p>
             </div>
         </div>
-        <p>Achei incrível a forma como os conteúdos são explicados. Simples, direto e com muitos exemplos práticos. Já estou usando IA para planejar minhas aulas de forma mais eficiente.</p>
+        <p class="prcp">Achei incrível a forma como os conteúdos são explicados. Simples, direto e com muitos exemplos práticos. Já estou usando IA para planejar minhas aulas de forma mais eficiente.</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -99,7 +104,7 @@
                 <p>Auxiliar administrativa</p>
             </div>
         </div>
-        <p>No começo eu achei que IA era coisa de filme, mas com a plataforma, entendi como pode me ajudar no dia a dia. Estou usando IA para organizar melhor minhas tarefas e ganhar tempo!</p>
+        <p class="prcp">No começo eu achei que IA era coisa de filme, mas com a plataforma, entendi como pode me ajudar no dia a dia. Estou usando IA para organizar melhor minhas tarefas e ganhar tempo!</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -118,7 +123,7 @@
                 <p>Técnico em Logística</p>
             </div>
         </div>
-        <p>A plataforma abriu minha mente! Agora sei como usar IA para otimizar rotas e prever demandas no estoque. Nunca pensei que fosse aprender algo tão atual!</p>
+        <p class="prcp">A plataforma abriu minha mente! Agora sei como usar IA para otimizar rotas e prever demandas no estoque. Nunca pensei que fosse aprender algo tão atual!</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -136,7 +141,7 @@
                 <p>Professora</p>
             </div>
         </div>
-        <p>Achei incrível a forma como os conteúdos são explicados. Simples, direto e com muitos exemplos práticos. Já estou usando IA para planejar minhas aulas de forma mais eficiente.</p>
+        <p class="prcp">Achei incrível a forma como os conteúdos são explicados. Simples, direto e com muitos exemplos práticos. Já estou usando IA para planejar minhas aulas de forma mais eficiente.</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -161,64 +166,7 @@
                 <p>Autônomo</p>
             </div>
         </div>
-        <p>A plataforma me deu uma visão nova do meu negócio. Agora uso IA pra analisar tendências e tomar decisões com mais segurança. Sensacional!</p>
-        <div class="estrela">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <p>5,0</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="foto_txt">
-            <img src="../Images/Página de Apresentação/Luciana_Fritas.png" alt="Imagem de Maria Conceição">
-            <div class="txtt">
-                <h1>Luciana Freitas</h1>
-                <p>Balconista de Farmácia</p>
-            </div>
-        </div>
-        <p>Mesmo com pouco tempo, consigo assistir às aulas e praticar. Já estou usando IA pra responder dúvidas comuns de clientes com mais precisão.</p>
-        <div class="estrela">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <p>5,0</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="foto_txt">
-            <img src="../Images/Página de Apresentação/Rogério_Matos.png" alt="Imagem de Maria Conceição">
-            <div class="txtt">
-                <h1>Rogério Matos</h1>
-                <p>Segurança Patrimonial</p>
-            </div>
-        </div>
-        <p>Nunca imaginei que poderia aprender sobre IA. A plataforma me mostrou como a tecnologia pode me ajudar até na prevenção de riscos no meu trabalho.</p>
-        <div class="estrela">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
-            <p>5,0</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="foto_txt">
-            <img src="../Images/Página de Apresentação/Eduardo_santana.png" alt="Imagem de Maria Conceição">
-            <div class="txtt">
-                <h1>Eduardo Santana</h1>
-                <p>Autônomo</p>
-            </div>
-        </div>
-        <p>A plataforma me deu uma visão nova do meu negócio. Agora uso IA pra analisar tendências e tomar decisões com mais segurança. Sensacional!</p>
+        <p class="prcp">A plataforma me deu uma visão nova do meu negócio. Agora uso IA pra analisar tendências e tomar decisões com mais segurança. Sensacional!</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -237,7 +185,7 @@
                 <p>Balconista de Farmácia</p>
             </div>
         </div>
-        <p>Mesmo com pouco tempo, consigo assistir às aulas e praticar. Já estou usando IA pra responder dúvidas comuns de clientes com mais precisão.</p>
+        <p class="prcp">Mesmo com pouco tempo, consigo assistir às aulas e praticar. Já estou usando IA pra responder dúvidas comuns de clientes com mais precisão.</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
@@ -256,7 +204,64 @@
                 <p>Segurança Patrimonial</p>
             </div>
         </div>
-        <p>Nunca imaginei que poderia aprender sobre IA. A plataforma me mostrou como a tecnologia pode me ajudar até na prevenção de riscos no meu trabalho.</p>
+        <p class="prcp">Nunca imaginei que poderia aprender sobre IA. A plataforma me mostrou como a tecnologia pode me ajudar até na prevenção de riscos no meu trabalho.</p>
+        <div class="estrela">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <p>5,0</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="foto_txt">
+            <img src="../Images/Página de Apresentação/Eduardo_santana.png" alt="Imagem de Maria Conceição">
+            <div class="txtt">
+                <h1>Eduardo Santana</h1>
+                <p>Autônomo</p>
+            </div>
+        </div>
+        <p class="prcp">A plataforma me deu uma visão nova do meu negócio. Agora uso IA pra analisar tendências e tomar decisões com mais segurança. Sensacional!</p>
+        <div class="estrela">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <p>5,0</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="foto_txt">
+            <img src="../Images/Página de Apresentação/Luciana_Freitas.png" alt="Imagem de Maria Conceição">
+            <div class="txtt">
+                <h1>Luciana Freitas</h1>
+                <p>Balconista de Farmácia</p>
+            </div>
+        </div>
+        <p class="prcp">Mesmo com pouco tempo, consigo assistir às aulas e praticar. Já estou usando IA pra responder dúvidas comuns de clientes com mais precisão.</p>
+        <div class="estrela">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
+            <p>5,0</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="foto_txt">
+            <img src="../Images/Página de Apresentação/Rogério_Matos.png" alt="Imagem de Maria Conceição">
+            <div class="txtt">
+                <h1>Rogério Matos</h1>
+                <p>Segurança Patrimonial</p>
+            </div>
+        </div>
+        <p class="prcp">Nunca imaginei que poderia aprender sobre IA. A plataforma me mostrou como a tecnologia pode me ajudar até na prevenção de riscos no meu trabalho.</p>
         <div class="estrela">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">
             <img src="../Images/Página de Apresentação/estrela.png" alt="Estrela roxa">

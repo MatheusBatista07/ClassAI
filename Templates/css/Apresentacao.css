@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @font-face {
   font-family: 'NexaText';
   src: url('../../fonts/nexa-trial-light.otf') format('opentype');
@@ -26,6 +28,27 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'ChakraPetch';
+  src: url('../../fonts/ChakraPetch-Light.ttf') format('truetype');
+  font-weight: 400;
+  font-style: light;
+}
+
+@font-face {
+  font-family: 'ChakraPetch';
+  src: url('../../fonts/ChakraPetch-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+  @font-face {
+  font-family: 'ChakraPetch';
+  src: url('../../fonts/ChakraPetch-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* @font-face {
   font-family: 'Nexa';
   src: url('fonts/nexa-trial-bold.otf') format('opentype');
@@ -46,36 +69,166 @@
 body {
     margin: 0;
     color: white;
-    font-family: 'NexaText', Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', 'ChakraPetch', Arial, Helvetica, sans-serif;
     background-color: #270047;
 }
 
 header{
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0,0,0,0.2);
+    background: linear-gradient(to bottom, rgb(14, 1, 24), transparent);
+    /* background-color: rgba(0,0,0,0.2); */
     padding-left: 4rem;
     padding-right: 4rem;
     align-items: center;
+    width: 100%;
+    position: absolute;
+    z-index: 10; /* garante que o header fique acima do fundo */
 }
 
 .pesquisa {
     display: flex;
     justify-content: space-between;
     height: 3rem;
-    width: 18rem;
+    width: 20rem;
     font-size: 1.3rem;
     align-items: center;
     background-color: #512377;
+    color: #C37BFF;
     padding-left: 1rem;
     padding-right: 1rem;
-    clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%); /* quebra diagonal */
+    clip-path: polygon(
+      0 0,        /* canto superior esquerdo */
+      100% 0,     /* canto superior direito */
+      100% 65%,   /* desce reto até a metade */
+      95% 100%,   /* faz a diagonal até o canto inferior */
+      0% 100%     /* canto inferior esquerdo */
+    ); /* quebra diagonal */
     border-radius: 4px;
+}
+
+.pesquisa img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+input {
+  border: none;
+  background: none;
+  width: 17rem;
+  font-family: 'NexaText';
+  color: #C37BFF;
+}
+
+::placeholder {
+  color: #C37BFF;
+}
+
+.btn_pesquisa {
+  background-color: #512377;
+  border: none;
+  cursor: pointer;
+}
+
+main {
+  padding-top: var(--header-height);
+  margin-bottom: 3rem;
 
 }
 
+.hero {
+  /* background: 
+    url('../../Images/Página\ de\ Apresentação/Fundo.png') center/contain no-repeat;
+  width: 100%; */
 
-.slider {
+  background: url('../../Images/Página\ de\ Apresentação/Fundo.png') center/100% 100% no-repeat;
+  
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh;  */
+  /* background-color: #150026; cor do fundo */
+}
+
+.principal img {
+  margin-top: 10rem;
+  /* border: 5px solid yellow; */
+
+}
+
+.principal { 
+  /* margin-top: 10rem; */
+  display: flex;
+  width: 100%;
+  /* border: 5px solid yellow; */
+  justify-content: center;
+  gap: .5rem;
+  align-items: center;
+}
+
+.txt_principal {
+  /* border: 5px solid yellow; */
+  width: 30%;
+  margin-top: 10rem;
+}
+
+.txt_principal p {
+  width: 80%;
+  font-family: 'Montserrat';
+  color: #C37BFF;
+  font-size: 1.3rem;
+  font-weight: lighter;
+}
+
+.txt_principal h1 {
+  width: 80%;
+  font-family: 'ChakraPetch';
+  font-weight: bold;
+  font-size: 4rem;
+  line-height: 4rem;
+}
+
+.comecando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comecando img {
+  width: 5rem;
+  height: 10rem;
+}
+
+.comecar {
+  width: 20rem;
+  height: 4rem;
+  text-transform: uppercase;
+  font-family: 'ChakraPetch';
+  background-color: #33005D;
+  color: #C37BFF;
+  clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 60%       /* sobe até 0 da largura e 65% da altura */
+  );
+  border-radius: .5rem;
+  border: none;
+  font-size: 1.7rem;
+  
+
+}
+
+.comentarios{
+  background-image: url(../../Images/Página\ de\ Apresentação/Fundo_linhas.png);
+}
+
+.slider { 
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -85,16 +238,22 @@ header{
 .slider-track {
   display: flex;
   width: calc(300px * 8); /* 8 cards (4 originais + 4 clones) */
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .card {
-  background-color: #ede1ff;
+  background-color: #F0DEFF;
   color: #000;
   padding: 20px;
-  border-radius: 12px;
   width: 300px;
-  min-width: 300px;
+  min-width: 350px;
+  clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    15% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 80%       /* sobe até 0 da largura e 65% da altura */
+  );
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
   text-align: center;
   font-weight: bold;
@@ -125,6 +284,87 @@ header{
 .slider-track:hover {
   animation-play-state: paused;
 }
+
+.foto_txt {
+  display: flex;
+  align-items: center;
+  font-family: 'ChakraPetch';
+  gap: 1rem;
+}
+
+.foto_txt img {
+  width: 5rem;
+  height: 5rem;
+}
+
+.txtt {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.txtt h1 {
+  font-size: 2rem;
+}
+
+.txtt p {
+  font-size: 1.5rem;
+  color: #4D008C;
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.prcp {
+  text-align: left;
+  font-family: 'Montserrat';
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  font-weight: normal;
+}
+
+.estrela {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: .3rem;
+  margin-top: 1rem;
+}
+
+.estrela img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.matricule-se {
+  margin-top: 1rem;
+}
+
+.txt_matricule{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.txt_matricule h1 {
+  font-family: 'ChakraPetch';
+  font-size: 5rem;
+  text-transform: uppercase;
+  width: 70rem;
+  text-align: center;
+  line-height: 5rem;
+}
+
+.txt_matricule img {
+  width: 30rem;
+}
+
+.txt_matricule p {
+  font-size: 1.7rem;
+  font-weight: lighter;
+  margin-top: 1rem  ;
+}
+
 
 .nameLazo {
   position: sticky;
