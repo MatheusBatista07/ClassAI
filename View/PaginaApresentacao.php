@@ -283,16 +283,10 @@
         <p>O futuro está chamando! Vamos juntos nessa?</p>
         <button class="Matricular">Matricule-se</button>
     </div>
-    <img src="../Images/Página de Apresentação/Mão_robô.png" alt="Mão de um robô estendida para pegar em outra mão">
+    <img class="robô" src="../Images/Página de Apresentação/Mão_robô.png" alt="Mão de um robô estendida para pegar em outra mão">
   </section>
 
   <section class="lazo">
-    <div class="tudo">
-        <div class="nameLazo">
-            <h1>Lazo lazo lazo lazo lazo lazo</h1>
-            <h1>Lazo lazo lazo lazo lazo lazo</h1>
-            
-        </div>
         <div class="geral">
             <div class="org_esqr">
                 <div class="lazo1">
@@ -317,8 +311,52 @@
                 </div>
             </div>
         </div>
+
+  </section>
+
+  <section class="opq">
+    <h1 class="primeiroh1">POR QUE ESCOLHER O <span style="color: #09FF00">ClassAI</span>?</h1>
+
+    <div class="progressao">
+        
+        <h1>Progressão</h1>
+        <div class="txt1">
+            <p>Nos preocupamos em construir uma boa base para que o aluno desenvolva dominio sobre IA.</p>
+        </div>
+
+        <h2>Outras Escolas</h2>
+        <div class="txt2">
+            <p>Já começam usando prompt sem o aluno sequer ter conhecimentos sobre.</p>
+        </div>
     </div>
 
+    <div class="progressao">
+        <h1>Prática</h1>
+
+        <div class="txt1">
+            <p>Projetos práticos e muitos exercícios em todas as etapas garantindo ao aluno um conhecimento sólido.</p>
+        </div>
+
+        <h2>Outras Escolas</h2>
+        <div class="txt2">
+            <p>Muita vídeo-aula, pouco exercício, pouca repetição, pulam de nível antes da compreensão da matéria.</p>
+        </div>
+    </div>
+
+    <div class="progressao">
+        <h1>Vantagens</h1>
+
+        <div class="txt1">
+            <p>Uzufruir das  tecnologias e desenvolvimento da capacidade de montar seus projetos com total integração com sua área e acelerar seus projetos</p>
+        </div>
+
+        <h2>Outras Escolas</h2>
+        <div class="txt2">
+            <p>Muita vídeo-aula, pouco exercício, pouca repetição, pulam de nível antes da compreensão da matéria.</p>
+        </div>
+    </div>
+
+    <button class="fzrparte"> Quero fazer parte > </button>
   </section>
 </body>
 <script src="script.js"></script>
