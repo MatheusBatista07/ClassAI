@@ -588,4 +588,81 @@ main {
   cursor: pointer;
 }
 
+.faleConosco {
+  background-color: #2E0053;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.txtfc {
+  display: flex;
+  flex-direction: column;
+}
+
+.txtfc h1 {
+  font-family: 'ChakraPetch';
+}
+
+.txtfc {
+  font-family: 'Montserrat';
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputss {
+  display: flex;
+}
+
+.mennsagem {
+   clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 60%       /* sobe até 0 da largura e 65% da altura */
+  );
+  background-color: #E8CEFD;
+  color: #270047;
+  font-family: 'Montserrat';
+}
+
+.form button {
+  clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 60%       /* sobe até 0 da largura e 65% da altura */
+  );
+  background-color: #08FF00;
+  color: #270047;
+  font-family: 'ChakraPetch';
+}
+
+footer {
+  display: flex;
+}
+
+.dir {
+  display: flex;
+  flex-direction: column;
+}
+
+.redes {
+  display: flex;
+}
+
+.pages {
+  display: flex;
+  flex-direction: column;
+}
+
+.red {
+  display: flex;
+}
+
 

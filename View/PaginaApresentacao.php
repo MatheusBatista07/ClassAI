@@ -358,6 +358,55 @@
 
     <button class="fzrparte"> Quero fazer parte > </button>
   </section>
+
+  <section class="faleConosco">
+    <div class="txtfc">
+        <h1>Alguma dúvida? <span style="color: #09FF00">Fale conosco!</span></h1>
+        <p>Estamos aqui para te ajudar em todas as áreas. O seu futuro está no ClassAI!</p>
+    </div>
+    <div class="form">
+        <input type="text" class="mensagem" placeholder="Digite sua mensagem...">
+        <div class="inputss">
+            <input type="text" class="nome" placeholder="Nome">
+            <input type="text" class="email" placeholder="E-mail">
+        </div>
+        <button>Enviar</button>
+    </div>
+  </section>
+  <footer>
+    <div class="dir">
+    <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo do ClassAI branca">
+        <div class="redes">
+            <img src=".../Images/Página de Apresentação/whatsapp.png" alt="Logo Whatsapp">
+            <img src=".../Images/Página de Apresentação/Facebook.png" alt="Logo Facebook">
+            <img src=".../Images/Página de Apresentação/Instagram.png" alt="Logo Instagram">
+        </div>
+    <p>Copyright © ClassAI 2025</p>
+    </div>
+
+    <div class="pages">
+        <div class="red">
+            <p>Indique o ClassAI</p>
+            <img src="../Images/Página de Apresentação/seta_roxa_fina.png" alt="Seta roxa para esquerda">
+        </div>
+        <div class="red">
+            <p>Quem Somos</p>
+            <img src="../Images/Página de Apresentação/seta_roxa_fina.png" alt="Seta roxa para esquerda">
+        </div>
+        <div class="red">
+            <p>Fale Conosco</p>
+            <img src="../Images/Página de Apresentação/seta_roxa_fina.png" alt="Seta roxa para esquerda">
+        </div>
+        <div class="red">
+            <p>Trabalhe no ClassAI</p>
+            <img src="../Images/Página de Apresentação/seta_roxa_fina.png" alt="Seta roxa para esquerda">
+        </div>
+        <div class="red">
+            <p>Política de Privacidade</p>
+            <img src="../Images/Página de Apresentação/seta_roxa_fina.png" alt="Seta roxa para esquerda">
+        </div>
+    </div>
+  </footer>
 </body>
 <script src="script.js"></script>
 </html>
