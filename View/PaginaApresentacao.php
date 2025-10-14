@@ -361,7 +361,9 @@
 
   <section class="faleConosco">
     <div class="txtfc">
-        <h1>Alguma dúvida? <span style="color: #09FF00">Fale conosco!</span></h1>
+        <!-- <h1>Alguma dúvida? <span style="color: #09FF00">Fale conosco!</span></h1> -->
+         <h1 class="algdu">Alguma dúvida?</h1>
+         <h1 class="fc">Fale Conosco!</h1>
         <p>Estamos aqui para te ajudar em todas as áreas. O seu futuro está no ClassAI!</p>
     </div>
     <div class="form">
@@ -377,9 +379,9 @@
     <div class="dir">
     <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo do ClassAI branca">
         <div class="redes">
-            <img src=".../Images/Página de Apresentação/whatsapp.png" alt="Logo Whatsapp">
-            <img src=".../Images/Página de Apresentação/Facebook.png" alt="Logo Facebook">
-            <img src=".../Images/Página de Apresentação/Instagram.png" alt="Logo Instagram">
+            <img class="zap" src="../Images/Página de Apresentação/whatsapp.png" alt="Logo Whatsapp">
+            <img class="face" src="../Images/Página de Apresentação/Facebook.png" alt="Logo Facebook">
+            <img class="insta" src="../Images/Página de Apresentação/Instagram.png" alt="Logo Instagram">
         </div>
     <p>Copyright © ClassAI 2025</p>
     </div>

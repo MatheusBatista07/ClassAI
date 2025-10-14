@@ -586,6 +586,7 @@ main {
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  margin-bottom: 3rem;
 }
 
 .faleConosco {
@@ -593,6 +594,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 30rem;
+  gap: 15rem;
 }
 
 .txtfc {
@@ -600,12 +603,29 @@ main {
   flex-direction: column;
 }
 
-.txtfc h1 {
+.algdu {
   font-family: 'ChakraPetch';
+  font-size: 6rem;
+  width: 50rem;
+  line-height: 6rem;
+  font-style: italic;
 }
 
+.fc {
+  font-family: 'ChakraPetch';
+  font-size: 6.5rem;
+  width: 50rem;
+  line-height: 6rem;
+  font-style: italic;
+  color: #09FF00;
+
+}
 .txtfc {
   font-family: 'Montserrat';
+  font-weight: lighter;
+  font-size: 2rem;
+  width: 40rem;
+
 }
 
 .form {
@@ -617,17 +637,62 @@ main {
   display: flex;
 }
 
-.mennsagem {
+.mensagem {
    clip-path: polygon(
     0 0,        /* canto superior esquerdo */
     100% 0,     /* canto superior direito */
     100% 100%,  /* desce reto até o canto inferior direito */
-    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 60%       /* sobe até 0 da largura e 65% da altura */
+    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 80%       /* sobe até 0 da largura e 65% da altura */
   );
   background-color: #E8CEFD;
   color: #270047;
   font-family: 'Montserrat';
+  width: 40rem;
+  height: 10rem;
+  padding-left: 1rem;
+}
+
+.inputss {
+  gap: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nome {
+  clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 80%       /* sobe até 0 da largura e 65% da altura */
+  );
+  background-color: #E8CEFD;
+  color: #270047;
+  font-family: 'Montserrat';
+  padding-left: 1rem;
+  width: 19rem;
+  height: 2.5rem;
+}
+
+.email {
+  clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 80%       /* sobe até 0 da largura e 65% da altura */
+  );
+  background-color: #E8CEFD;
+  color: #270047;
+  font-family: 'Montserrat';
+  padding-left: 1rem;
+  width: 19rem;
+  height: 2.5rem;
+}
+
+::placeholder {
+  color: #270047;
 }
 
 .form button {
@@ -635,34 +700,79 @@ main {
     0 0,        /* canto superior esquerdo */
     100% 0,     /* canto superior direito */
     100% 100%,  /* desce reto até o canto inferior direito */
-    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 60%       /* sobe até 0 da largura e 65% da altura */
+    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 70%       /* sobe até 0 da largura e 65% da altura */
   );
   background-color: #08FF00;
   color: #270047;
   font-family: 'ChakraPetch';
+  font-size: 2.5rem;
+  height: 3.5rem;
+  font-style: italic;
+  cursor: pointer;
+  border-radius: .5rem;
 }
 
 footer {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5rem;
 }
+
 
 .dir {
   display: flex;
   flex-direction: column;
+  margin-left: 3rem;
+  margin-bottom: 2rem;
+}
+
+.dir p {
+  font-size: 1.5rem;
+  font-weight: lighter;
 }
 
 .redes {
   display: flex;
+  gap: 1rem;
+}
+
+.face {
+  width: 3rem;
+  height: 3rem;
+}
+
+.insta {
+  width: 3rem;
+  height: 3rem;
+}
+
+.zap{
+  width: 3rem;
+  height: 3rem;
 }
 
 .pages {
   display: flex;
   flex-direction: column;
+  margin-right: 3rem;
 }
 
 .red {
   display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .5rem;
+}
+
+.red p {
+  font-size: 1.5rem;
+}
+
+.red img {
+  width: 1rem;
+  height: 1.5rem;
 }
 
 
