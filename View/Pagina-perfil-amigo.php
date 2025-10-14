@@ -1,20 +1,14 @@
 <?php
-// View/Pagina-perfil-amigo.php - CAMINHOS CORRIGIDOS
-
-// Verificar se é requisição API
 if (isset($_GET['action']) && $_GET['action'] !== '') {
-    // Headers para API
     header('Content-Type: application/json');
 
     try {
-        // CONFIGURAÇÃO - CAMINHO CORRETO
         $configPath = __DIR__ . '/../Config/Configuration.php';
         if (!file_exists($configPath)) {
             throw new Exception('Arquivo de configuração não encontrado: ' . $configPath);
         }
         require_once $configPath;
 
-        // MODELS - CAMINHOS CORRETOS
         $friendModelPath = __DIR__ . '/../Model/FriendModel.php';
         $courseModelPath = __DIR__ . '/../Model/CourseModel.php';
 
@@ -53,7 +47,6 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
             default:
                 echo json_encode(['success' => false, 'error' => 'Ação não encontrada: ' . $action]);
         }
-
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,
@@ -81,7 +74,15 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
         <div class="logo">
             <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="ClassAIB Logo">
         </div>
+
+        <div class="user-menu">
+            <img src="../Images/Fotos Pagina Perfil amigo/retangulo-foto-header.png" alt="" class="user-menu-background">
+            <img src="../Images/Fotos Pagina Perfil amigo/foto-pessoas-header.png" alt="Avatar do Usuário" class="user-menu-avatar">
+            <img src="../Images/Fotos Pagina Perfil amigo/seta-foto-header.png" alt="Abrir menu" class="user-menu-arrow">
+        </div>
     </header>
+
+
 
     <div class="container">
         <div class="left-column">
@@ -90,11 +91,21 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
                 <div class="back-arrow">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-                <img src="../Images/Fotos Pagina Perfil amigo/Jose-Felipe.png" alt="José Felipe" class="profile-photo">
-                <h1 class="profile-name">José Felipe</h1>
-                <div class="profile-username">@felipejose</div>
-                <div class="profile-title">Técnico em Logística</div>
-                <div class="profile-title">Aluno</div>
+
+                <div class="profile-header">
+
+                    <img src="../Images/Fotos Pagina Perfil amigo/Jose-Felipe.png" alt="José Felipe" class="profile-photo">
+
+                    <div class="profile-info">
+                        <h1 class="profile-name">José Felipe</h1>
+                        <div class="profile-username">@felipejose</div>
+                        <div class="profile-title">Técnico em Logística</div>
+                        <div class="profile-title">Aluno</div>
+                    </div>
+
+                </div>
+
+
                 <div class="profile-buttons">
                     <button class="btn btn-primary">Seguindo</button>
                     <button class="btn btn-secondary">Chat</button>
@@ -106,6 +117,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
                     </div>
                 </div>
             </div>
+
 
             <div class="friends-section">
                 <h3 class="section-title">Sugestão de amigos</h3>
@@ -163,15 +175,12 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
                             </div>
                         </div>
                     </div>
-                    <!-- FIM DO NOVO GRUPO -->
-
-                    <!-- Card de constância agora fica "sozinho" -->
                     <div class="consistency-section">
-                        <h3 class="section-title" style="display: none;">22 dias de Constância</h3>
                         <div class="consistency-number">22</div>
-                        <span>dias de
-                            Constância</span>
+                        <div class="consistency-text">dias de
+                            Constância</div>
                     </div>
+
                 </div>
             </div>
 

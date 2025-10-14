@@ -20,18 +20,16 @@ async function loadFriendsList() {
 
             result.data.forEach(friend => {
                 const friendElement = document.createElement('div');
-                // CORREÇÃO 1: A classe principal do card de amigo é 'friend-item'
                 friendElement.className = 'friend-item';
 
-                // CORREÇÃO 2: A estrutura interna do HTML foi ajustada para corresponder ao CSS.
-                // Usamos 'friend-details' para agrupar nome e cargo.
                 friendElement.innerHTML = `
                     <img src="../${friend.foto_url}" alt="${friend.nome}">
                     <div class="friend-details">
                         <p class="friend-name">${friend.nome}</p>
                         <p class="friend-role">${friend.cargo}</p>
                     </div>
-                    <button class="friend-action" onclick="addFriend(${friend.id})">Seguir</button>
+                    <button class="friend-action" onclick="toggleFollow(this)" data-friend-id="${friend.id}">Seguir</button>
+
                 `;
                 friendsList.appendChild(friendElement);
             });
@@ -66,17 +64,19 @@ async function loadCourses() {
             coursesList.innerHTML = '';
 
             result.data.forEach(course => {
+
                 const courseElement = document.createElement('div');
                 courseElement.className = 'course-card';
+
                 courseElement.innerHTML = `
     <div class="course-image-container">
         <img src="../${course.curso_foto_url}" alt="${course.nome_curso}" class="course-image">
     </div>
     <div class="course-info">
-        <!-- NOVO CONTAINER PARA TÍTULO + CORAÇÃO -->
         <div class="course-title-wrapper">
             <h3 class="course-title">${course.nome_curso}</h3>
-            <i class="far fa-heart"></i>  <!-- CORAÇÃO MOVIDO PARA CÁ -->
+           <i class="far fa-heart" onclick="toggleFavorite(this)" data-course-id="${course.id}"></i>
+
         </div>
         <div class="course-author">
             <img src="../${course.instrutor_foto_url}" alt="${course.instrutor}">
@@ -99,14 +99,30 @@ async function loadCourses() {
     }
 }
 
-function addFriend(friendId) {
-    // Ação de seguir amigo (ex: chamada à API)
-    console.log('Seguindo amigo ID: ' + friendId);
-    alert('Função addFriend chamada para o ID: ' + friendId);
+// ... seu código existente (loadFriendsList, loadCourses) ...
+
+// NOVA FUNÇÃO PARA FAVORITAR CURSOS
+function toggleFavorite(heartIcon) {
+    heartIcon.classList.toggle('active');
+    const courseId = heartIcon.dataset.courseId;
+    const isFavorited = heartIcon.classList.contains('active');
+    console.log(`Curso ID: ${courseId}, Status Favorito: ${isFavorited}`);
 }
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', function() {
+// NOVA FUNÇÃO PARA SEGUIR/DEIXAR DE SEGUIR AMIGOS
+function toggleFollow(followButton) {
+    followButton.classList.toggle('following');
+    if (followButton.classList.contains('following')) {
+        followButton.textContent = 'Seguindo';
+    } else {
+        followButton.textContent = 'Seguir';
+    }
+    const friendId = followButton.dataset.friendId;
+    const isFollowing = followButton.classList.contains('following');
+    console.log(`Amigo ID: ${friendId}, Status Seguindo: ${isFollowing}`);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 ClassAI - Página carregada');
     loadFriendsList();
     loadCourses();
