@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,11 @@
     <link rel="stylesheet" href="../Templates/css/Pagina_de_certificados.css">
 
 </head>
+
 <body>
     <div class="sidebar">
-        <div class="logo">
-            Adicionar logo 
-        </div>
-        
+        <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -24,7 +24,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="bi bi-search"></i>
+                    <i class="bi bi-chat"></i>
                     Chat
                 </a>
             </li>
@@ -51,12 +51,8 @@
         <div class="nav-divider"></div>
 
         <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-gear"></i>
-                    Configurações
-                </a>
-            </li>
+
+
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="bi bi-question-circle"></i>
@@ -78,15 +74,18 @@
             <div></div>
             <div class="header-icons">
                 <div class="header-icon">
-                    <i class="bi bi-eye"></i>
+                    <img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img">
                 </div>
                 <div class="header-icon">
                     <i class="bi bi-bell"></i>
                 </div>
-                <div class="header-icon">
-                    <i class="bi bi-gear"></i>
+
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
+                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
-                <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
+
+
             </div>
         </div>
 
@@ -97,7 +96,10 @@
 
             <div class="certificate-card">
                 <div class="certificate-content">
-                    <img src="https://via.placeholder.com/80?text=IA" alt="IA para Profissionais" class="certificate-icon">
+
+                    <img src="https://via.placeholder.com/80?text=IA" alt="IA para Profissionais"
+                        class="certificate-icon">
+
                     <div class="certificate-info">
                         <div class="certificate-title">IA para Profissionais da Construção Civil</div>
                         <div class="certificate-subtitle">Certificado de Conclusão</div>
@@ -111,7 +113,10 @@
 
             <div class="certificate-card">
                 <div class="certificate-content">
-                    <img src="https://via.placeholder.com/80?text=IA" alt="IA para Professores" class="certificate-icon">
+
+                    <img src="https://via.placeholder.com/80?text=IA" alt="IA para Professores"
+                        class="certificate-icon">
+
                     <div class="certificate-info">
                         <div class="certificate-title">IA para Professores e Educadores</div>
                         <div class="certificate-subtitle">Certificado de Conclusão</div>
@@ -125,7 +130,9 @@
 
             <div class="certificate-card">
                 <div class="certificate-content">
+
                     <img src="https://via.placeholder.com/80?text=PE" alt="Prompt Engineering" class="certificate-icon">
+
                     <div class="certificate-info">
                         <div class="certificate-title">Prompt Engineering para Iniciantes</div>
                         <div class="certificate-subtitle">Certificado de Conclusão</div>
@@ -143,4 +150,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Templates/js/Pagina_de_certificados.js"></script>
 </body>
+
 </html>
