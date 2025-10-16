@@ -1,7 +1,6 @@
 <?php
-// Model/FriendModel.php
 
-class FriendModel {
+class AmigosModel {
     private $db;
 
     public function __construct() {

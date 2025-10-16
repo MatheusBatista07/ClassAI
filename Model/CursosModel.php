@@ -1,7 +1,6 @@
 <?php
-// Model/CourseModel.php
 
-class CourseModel {
+class CursosModel {
     private $db;
 
     public function __construct() {
@@ -10,9 +9,9 @@ class CourseModel {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function getAllCourses() {
-        $stmt = $this->db->query("SELECT nome_curso, instrutor, instrutor_foto_url, curso_foto_url, status FROM cursos_avaliados");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+public function getAllCourses() {
+    $stmt = $this->db->query("SELECT id, nome_curso, instrutor, instrutor_foto_url, curso_foto_url, status FROM cursos_avaliados");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
 ?>

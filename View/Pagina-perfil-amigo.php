@@ -9,8 +9,8 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
         }
         require_once $configPath;
 
-        $friendModelPath = __DIR__ . '/../Model/FriendModel.php';
-        $courseModelPath = __DIR__ . '/../Model/CourseModel.php';
+        $friendModelPath = __DIR__ . '/../Model/AmigosModel.php';
+        $courseModelPath = __DIR__ . '/../Model/CursosModel.php';
 
         if (!file_exists($friendModelPath)) {
             throw new Exception('Model Friend não encontrado: ' . $friendModelPath);
@@ -22,8 +22,8 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
         require_once $friendModelPath;
         require_once $courseModelPath;
 
-        $friendModel = new FriendModel();
-        $courseModel = new CourseModel();
+        $friendModel = new AmigosModel();
+        $courseModel = new CursosModel();
 
         $action = $_GET['action'];
 
