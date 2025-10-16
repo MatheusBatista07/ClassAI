@@ -11,6 +11,15 @@
 
 </head>
 
+<header>
+
+
+
+
+</header>
+
+
+
 <body>
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">

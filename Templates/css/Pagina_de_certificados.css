@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
 
 :root {
     --bg-dark: #0a0015;
@@ -33,12 +33,20 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .sidebar .img-logo {
-    width: 140px !important;  /* muda o número até ficar do tamanho que tu quer */
+    width: 140px !important;
     height: auto !important;
     display: block;
     margin: 0 auto 20px auto;
 }
+
 .nav-menu {
     list-style: none;
     padding: 0;
@@ -86,7 +94,7 @@ body {
     padding: 30px;
 }
 
-/*  */
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -117,21 +125,19 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-
 .user-profile {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background-color: #290841; 
-    padding: 4px; 
-    border-radius: 12px; 
-    transition: background-color 0.2s ease-in-out; 
+    background-color: #290841;
+    padding: 4px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease-in-out;
 }
 
-
 .user-profile:hover {
-    background-color: #534F70; 
+    background-color: #534F70;
 }
 
 .user-avatar {
@@ -144,9 +150,10 @@ body {
 .arrow-icon {
     width: 12px;
     height: auto;
-    margin-right: 4px; 
+    margin-right: 4px;
 }
 
+/* Certificates Section */
 .certificates-header {
     margin-bottom: 30px;
 }
@@ -227,34 +234,107 @@ body {
     color: var(--text-light);
 }
 
-.lazzo_img{
+.lazzo_img {
     height: 1.5rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Ícone de abrir menu (hambúrguer) */
+.menu-toggle {
+    display: none; /* Só aparece no mobile */
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+/* Logo que aparece no header mobile */
+.header-logo-mobile {
+    display: none; /* Só aparece no mobile */
+}
+
+.img-logo-mobile {
+    width: 100px;
+    height: auto;
+}
+
+/* Botão de fechar o menu */
+.close-menu-btn {
+    display: none; /* Só aparece no mobile */
+    font-size: 24px;
+    cursor: pointer;
+}
+
+header {
+    display: none;
+}
+
+/* ================================================= */
+/*                  RESPONSIVIDADE                   */
+/* ================================================= */
+
+/* Telas de tablet e mobile (até 992px) */
+@media (max-width: 992px) {
+    /* 1. Esconde a sidebar e ajusta o conteúdo principal */
     .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        position: relative;
-        min-height: auto;
+        height: 100%;
+        min-height: 100vh;
+        transform: translateX(-100%); /* Começa escondida */
+        transition: transform 0.3s ease-in-out;
+        z-index: 2000; /* Garante que fique sobre todo o conteúdo */
+        background-color: var(--bg-dark);
+        border-right: none;
+        padding: 20px;
+        overflow-y: auto; /* Permite rolar se o menu for grande */
     }
 
     .main-content {
-        margin-left: 0;
+        margin-left: 0; /* Ocupa toda a largura */
+        padding: 20px;
     }
 
+    /* 2. Mostra a sidebar quando a classe 'sidebar-open' é adicionada */
+    body.sidebar-open .sidebar {
+        transform: translateX(0);
+    }
+
+    /* 3. Mostra/esconde os ícones de controle do menu */
+    .menu-toggle,
+    .close-menu-btn,
+    .header-logo-mobile {
+        display: block; /* Mostra os controles no mobile */
+    }
+
+    /* 4. Ajusta o header para o layout mobile */
+    .header {
+        justify-content: space-between;
+    }
+    .header-icons .user-profile {
+        display: none; /* Esconde o perfil de usuário no header mobile */
+    }
+    .sidebar .img-logo {
+        width: 120px; /* Ajusta o tamanho da logo dentro do pop-up */
+        margin: 0;
+    }
+}
+
+/* Ajustes finos para cards em telas pequenas */
+@media (max-width: 768px) {
     .certificate-card {
         flex-direction: column;
+        align-items: center;
         text-align: center;
+        gap: 20px;
     }
-
     .certificate-content {
         flex-direction: column;
+        gap: 15px;
+        width: 100%;
     }
-
     .certificate-action {
         width: 100%;
         justify-content: center;
     }
 }
-

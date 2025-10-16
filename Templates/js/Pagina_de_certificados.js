@@ -17,3 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const closeMenuBtn = document.querySelector('.close-menu-btn');
+    const body = document.body;
+
+    if (menuToggle && closeMenuBtn && body) {
+        // Abre o menu pop-up
+        menuToggle.addEventListener('click', function() {
+            body.classList.add('sidebar-open');
+        });
+
+        // Fecha o menu pop-up
+        closeMenuBtn.addEventListener('click', function() {
+            body.classList.remove('sidebar-open');
+        });
+    }
+});
+
+
