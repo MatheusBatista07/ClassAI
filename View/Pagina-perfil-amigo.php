@@ -113,7 +113,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
                 <div class="social-stats">
                     <div class="stats-pill">
                         <span>Segue <strong>50</strong></span>
-                        <span>Seguido por <strong>60</strong></span>
+                        <span>Seguidores <strong> 60 </strong></span>
                     </div>
                 </div>
             </div>
@@ -194,7 +194,8 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
     </div>
 
-    <script src="../Templates/js/Pagina-perfil-amigo.js"></script>
+    <script src="../Templates/js/Amigos.js"></script>
+    <script src="../Templates/js/Cursos.js"></script>
 </body>
 
 </html>
