@@ -210,3 +210,206 @@ body {
 .lazzo_img{
     height: 1.5rem;
 }
+
+.cima {
+    display: flex;
+}
+
+.cima h1 {
+    font-family: 'Montserrat';
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+input {
+    background: none;
+    border: none;
+    width: 7rem;
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: lighter;
+}
+
+.pesq {
+    background: none;
+    border: none;
+}
+
+.pesquisa {
+    border: 1px solid #2A1D35;
+    display: flex;
+    align-items: center;
+    width: 13rem;
+    justify-content: space-between;
+    padding: .5rem .5rem .5rem .5rem;
+    border-radius: .6rem;
+    height: 2.3rem;
+    margin-left: 25rem;
+}
+
+.filtro {
+    background-color: #2A1D35;
+    width: 5rem;
+    height: 2.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: .5rem;
+    margin-left: 1rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.filtro p {
+    font-size: .9rem;
+    font-weight: bold;
+}
+
+.courses-section {
+    background-color: transparent;
+    padding: 0;
+}
+
+.courses-section .section-title {
+    color: white;
+}
+
+.courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.course-card {
+    background-color: #000;
+    border: 1px solid #45007D;
+    border-radius: 1rem;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 17rem;
+}
+
+.course-image-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.course-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+}
+
+.course-image-container .fa-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #ff4d4d;
+    font-size: 20px;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.course-info {
+    flex-grow: 1;
+}
+
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
+}
+
+.course-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.course-author img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden; /* Esconde as partes da imagem que saem para fora do círculo */
+    display: flex; /* Centraliza a imagem dentro do círculo */
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Cor de fundo caso a imagem falhe */
+     object-fit: cover; /* ESSA É A PROPRIEDADE MÁGICA! */
+}
+
+.course-author span {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.btn-course {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-purple);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-course:hover {
+    background-color: #5a25d7;
+}
+
+.loading {
+    color: var(--text-muted);
+}
+
+.course-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.course-title-wrapper .fa-heart {
+    color: #ff4d4d;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.fa-heart.active::before {
+    content: "\f004";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #ff4d4d;
+}
+
+.lazinho {
+  position: fixed; /* Fixa o elemento na tela */
+  right: 0px;     /* Distância de 20 pixels da borda direita */
+  bottom: 20px;    /* Distância de 20 pixels da borda inferior */
+  width: 150px;    /* Defina a largura desejada para o mascote */
+  height: auto;    /* A altura se ajustará automaticamente */
+  z-index: 1000;   /* Garante que o mascote fique acima da maioria dos outros elementos */
+}

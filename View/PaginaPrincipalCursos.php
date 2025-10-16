@@ -1,3 +1,48 @@
+<?php
+if (isset($_GET['action']) && $_GET['action'] !== '') {
+    header('Content-Type: application/json');
+
+    try {
+        $configPath = __DIR__ . '/../Config/Configuration.php';
+        if (!file_exists($configPath)) {
+            throw new Exception('Arquivo de configuração não encontrado: ' . $configPath);
+        }
+        require_once $configPath;
+        
+        $courseModelPath = __DIR__ . '/../Model/CursosModel.php';
+
+        if (!file_exists($courseModelPath)) {
+            throw new Exception('Model Course não encontrado: ' . $courseModelPath);
+        }
+
+        require_once $courseModelPath;
+
+        $courseModel = new CursosModel();
+
+        $action = $_GET['action'];
+
+        switch ($action) {
+            case 'getCourses':
+                $courses = $courseModel->getAllCourses();
+                echo json_encode([
+                    'success' => true,
+                    'data' => $courses
+                ]);
+                break;
+
+            default:
+                echo json_encode(['success' => false, 'error' => 'Ação não encontrada: ' . $action]);
+        }
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Erro: ' . $e->getMessage()
+        ]);
+    }
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -29,13 +74,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link active">
                     <i class="bi bi-book"></i>
                     Cursos
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
                     Certificados
                 </a>
@@ -102,5 +147,15 @@
         </div>
     </div>
 
+
+    <div class="courses-section">
+                <div id="courses-list" class="courses-list">
+                    <div class="loading">Carregando cursos...</div>
+                </div>
+    </div>
+
+    <img class="lazinho" src="../Images/Página do Curso/lazo_inclinado.png" alt="Mascote lazo inclinado">
+
+            <script src="../Templates/js/Cursos.js"></script>
 </body>
 </html>
