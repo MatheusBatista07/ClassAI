@@ -1,0 +1,77 @@
+@media (max-width: 540px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .main-header {
+        padding: 15px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .left-column {
+        max-width: 100%;
+        border-right: none;
+        padding-right: 0;
+        gap: 30px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .profile-info {
+        text-align: center;
+    }
+
+    .friends-list-wrapper {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .friends-list-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .friends-grid {
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 110px;
+        width: max-content;
+    }
+
+    .see-more {
+        display: none;
+    }
+
+    .right-column {
+        gap: 30px;
+    }
+
+    .stats-cards-row {
+        flex-direction: column;
+    }
+
+    .courses-section .carousel-wrapper {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .courses-section .carousel-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .courses-list {
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 250px;
+        width: max-content;
+    }
+}

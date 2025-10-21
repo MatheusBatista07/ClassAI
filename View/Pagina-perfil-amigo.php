@@ -65,6 +65,8 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - José Felipe</title>
     <link rel="stylesheet" href="../Templates/css/Pagina-perfil-amigo.css">
+    <link rel="stylesheet" href="../Templates/css/Pagina-perfil-amigo-mobile.css">
+    <link rel="stylesheet" href="../Templates/css/Pagina-perfil-amigo-tablet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -121,17 +123,15 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
             <div class="friends-section">
                 <h3 class="section-title">Sugestão de amigos</h3>
-
-                <div class="friends-list-wrapper">
-                    <div id="friends-list" class="friends-grid">
-                        <div class="loading">Carregando amigos...</div>
-                    </div>
-                    <div class="see-more">
-                        <i class="fas fa-chevron-right"></i>
-                        <span>Ver mais</span>
+                <div class="carousel-wrapper">
+                    <div class="friends-list-wrapper">
+                        <div id="friends-list" class="friends-grid">
+                            <div class="loading">Carregando amigos...</div>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="description-section">
                 <div class="description-content">
@@ -147,7 +147,6 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
             <div class="platform-history">
                 <h2 class="section-title">Histórico na plataforma</h2>
                 <div class="stats-cards">
-                    <!-- INÍCIO DA ALTERAÇÃO: Novo grupo para os cards de cima -->
                     <div class="stats-cards-row">
                         <div class="stat-card">
                             <div class="stat-card-icon">
@@ -186,8 +185,10 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
             <div class="courses-section">
                 <h3 class="section-title">Cursos mais bem avaliados</h3>
-                <div id="courses-list" class="courses-list">
-                    <div class="loading">Carregando cursos...</div>
+                <div class="carousel-wrapper">
+                    <div id="courses-list" class="courses-list">
+                        <div class="loading">Carregando cursos...</div>
+                    </div>
                 </div>
             </div>
         </div>
