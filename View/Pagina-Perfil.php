@@ -45,6 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
     <link rel="stylesheet" href="../Templates/css/Pagina-Perfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
     <header class="main-header">
@@ -62,48 +64,54 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
     <div class="container">
         <div class="left-column">
+
             <div class="profile-header">
-                <img src="../Images/Pagina Perfil/foto-jeferson-brito.png" alt="Foto do Usuário" class="profile-photo">
-                <button class="btn btn-edit">
-                    <i class="fas fa-pencil-alt"></i> Editor
+                <div class="profile-photo-wrapper">
+                    <img src="../Images/Pagina Perfil/foto-jeferson-brito.png" alt="Foto do Usuário" class="profile-photo">
+                </div>
+                <button class="btn-edit">
+                    <i class="fas fa-pencil-alt"></i> Editar
                 </button>
+                <div class="profile-username">@sza_jeff</div>
             </div>
-            <div class="profile-username">@sza_jeff</div>
 
             <div class="social-stats">
                 <span>Segue <strong>50</strong></span>
-                <span>Seguido por <strong>60</strong></span>
+                <span>Seguidores <strong>60</strong></span>
             </div>
 
+            <!-- DETALHES DO USUÁRIO (NOME, EMAIL, ETC.) -->
             <div class="user-details">
                 <div class="detail-item">
-                    <label>Nome completo</label>
+                    <h2>Nome completo</h2>
                     <p>Jeferson Brito Souza</p>
                 </div>
                 <div class="detail-item">
-                    <label>Nome de Usuário</label>
+                    <h2>Nome de Usuário</h2>
                     <p>Jeferson Souza</p>
                 </div>
                 <div class="detail-item">
-                    <label>E-mail</label>
+                    <h2>E-mail</h2>
                     <p>jefsouza@gmail.com</p>
                 </div>
                 <div class="detail-item">
-                    <label>Formação Profissional</label>
+                    <h2>Formação Profissional</h2>
                     <p>Técnico em Logística</p>
                 </div>
                 <div class="detail-item">
-                    <label>Descrição</label>
+                    <h2>Descrição</h2>
                     <p>Tenho 23 anos, sou formado como Técnico em Logística e atualmente sou aluno dessa plataforma de ensino online. Gosto de aprender coisas novas, estou sempre em busca de me aprimorar e aplicar o que estudo na prática, buscando crescer tanto profissional quanto pessoalmente.</p>
                 </div>
             </div>
 
+            <!-- AÇÕES DO PERFIL (ALTERAR CONTA / LOGOUT) -->
             <div class="profile-actions">
-                <button class="btn btn-secondary">Alterar conta</button>
-                <button class="btn btn-link">Fazer logout</button>
+                <a href="#">Alterar conta</a>
+                <a href="#">Fazer logout</a>
             </div>
         </div>
 
+        <!-- ======================= COLUNA DA DIREITA (HISTÓRICO E CURSOS) ======================= -->
         <div class="right-column">
             <div class="platform-history">
                 <h2 class="section-title">Histórico na plataforma</h2>
@@ -129,24 +137,21 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
                 </div>
                 <div class="consistency-card">
                     <div class="consistency-number">80</div>
-                    <div class="consistency-text">dias de  
-Constância</div>
+                    <div class="consistency-text">dias de Constância</div>
                 </div>
             </div>
 
             <div class="courses-section">
-               <h3 class="section-title">Cursos mais bem avaliados</h3>
-               <div class="carousel-wrapper">
-                   <div id="courses-list" class="courses-list">
-                       <div class="loading">Carregando cursos...</div>
-                   </div>
-               </div>
+                <h3 class="section-title">Cursos Favoritados</h3>
+                <div class="carousel-wrapper">
+                    <div id="courses-list" class="courses-list">
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 
     <script src="../Templates/js/Cursos.js"></script>
 </body>
-</html>
 
+</html>
