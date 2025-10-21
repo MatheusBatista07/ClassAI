@@ -25,10 +25,19 @@
                     <h2 style="color: white">O seu futuro começa aqui!</h2>
 
                     <div class="inputs">
-                        <input type="text" name="userEmail" class="userEmail" placeholder="E-mail">
-                        <input type="text" name="userPassword" class="userPassword" placeholder="Senha">
-                        <input type="text" name="userPasswordConfirm" class="userPassword" placeholder="Confirmar senha">
-                        <div class="form-check" style="color: #C37BFF;">
+                        <input type="text" name="userEmail" class="userEmail form-control" placeholder="E-mail">
+                        <small class="msg-erro email-erro" style="color: red; display: none;">Digite seu e-mail</small>
+
+                        <input type="password" name="userPassword" class="userPassword form-control"
+                            placeholder="Senha">
+                        <small class="msg-erro senha-erro" style="color: red; display: none;">Digite sua senha</small>
+
+                        <input type="password" name="userPasswordConfirm" class="userPasswordConfirm form-control"
+                            placeholder="Confirmar senha">
+                        <small class="msg-erro confirma-erro" style="color: red; display: none;">As senhas não
+                            conferem</small>
+
+                        <div class="form-check" style="color: #C37BFF; margin-top: 10px;">
                             <input class="form-check-input" type="checkbox" id="termosCheck" required>
                             <label class="form-check-label" for="termosCheck">
                                 Li e estou de acordo com o
@@ -38,13 +47,14 @@
                                     Privacidade</a>
                             </label>
                         </div>
+                        <small class="msg-erro termos-erro" style="color: red; display: none;">Você precisa aceitar os
+                            termos</small>
+                        <div class="buttons">
+                            <button class="entrar" type="button" id="btnCadastrar" class="btn btn-primary"
+                              style="margin-top: 15px;">Cadastrar</button>
+                        </div>
                     </div>
 
-
-
-                    <div class="buttons">
-                        <button class="entrar">Cadastrar</button>
-                    </div>
                     <p class="nao_tem_conta" style="color: #C37BFF">Já tem conta? <a class="cadastre_se" href=""
                             style="color: #C37BFF">Entrar</a></p>
                 </form>
@@ -59,5 +69,6 @@
 
     </div>
 </body>
+<script src="../js/paginaDeCadastro.js"></script>
 
 </html>
