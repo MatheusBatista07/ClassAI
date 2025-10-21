@@ -42,7 +42,7 @@
   font-style: normal;
 }
 
-  @font-face {
+@font-face {
   font-family: 'ChakraPetch';
   src: url('../../fonts/ChakraPetch-Bold.ttf') format('truetype');
   font-weight: 400;
@@ -57,78 +57,40 @@
 } */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    margin: 0;
-    color: white;
-    font-family: 'Montserrat', 'ChakraPetch', Arial, Helvetica, sans-serif;
-    background-color: #270047;
+  margin: 0;
+  color: white;
+  font-family: 'Montserrat', 'ChakraPetch', Arial, Helvetica, sans-serif;
+  background-color: #270047;
 }
 
-header{
-    display: flex;
-    justify-content: space-between;
-    background: linear-gradient(to bottom, rgb(14, 1, 24), transparent);
-    /* background-color: rgba(0,0,0,0.2); */
-    padding-left: 4rem;
-    padding-right: 4rem;
-    align-items: center;
-    width: 100%;
-    position: absolute;
-    z-index: 10; /* garante que o header fique acima do fundo */
+header {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgb(14, 1, 24), transparent);
+  /* background-color: rgba(0,0,0,0.2); */
+  padding-left: 4rem;
+  padding-right: 4rem;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+  /* garante que o header fique acima do fundo */
 }
 
-.pesquisa {
-    display: flex;
-    justify-content: space-between;
-    height: 3rem;
-    width: 20rem;
-    font-size: 1.3rem;
-    align-items: center;
-    background-color: #512377;
-    color: #C37BFF;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    clip-path: polygon(
-      0 0,        /* canto superior esquerdo */
-      100% 0,     /* canto superior direito */
-      100% 65%,   /* desce reto até a metade */
-      95% 100%,   /* faz a diagonal até o canto inferior */
-      0% 100%     /* canto inferior esquerdo */
-    ); /* quebra diagonal */
-    border-radius: 4px;
+header img {
+  margin-top: 1rem;
 }
 
-.pesquisa img {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-input {
-  border: none;
-  background: none;
-  width: 17rem;
-  font-family: 'NexaText';
-  color: #C37BFF;
-}
-
-::placeholder {
-  color: #C37BFF;
-}
-
-.btn_pesquisa {
-  background-color: #512377;
-  border: none;
-  cursor: pointer;
-}
 
 main {
   padding-top: var(--header-height);
@@ -139,7 +101,7 @@ main {
 .hero {
 
   background: url('../../Images/Página\ de\ Apresentação/Fundo.png') center/100% 100% no-repeat;
-  
+
   width: 100%;
   height: 100vh;
 
@@ -153,7 +115,7 @@ main {
   margin-top: 10rem;
 }
 
-.principal { 
+.principal {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -201,24 +163,28 @@ main {
   font-family: 'ChakraPetch';
   background-color: #33005D;
   color: #C37BFF;
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 60%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      10% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 60%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   border-radius: .5rem;
   border: none;
   font-size: 3rem;
   cursor: pointer;
 }
 
-.comentarios{
+.comentarios {
   background-image: url(../../Images/Página\ de\ Apresentação/Fundo_linhas.png);
 }
 
-.slider { 
+.slider {
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -227,7 +193,8 @@ main {
 
 .slider-track {
   display: flex;
-  width: calc(300px * 8); /* 8 cards (4 originais + 4 clones) */
+  width: calc(300px * 8);
+  /* 8 cards (4 originais + 4 clones) */
   gap: 1.5rem;
 }
 
@@ -237,14 +204,18 @@ main {
   padding: 20px;
   width: 300px;
   min-width: 350px;
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    15% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      15% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 80%
+      /* sobe até 0 da largura e 65% da altura */
+    );
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-weight: bold;
 }
@@ -261,13 +232,25 @@ main {
 
 /* KEYFRAMES - movimentos opostos */
 @keyframes scrollEsquerda {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* Move metade da largura, pois duplicou */
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+
+  /* Move metade da largura, pois duplicou */
 }
 
 @keyframes scrollDireita {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Pausar no hover */
@@ -331,7 +314,7 @@ main {
   /* background-image: url(../../Images/Página\ de\ Apresentação/Fundo_linhas.png); */
 }
 
-.txt_matricule{
+.txt_matricule {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -353,7 +336,7 @@ main {
 .txt_matricule p {
   font-size: 4rem;
   font-weight: lighter;
-  margin-top: 1rem  ;
+  margin-top: 1rem;
 }
 
 .Matricular {
@@ -364,13 +347,17 @@ main {
   font-family: 'ChakraPetch';
   background-color: #33005D;
   color: #C37BFF;
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 60%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      10% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 60%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   border-radius: .5rem;
   border: none;
   font-size: 3rem;
@@ -383,9 +370,10 @@ main {
 
 .lazo {
   /* background-image: url(../../Images/Página\ de\ Apresentação/Lazo_fundo.png); */
-  background: 
-  linear-gradient(#27004780, #27004780), /* camada escura semi-transparente */
-  url('../../Images/Página\ de\ Apresentação/Lazo_fundo.png');
+  background:
+    linear-gradient(#27004780, #27004780),
+    /* camada escura semi-transparente */
+    url('../../Images/Página\ de\ Apresentação/Lazo_fundo.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -408,7 +396,7 @@ main {
   gap: 15rem;
 }
 
-.lazo1{
+.lazo1 {
   background-color: #C37BFF;
   font-family: 'ChakraPetch';
   display: flex;
@@ -432,7 +420,7 @@ main {
   color: #E6E6E6;
 }
 
-.lazo2{
+.lazo2 {
   background-color: #C37BFF;
   font-family: 'ChakraPetch';
   display: flex;
@@ -443,7 +431,7 @@ main {
   padding-left: 1rem;
   border-radius: 2rem;
   border-bottom: 5px #9d62cd solid;
-  border-right: 5px #9d62cd solid;  
+  border-right: 5px #9d62cd solid;
 }
 
 .lazo2 p {
@@ -458,7 +446,7 @@ main {
   gap: 15rem;
 }
 
-.lazo3{
+.lazo3 {
   background-color: #C37BFF;
   font-family: 'ChakraPetch';
   display: flex;
@@ -469,7 +457,7 @@ main {
   padding-left: 1rem;
   border-radius: 2rem;
   border-bottom: 5px #9d62cd solid;
-  border-right: 5px #9d62cd solid;  
+  border-right: 5px #9d62cd solid;
 }
 
 .lazo3 p {
@@ -478,7 +466,7 @@ main {
   color: #fff;
 }
 
-.lazo4{
+.lazo4 {
   background-color: #C37BFF;
   font-family: 'ChakraPetch';
   display: flex;
@@ -489,7 +477,7 @@ main {
   padding-left: 1rem;
   border-radius: 2rem;
   border-bottom: 5px #9d62cd solid;
-  border-right: 5px #9d62cd solid;  
+  border-right: 5px #9d62cd solid;
 }
 
 .lazo4 p {
@@ -516,6 +504,7 @@ main {
   text-align: center;
   margin-bottom: 5rem;
 }
+
 .progressao {
   background-color: #2F0353;
   width: 100rem;
@@ -575,13 +564,17 @@ main {
   font-family: 'ChakraPetch';
   background-color: #33005D;
   color: #C37BFF;
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    10% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 60%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      10% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 60%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   border-radius: .5rem;
   border: none;
   font-size: 2rem;
@@ -620,6 +613,7 @@ main {
   color: #09FF00;
 
 }
+
 .txtfc {
   font-family: 'Montserrat';
   font-weight: lighter;
@@ -638,13 +632,17 @@ main {
 }
 
 .mensagem {
-   clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      5% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 80%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   background-color: #E8CEFD;
   color: #270047;
   font-family: 'Montserrat';
@@ -660,13 +658,17 @@ main {
 }
 
 .nome {
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      5% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 80%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   background-color: #E8CEFD;
   color: #270047;
   font-family: 'Montserrat';
@@ -676,13 +678,17 @@ main {
 }
 
 .email {
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    5% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      5% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 80%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   background-color: #E8CEFD;
   color: #270047;
   font-family: 'Montserrat';
@@ -696,13 +702,17 @@ main {
 }
 
 .form button {
-  clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 70%       /* sobe até 0 da largura e 65% da altura */
-  );
+  clip-path: polygon(0 0,
+      /* canto superior esquerdo */
+      100% 0,
+      /* canto superior direito */
+      100% 100%,
+      /* desce reto até o canto inferior direito */
+      3% 100%,
+      /* faz a diagonal até 5% da largura e 100% da altura */
+      0 70%
+      /* sobe até 0 da largura e 65% da altura */
+    );
   background-color: #08FF00;
   color: #270047;
   font-family: 'ChakraPetch';
@@ -748,7 +758,7 @@ footer {
   height: 3rem;
 }
 
-.zap{
+.zap {
   width: 3rem;
   height: 3rem;
 }
@@ -775,4 +785,519 @@ footer {
   height: 1.5rem;
 }
 
+/* ======================= Estilos do Popup ======================= */
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup-overlay.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-container {
+  background-color: #FFFFFF;
+  padding: 25px 35px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 450px;
+  /* Largura máxima */
+  font-family: sans-serif;
+  /* Use a mesma fonte do seu site */
+  position: relative;
+  color: #4B0082;
+  /* Cor roxa escura para os textos */
+}
+
+.popup-container h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.close-popup-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #F5F5F5;
+}
+
+.link-container input {
+  flex-grow: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 1rem;
+  color: #555;
+  padding: 5px 10px;
+}
+
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(15%) sepia(98%) saturate(2421%) hue-rotate(265deg) brightness(93%) contrast(101%);
+  /* Transforma o ícone em roxo */
+}
+
+
+.copy-feedback {
+  display: block;
+  text-align: right;
+  color: #09FF00;
+  font-weight: bold;
+  font-size: 2rem;
+  height: 1.2em;
+  margin-top: 5px;
+}
+
+.divider {
+  border-bottom: 1px solid #E0E0E0;
+  margin: 20px 0;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
+.social-icons img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.1);
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+  main {
+    padding-top: var(--header-height);
+    margin-bottom: 3rem;
+
+  }
+
+  .hero {
+
+    background: url('../../Images/Página\ de\ Apresentação/Fundo.png') center/100% 100% no-repeat;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .principal {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+  }
+
+  .principal img {
+    width: 35rem;
+    height: 35rem;
+    margin-top: 1rem;
+  }
+
+  .txt_principal {
+    margin-top: .2rem;
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .principal h1 {
+    font-size: 4rem;
+    text-align: center;
+    line-height: 4rem;
+  }
+
+  .principal p {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .comecar {
+    width: 15rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .comecando img {
+    width: 4rem;
+    height: 9rem;
+  }
+
+  .comentarios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .homem {
+    width: 40rem;
+    height: 15rem;
+  }
+
+  .robô {
+    width: 40rem;
+    height: 10rem;
+    margin-left: 38rem;
+    margin-top: 4rem;
+  }
+
+  .txt_matricule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .txt_matricule h1 {
+    margin-top: 5rem;
+    font-size: 5rem;
+    width: 90%;
+    line-height: 5rem;
+  }
+
+  .txt_matricule img {
+    width: 30rem;
+  }
+
+  .txt_matricule p {
+    text-align: center;
+    width: 80%;
+    font-size: 3rem;
+  }
+
+  .geral img {
+    width: 25rem;
+    height: 25rem;
+  }
+
+  .lazo1 {
+    width: 20rem;
+    height: 13rem;
+  }
+
+  .lazo1 h2 {
+    font-size: 2.5rem;
+    width: 15rem;
+    line-height: 2.5rem;
+  }
+
+  .lazo1 p {
+    font-size: 1.5rem;
+    width: 17rem;
+  }
+
+  .lazo2 {
+    width: 20rem;
+    height: 13rem;
+  }
+
+  .lazo2 p {
+    font-size: 2rem;
+    width: 17rem;
+  }
+
+  .lazo3 {
+    width: 22rem;
+    height: 13rem;
+  }
+
+  .lazo3 p {
+    font-size: 2rem;
+    width: 19rem;
+  }
+
+  .lazo4 {
+    width: 22rem;
+    height: 13rem;
+  }
+
+  .lazo4 p {
+    font-size: 2rem;
+    width: 19rem;
+  }
+
+  .primeiroh1 {
+    font-size: 4rem;
+    text-align: center;
+    line-height: 4rem;
+    width: 50rem;
+  }
+
+  .progressao {
+    width: 90%;
+  }
+
+  .txt1 {
+    width: 90%;
+  }
+
+  .txt2 {
+    width: 90%;
+  }
+
+  .txt2 p {
+    width: 90%;
+  }
+
+  .faleConosco {
+    display: flex;
+    flex-direction: column;
+    height: 55rem;
+    gap: 3rem;
+  }
+
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  header img {
+    width: 15rem;
+    height: 5rem;
+  }
+
+  .hero {
+  width: 100%;
+  height: 70rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+  .principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .principal img {
+    width: 30rem;
+    height: 25rem;
+    margin-top: 10rem;
+  }
+
+  .txt_principal {
+    width: 90%;
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .txt_principal h1{
+    font-size: 4rem;
+    width: 40rem;
+    text-align: center;
+    line-height: 4rem;
+  }
+
+  .txt_principal p {
+    width: 90%;
+    font-size: 1.5rem;
+    text-align: center;
+
+  }
+
+  .comecar {
+    width: 15rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .comecando img {
+    height: 7rem;
+    width: 5rem;
+  }
+  
+  .homem {
+    width: 20rem;
+    height: 10rem;
+  }
+
+  .txt_matricule h1 {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .txt_matricule img {
+    width: 2rem;
+  }
+
+  .robô {
+    margin-left: 2rem;
+    width: 20rem;
+    height: 5rem;
+  }
+
+  .geral img {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .lazo1 {
+    width: 15rem;
+    height: 10rem;
+  }
+
+  .lazo1 h2 {
+    font-size: 2rem;
+    width: 13rem;
+    line-height: 2rem;
+  }
+
+  .lazo1 p {
+    font-size: 1.5rem;
+    width: 13rem;
+  }
+
+  .lazo2 {
+    width: 15rem;
+    height: 10rem;
+
+  }
+
+  .lazo2 p {
+    font-size: 1.5rem;
+    width: 13rem;
+  }
+
+  .lazo3 {
+    width: 13rem;
+    height: 10rem;
+  }
+
+  .lazo3 p {
+    font-size: 1.5rem;
+    width: 11rem;
+  }
+
+  .lazo4 {
+    width: 13rem;
+    height: 10rem;
+  }
+
+  .lazo4 p {
+    font-size: 1.5rem;
+    width: 11rem;
+  }
+
+  .primeiroh1 {
+    font-size: 2rem;
+    width: 10rem;
+  }
+
+  .progressao {
+    width: 90%;
+  }
+
+  .progressao h1 {
+    width: 20rem;
+  }
+
+  .progressao h2 {
+    width: 20rem;
+
+  }
+
+  .txt1{
+    width: 90%;
+  }
+
+  .txt1 p{
+    width: 90%;
+  }
+
+  .txt2 p{
+    width: 90%;
+  }
+
+  .txt2{
+    width: 90%;
+  }
+
+  .faleConosco {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .algdu {
+    font-size: 2rem;
+    width: 80%;
+  }
+
+  .fc {
+    font-size: 2rem;
+    width: 80%;
+  }
+
+  footer img {
+    width: 2rem;
+    height: 1rem;
+  }
+
+  .email {
+    width: 2rem;
+  }
+}
