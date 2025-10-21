@@ -11,12 +11,8 @@
 
 </head>
 
-<header>
 
 
-
-
-</header>
 
 
 
@@ -93,8 +89,11 @@
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
                     <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
-
-
+            </div>
+            <div class="header_mobile">
+                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    class="img-logo">
+                <i class="bi bi-list"></i>
             </div>
         </div>
 

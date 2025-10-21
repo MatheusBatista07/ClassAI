@@ -238,41 +238,21 @@ body {
     height: 1.5rem;
 }
 
-/* Ícone de abrir menu (hambúrguer) */
-.menu-toggle {
-    display: none; /* Só aparece no mobile */
-    font-size: 28px;
-    cursor: pointer;
-    color: var(--text-light);
+.header .header_mobile{
+    display: none ;
 }
 
-/* Logo que aparece no header mobile */
-.header-logo-mobile {
-    display: none; /* Só aparece no mobile */
-}
 
-.img-logo-mobile {
-    width: 100px;
-    height: auto;
-}
 
-/* Botão de fechar o menu */
-.close-menu-btn {
-    display: none; /* Só aparece no mobile */
-    font-size: 24px;
-    cursor: pointer;
-}
 
-header {
-    display: none;
-}
+
+
 
 /* ================================================= */
 /*                  RESPONSIVIDADE                   */
 /* ================================================= */
 
-/* Telas de tablet e mobile (até 992px) */
-@media (max-width: 992px) {
+@media (max-width: 850px) {
     /* 1. Esconde a sidebar e ajusta o conteúdo principal */
     .sidebar {
         position: fixed;
@@ -283,58 +263,112 @@ header {
         min-height: 100vh;
         transform: translateX(-100%); /* Começa escondida */
         transition: transform 0.3s ease-in-out;
-        z-index: 2000; /* Garante que fique sobre todo o conteúdo */
+        z-index: 2000; /* Fica por cima de tudo */
         background-color: var(--bg-dark);
         border-right: none;
         padding: 20px;
         overflow-y: auto; /* Permite rolar se o menu for grande */
     }
 
-    .main-content {
-        margin-left: 0; /* Ocupa toda a largura */
-        padding: 20px;
-    }
-
-    /* 2. Mostra a sidebar quando a classe 'sidebar-open' é adicionada */
+    /* Mostra a sidebar quando a classe 'sidebar-open' é adicionada */
     body.sidebar-open .sidebar {
         transform: translateX(0);
     }
 
-    /* 3. Mostra/esconde os ícones de controle do menu */
-    .menu-toggle,
-    .close-menu-btn,
-    .header-logo-mobile {
-        display: block; /* Mostra os controles no mobile */
-    }
-
-    /* 4. Ajusta o header para o layout mobile */
+    /* HEADER MOBILE */
     .header {
-        justify-content: space-between;
-    }
-    .header-icons .user-profile {
-        display: none; /* Esconde o perfil de usuário no header mobile */
-    }
-    .sidebar .img-logo {
-        width: 120px; /* Ajusta o tamanho da logo dentro do pop-up */
-        margin: 0;
-    }
-}
-
-/* Ajustes finos para cards em telas pequenas */
-@media (max-width: 768px) {
-    .certificate-card {
-        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centraliza conteúdo */
         align-items: center;
+        background-color: var(--bg-dark);
+        padding: 10px 20px;
+        z-index: 3000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Esconde os ícones do header desktop */
+    .header-icon,
+    .header-icons,
+    .user-profile {
+        display: none;
+    }
+
+    /* Mostra o header mobile */
+    .header .header_mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header .header_mobile .img-logo {
+        width: 120px;
+    }
+
+    .header .header_mobile i {
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Ajusta conteúdo principal pra não ficar atrás do header fixo */
+    .main-content {
+        margin-left: 0;
+        margin-top: 80px;
+        padding: 20px;
+    }
+
+    /* =============================== */
+    /*    AJUSTE DOS CARDS MOBILE     */
+    /* =============================== */
+
+    .card {
+        display: flex;
+        flex-direction: column; /* empilha conteúdo */
+        align-items: flex-start;
+        text-align: left;
+        gap: 10px;
+    }
+
+    /* se tiver imagem no card, deixa ela certinha */
+    .card img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* botão "Ver Certificado" ocupa a largura total */
+    .card .btn-ver-certificado,
+    .card button {
+        width: 100%;
         text-align: center;
-        gap: 20px;
+        margin-top: 10px;
     }
-    .certificate-content {
-        flex-direction: column;
-        gap: 15px;
+
+    /* caso tenha uma div de ações */
+    .card .actions {
         width: 100%;
-    }
-    .certificate-action {
-        width: 100%;
+        display: flex;
         justify-content: center;
     }
+
+    .certificate-action{
+        display: flex;
+        width: 8.8rem;
+        font-size: 0.6rem;
+    }
+
+    .certificate-title{
+        font-size: 0.7rem;
+    }
+
+    .certificate-subtitle{
+        font-size: 0.6rem;
+        display: none;
+       }
 }
