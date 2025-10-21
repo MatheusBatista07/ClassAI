@@ -1,17 +1,17 @@
 body {
     background-color: #270047;
-    background-image: url(../../Images/Login/background.png);
+    background-image: url(../../Images/Página\ de\ Login\ e\ Cadastro/background.png);
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.conteudo_principal{
+.conteudo_principal {
     margin-top: 2.0rem;
-     background-color: rgba(20, 0, 37, 0.7);
+    background-color: rgba(20, 0, 37, 0.7);
     border-radius: 3.0rem;
     display: flex;
     width: 55.0rem;
@@ -19,14 +19,15 @@ body {
     align-items: center;
 }
 
-h1{
+h1 {
     margin: 0.0rem;
     text-align: center;
+    margin-top: 1.3rem;
 }
 
-h2{
+h2 {
     font-weight: 100;
-    margin-top: 0.0rem;
+    margin-top: 0.2rem;
     margin-bottom: 2.0rem;
     text-align: center;
 }
@@ -38,32 +39,41 @@ h2{
     border-radius: 3.0rem;
 }
 
-input{
+input {
     height: 2.0rem;
     background-color: #E8CEFD;
     border: none;
     cursor: text;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
-  padding-left: 1.0rem;
+    clip-path: polygon(0 0,
+            /* canto superior esquerdo */
+            100% 0,
+            /* canto superior direito */
+            100% 100%,
+            /* desce reto até o canto inferior direito */
+            3% 100%,
+            /* faz a diagonal até 5% da largura e 100% da altura */
+            0 80%
+            /* sobe até 0 da largura e 65% da altura */
+        );
+    padding-left: 1.0rem;
+    
 }
 
-input::placeholder{
+input::placeholder {
     color: #3D056C;
     font-size: 1.0rem;
 }
 
-.userEmail{
+.userEmail {
+    margin-bottom: 1.2rem;
+}
+
+.userPassword {
     margin-bottom: 1.2rem;
 }
 
 
-.buttons{
+.buttons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +82,7 @@ input::placeholder{
 
 }
 
-.continuarCom{
+.continuarCom {
     width: 15.0rem;
     height: 29.55px;
     display: flex;
@@ -84,61 +94,93 @@ input::placeholder{
     text-decoration: none;
     font-weight: 800;
     font-size: 1.1rem;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+    clip-path: polygon(0 0,
+            /* canto superior esquerdo */
+            100% 0,
+            /* canto superior direito */
+            100% 100%,
+            /* desce reto até o canto inferior direito */
+            3% 100%,
+            /* faz a diagonal até 5% da largura e 100% da altura */
+            0 80%
+            /* sobe até 0 da largura e 65% da altura */
+        );
 
 }
 
-.logo{
+.logo {
     width: 1.2rem;
     padding-right: 0.5rem;
 }
 
-.entrar{
+.entrar {
     margin-top: 0.8rem;
     background-color: #3D056C;
     border: none;
     color: white;
     text-align: center;
-    width: 5.0rem;
+    width: 5.5rem;
     height: 1.8rem;
     font-size: 1.0rem;
     font-weight: 600;
     cursor: pointer;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    7% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+    clip-path: polygon(0 0,
+            /* canto superior esquerdo */
+            100% 0,
+            /* canto superior direito */
+            100% 100%,
+            /* desce reto até o canto inferior direito */
+            7% 100%,
+            /* faz a diagonal até 5% da largura e 100% da altura */
+            0 80%
+            /* sobe até 0 da largura e 65% da altura */
+        );
 }
 
-.lazzo{
+.lazzo {
     width: 25.5rem;
 }
 
-.lazzoImg{
+.lazzoImg {
     width: 25.5rem;
 }
 
-.esqueceuSenha{
+.esqueceuSenha {
     text-align: right;
     margin-top: 0.3rem;
     margin-bottom: 1.6rem;
     cursor: pointer;
 }
 
-.nao_tem_conta{
+.nao_tem_conta {
     text-align: center;
     font-weight: 100;
 }
 
-.cadastre_se{
+.cadastre_se {
     cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #C37BFF;
+  border-color: #C37BFF;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* distância entre o quadrado e o texto */
+  margin-bottom: 10px;
+}
+
+.form-check-input {
+  margin-top: 0 !important;
+  width: 18px;
+  height: 18px;
+  accent-color: #C37BFF; /* deixa o check roxinho */
+}
+
+.form-check-label {
+  color: #C37BFF;
+  line-height: 1.2; /* pra manter o texto mais junto */
 }
