@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassAi | Cadastro</title>
     <link rel="stylesheet" href="../Templates/css/paginaDeCadastro.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -26,14 +27,13 @@
 
                     <div class="inputs">
                         <input type="text" name="userEmail" class="userEmail form-control" placeholder="E-mail">
-                        <small class="msg-erro email-erro" style="color: red; display: none;">Digite seu e-mail</small>
+                        <small class="msg-erro email-erro" style="color: red; display: none; ">Digite seu e-mail</small>
 
                         <input type="password" name="userPassword" class="userPassword form-control"
                             placeholder="Senha">
                         <small class="msg-erro senha-erro" style="color: red; display: none;">Digite sua senha</small>
-
                         <input type="password" name="userPasswordConfirm" class="userPasswordConfirm form-control"
-                            placeholder="Confirmar senha">
+                            placeholder="Confirmar senha">  
                         <small class="msg-erro confirma-erro" style="color: red; display: none;">As senhas não
                             conferem</small>
 
@@ -69,6 +69,6 @@
 
     </div>
 </body>
-<script src="../js/paginaDeCadastro.js"></script>
+<script src="../Templates/js/paginaDeCadastro.js"></script>
 
 </html>

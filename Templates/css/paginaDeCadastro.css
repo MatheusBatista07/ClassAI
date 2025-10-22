@@ -37,6 +37,11 @@ h2 {
     flex-direction: column;
     width: 25.0rem;
     border-radius: 3.0rem;
+
+}
+
+.inputs small {
+    margin-top: -15px;
 }
 
 input {
