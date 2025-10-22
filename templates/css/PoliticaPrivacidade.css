@@ -1,0 +1,146 @@
+/* --- Configurações Globais e Fontes --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap' );
+
+:root {
+    --background-start: #1a0f2a;
+    --background-end: #0f0818;
+    --container-color: rgba(42, 26, 69, 0.8);
+    --primary-purple: #8e44ad;
+    --light-purple: #c5a6ff;
+    --text-color: #f0f0f0;
+    --text-secondary-color: #b3b3b3;
+    --border-radius: 20px;
+    --shadow-color: rgba(142, 68, 173, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+    background-attachment: fixed;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden; /* Esconde o scroll do body */
+}
+
+/* --- Fundo de Partículas --- */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* --- Estrutura Principal --- */
+.main-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px; /* Largura padrão para mobile */
+    background: var(--container-color);
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 15px 35px var(--shadow-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    
+    /* Animação de entrada */
+    opacity: 0;
+    animation: fadeIn 0.8s 0.2s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* --- Cabeçalho --- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.header .back-button {
+    font-size: 24px;
+    color: var(--light-purple);
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+.header .back-button:hover { transform: scale(1.2); }
+.header .logo { font-size: 24px; font-weight: 700; color: var(--text-color); }
+.header .logo span { color: var(--light-purple); }
+.header .placeholder { width: 24px; }
+
+/* --- Abas de Navegação --- */
+.nav-tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+.tab-button {
+    flex: 1;
+    padding: 12px;
+    background-color: transparent;
+    border: 2px solid var(--primary-purple);
+    color: var(--light-purple);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.tab-button.active { background-color: var(--primary-purple); color: white; box-shadow: 0 0 15px rgba(142, 68, 173, 0.5); }
+.tab-button:hover:not(.active) { background-color: rgba(142, 68, 173, 0.2); }
+
+/* --- Conteúdo de Texto --- */
+.content { max-height: 55vh; overflow-y: auto; padding-right: 10px; }
+.content::-webkit-scrollbar { width: 6px; }
+.content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+.content::-webkit-scrollbar-thumb { background: var(--primary-purple); border-radius: 10px; }
+.content-section { display: none; animation: slideUp 0.5s ease-out; }
+.content-section.active { display: block; }
+@keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.content h2 { font-size: 22px; color: var(--text-color); margin-bottom: 15px; border-left: 4px solid var(--primary-purple); padding-left: 10px; }
+.content h3 { font-size: 16px; color: var(--light-purple); margin-top: 20px; margin-bottom: 10px; }
+.content p, .content ul { font-size: 14px; line-height: 1.7; color: var(--text-secondary-color); margin-bottom: 15px; }
+.content ul { padding-left: 20px; }
+.content li { margin-bottom: 8px; }
+
+/* --- DESIGN RESPONSIVO --- */
+
+/* Tablet (a partir de 768px) */
+@media (min-width: 768px) {
+    .main-container {
+        max-width: 700px;
+        padding: 40px;
+    }
+    .content {
+        max-height: 60vh;
+    }
+    .tab-button {
+        font-size: 16px;
+    }
+}
+
+/* Desktop (a partir de 1024px) */
+@media (min-width: 1024px) {
+    .main-container {
+        max-width: 900px;
+    }
+    .content {
+        max-height: 65vh;
+    }
+    .content p, .content ul {
+        font-size: 15px;
+    }
+}
