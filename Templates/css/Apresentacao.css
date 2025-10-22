@@ -788,6 +788,34 @@ footer {
   height: 1.5rem;
 }
 
+.success-container {
+  background-color: #663399;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  max-width: 90%;
+}
+        
+h1 {
+  color: #00FF00;
+}
+
+p {
+  font-size: 18px;
+}
+       
+a {
+  color: #00FF00;
+  text-decoration: none;
+  font-weight: bold;
+}
+        
+a:hover {
+  text-decoration: underline;
+}
+
+
 /* ======================= Estilos do Popup ======================= */
 
 .popup-overlay {

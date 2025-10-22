@@ -6,5 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Ivy\\Classai\\' => array($baseDir . '/src'),
+    'Model\\' => array($baseDir . '/Model'),
+    'Ivy\\Classai\\' => array($baseDir . '/ClassAI'),
+    'Controller\\' => array($baseDir . '/Controller'),
 );

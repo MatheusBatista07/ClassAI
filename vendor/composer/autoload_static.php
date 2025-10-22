@@ -6,17 +6,37 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit47e5bc76d1290bc28a88770e6e874308
 {
+    public static $files = array (
+        'd90657860455f395a4f8c4aca7631d9f' => __DIR__ . '/../..' . '/Config/Configuration.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'Model\\' => 6,
+        ),
         'I' => 
         array (
             'Ivy\\Classai\\' => 12,
         ),
+        'C' => 
+        array (
+            'Controller\\' => 11,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Model',
+        ),
         'Ivy\\Classai\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/ClassAI',
+        ),
+        'Controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Controller',
         ),
     );
 
