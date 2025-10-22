@@ -54,7 +54,7 @@
                         <small class="msg-erro termos-erro" style="color: red; display: none;">Você precisa aceitar os termos</small>
 
                         <div class="buttons">
-                            <button class="entrar" type="button" id="btnCadastrar" class="btn btn-primary" style="margin-top: 15px;">Cadastrar</button>
+                            <button class="entrar" type="button" id="btnCadastrar" class="btn btn-primary">Cadastrar</button>
                         </div>
                     </div>
 

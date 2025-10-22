@@ -107,6 +107,7 @@ input::placeholder {
 }
 
 .entrar {
+    margin-left: 9.6rem;
     margin-top: 15px;
     background-color: #3D056C;
     border: none;
