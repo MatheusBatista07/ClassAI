@@ -11,13 +11,6 @@
 <body>
     <header>
         <img src="../Images/Página de Apresentação/Logo_verde.png" alt="Logo ClassAi">
-        <div class="pesquisa">
-            <input type="text" placeholder="O que desejas">
-            <!-- <p>O que desejas?</p> -->
-             <button class="btn_pesquisa">
-                 <img src="../Images/Página de Apresentação/lupa_roxa.png" alt="Lupa de Pesquisa">
-             </button>
-        </div>
     </header>
 
     <main class="hero" >
@@ -278,7 +271,7 @@
   </section>
 
   <section class="Matricule-se">
-    <img src="../Images/Página de Apresentação/Mão_homem.png" alt="Mão humana esticada para pegar em outra mão">
+    <img class="homem" src="../Images/Página de Apresentação/Mão_homem.png" alt="Mão humana esticada para pegar em outra mão">
     <div class="txt_matricule">
         <h1>Vem aprender IA com a gente também!</h1>
         <img src="../Images/Página de Apresentação/Linha_verde.png" alt="Linha verde">
