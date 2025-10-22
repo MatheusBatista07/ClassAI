@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($feedbackController->submitMessage($nome, $email, $message)) {
-        // echo "<h1>Mensagem enviada com sucesso!</h1>";
+        echo "<h1>Mensagem enviada com sucesso!</h1>";
         echo "<p>Obrigado por entrar em contato.</p>";
     } else {
-        // echo "<h1>Erro ao enviar a mensagem.</h1>";
+        echo "<h1>Erro ao enviar a mensagem.</h1>";
         echo "<p>Por favor, tente novamente. Verifique se todos os campos foram preenchidos corretamente.</p>";
     }
 
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <div class="comecando">
-            <button class="comecar">Começar Agora</button>
+            <button id="comecar" class="comecar">Começar Agora</button>
             <img src="../Images/Página de Apresentação/Seta_roxa.png" alt="Duas setas roxas apontadas para baixo">
         </div>
 
@@ -423,7 +423,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input name="nome" type="text" class="nome" placeholder="Nome">
                 <input name="email" type="text" class="email" placeholder="E-mail">
             </div>
-            <button type="submit">Enviar</button>
+            <button id="envio" type="submit">Enviar</button>
 
             <!-- <div class="success-container">
                 <h1>Sucesso!</h1>
@@ -467,6 +467,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 </body>
-<script src="script.js"></script>
+<script src="Apresentacao.js"></script>
 
 </html>

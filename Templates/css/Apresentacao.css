@@ -176,8 +176,14 @@ main {
     );
   border-radius: .5rem;
   border: none;
-  font-size: 3rem;
+  font-size: 2.5rem;
   cursor: pointer;
+}
+
+.comecar:hover {
+  transform: scale(1.1); 
+  background-color: #c37bff;
+  color: #270047;
 }
 
 .comentarios {
@@ -362,6 +368,12 @@ main {
   border: none;
   font-size: 3rem;
   cursor: pointer;
+}
+
+.Matricular:hover {
+  transform: scale(1.1); 
+  background-color: #c37bff;
+  color: #270047;
 }
 
 .robô {
@@ -580,6 +592,12 @@ main {
   font-size: 2rem;
   cursor: pointer;
   margin-bottom: 3rem;
+}
+
+.fzrparte:hover {
+  transform: scale(1.1); 
+  background-color: #c37bff;
+  color: #270047;
 }
 
 .faleConosco {
