@@ -24,7 +24,9 @@
             
             <div class="inputs">
             <input type="text" name="userEmail" class="userEmail" placeholder="E-mail">
+            <p class="msg_erro"  style="color: red;">este campo é obrigatório</p>
             <input type="text" name="userPassword" class="userPassword" placeholder="Senha">
+            <p class="msg_erro"  style="color: red;">este campo é obrigatório</p>
             <p class="esqueceuSenha" style="color: #C37BFF">Esqueceu a senha?</p>
             </div>
 
@@ -45,5 +47,7 @@
     </main>
 
     </div>  
+
+    <script src="pagina-login.js"></script>
 </body>
 </html>
