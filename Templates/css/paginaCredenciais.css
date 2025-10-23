@@ -189,3 +189,67 @@ input::placeholder {
   color: #C37BFF;
   line-height: 1.2; /* pra manter o texto mais junto */
 }
+
+/* Adicione este código ao final do seu arquivo CSS para a página "Preencha seus dados" */
+
+@media (max-width: 768px) {
+
+    /* 1. Centraliza o logo no header */
+    header {
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+    /* 2. Ajusta o contêiner principal */
+    .conteudo_principal {
+        flex-direction: column; 
+        width: 40vh;             
+        margin-top: 1.5rem;
+        padding: 2.0rem 1.5rem; 
+        border-radius: 2.0rem;
+    }
+
+    /* 3. Ajusta a área do formulário */
+    .inputs {
+        width: 100%; /* Ocupa toda a largura do contêiner pai */
+        gap: 1.2rem; /* Aumenta o espaço entre os inputs */
+    }
+
+    /* 4. Remove os cortes e ajusta os campos e botões */
+    input, .entrar {
+        clip-path: none; /* Remove o corte diagonal */
+        border-radius: 0.8rem; /* Adiciona bordas arredondadas */
+    }
+
+    input {
+        height: 2.8rem; /* Aumenta a altura para facilitar o toque */
+    }
+
+    .buttons {
+        width: 100%; /* Garante que o contêiner dos botões ocupe a largura total */
+    }
+
+    .entrar {   
+        width: 100%; /* Botão ocupa 100% da largura */
+        height: 3rem;  /* Altura ideal para toque */
+        font-size: 1.1rem;
+    }
+
+    /* 5. Posiciona e troca a imagem do robô (Lazzo) */
+    .lazzo, .lazzoImg {
+        /* Troca a imagem pela versão mobile */
+        content: url('../../Images/Página de Login e Cadastro/lazzoMobile.png'); 
+        
+        display: block;
+        position: fixed; /* Fixa na tela */
+        bottom: 0;
+        right: 0;
+        width: 360px; /* Tamanho ajustado para mobile */
+        height: auto;
+        z-index: 1000; /* Garante que fique por cima de tudo */
+    }
+
+      .formulario {
+        width: 100%; /* Faz o formulário ocupar todo o espaço */
+    }
+}
