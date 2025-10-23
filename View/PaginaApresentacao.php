@@ -4,23 +4,28 @@ require_once __DIR__ . '/../Controller/FeedbackController.php';
 require_once __DIR__ . '/../Model/Feedback.php';
 
 use Controller\FeedbackController;
+
 $feedbackController = new FeedbackController();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Coleta e sanitiza os dados do formulário
+    // Coleta e sanitiza os dados do formulário 
 
-    $nome = $_POST["nome"] ?? '';
-    $email = $_POST["email"] ?? '';
     $message = $_POST["mensagem"] ?? '';
-
-
-    if ($feedbackController->submitMessage($nome, $email, $message)) {
-        echo "<h1>Mensagem enviada com sucesso!</h1>";
-        echo "<p>Obrigado por entrar em contato.</p>";
+    $email = $_POST["email"] ?? '';
+    $nome = $_POST["nome"] ?? '';
+    
+    if ($feedbackController->submitMessage($message, $nome, $email)) {
+        $sucess = "Mensagem enviada com sucesso";
+        echo "<script>alert('$sucess'); window.history.back();</script>";
+        exit;
     } else {
-        echo "<h1>Erro ao enviar a mensagem.</h1>";
-        echo "<p>Por favor, tente novamente. Verifique se todos os campos foram preenchidos corretamente.</p>";
+        $errorMessage = "Preencha todos os campos!";
+        echo "<script>alert('$errorMessage'); window.history.back();</script>";
+        // exit;
     }
+
+    $feedbackController->submitMessage($message, $nome, $email);
+    
 
 } else {
     echo "Acesso inválido.";
@@ -417,6 +422,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1 class="fc">Fale Conosco!</h1>
             <p>Estamos aqui para te ajudar em todas as áreas. O seu futuro está no ClassAI!</p>
         </div>
+
         <form class="form" method="POST">
             <input name="mensagem" type="text" class="mensagem" placeholder="Digite sua mensagem...">
             <div class="inputss">
@@ -425,11 +431,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button id="envio" type="submit">Enviar</button>
 
-            <!-- <div class="success-container">
-                <h1>Sucesso!</h1>
-                <p>Sua mensagem foi enviada com sucesso. Agradecemos o seu contato!</p>
-                <p><a href="form.php">Voltar ao formulário</a></p>
-            </div> -->
         </form>
     </section>
     <footer>

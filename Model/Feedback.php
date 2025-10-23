@@ -16,16 +16,16 @@ class Feedback {
     private $db;
 
     public function __construct() {
-        var_dump($this->db = Connection::getInstance());
+        $this->db = Connection::getInstance();
     }
 
     public function saveFeedBack($message, $nome, $email) {
-        $sql = 'INSERT INTO user (message, nome, email, created_at) VALUES (:message, :email, :nome, NOW())';
         
         try {
+            $sql = 'INSERT INTO feedback (mensagem, nome, email, data_envio) VALUES (:mensagem, :email, :nome, NOW())';
             $stmt = $this->db->prepare($sql);
 
-            $stmt->bindParam(":message", $message, PDO::PARAM_STR);             
+            $stmt->bindParam(":mensagem", $message, PDO::PARAM_STR);             
             $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
             $stmt->bindParam(":email", $email, PDO::PARAM_STR);
 

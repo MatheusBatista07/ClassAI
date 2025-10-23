@@ -5,7 +5,8 @@ namespace Controller;
 use Model\Feedback;
 use Exception;
 
-class FeedbackController {
+class FeedbackController
+{
 
     private $feedbackModel;
 
@@ -17,7 +18,7 @@ class FeedbackController {
     public function submitMessage($message, $nome, $email)
     {
         try {
-            if(empty($message) or empty($nome) or empty($email)) {
+            if (empty($message) or empty($nome) or empty($email)) {
                 throw new Exception("Todos os campos são obrigatórios.");
             }
 
@@ -25,12 +26,12 @@ class FeedbackController {
                 throw new Exception("O formato do e-mail é inválido.");
             }
 
-            $success = $this->feedbackModel->saveFeedBack($nome, $email, $message);
+            var_dump($success = $this->feedbackModel->saveFeedBack($message, $nome, $email));
 
             return $success;
-        } catch (Exception $error) { 
+        } catch (Exception $error) {
             error_log("Erro em ao enviar mensagem " . $error->getMessage());
-            return false; 
+            return false;
         }
     }
 
