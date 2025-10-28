@@ -55,7 +55,7 @@ class UserModel {
     }
 
     public function salvarUsuario($dados) {
-        $sql = "INSERT INTO usuarios (nome, sobrenome, cpf, email, senha, nome_usuario, foto_perfil_url, descricao, termos_aceitos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (nome, sobrenome, formacao, cpf, email, senha, nome_usuario, foto_perfil_url, descricao, termos_aceitos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         
         $cpfParaSalvar = $this->hashCpfParaBusca($dados['cpf']);
@@ -63,6 +63,7 @@ class UserModel {
         return $stmt->execute([
             $dados['nome'],
             $dados['sobrenome'],
+            $dados['formacao'],
             $cpfParaSalvar,
             $dados['email'],
             $this->hashPassword($dados['senha']),

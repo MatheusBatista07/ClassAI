@@ -37,16 +37,16 @@ class UserController
         return null;
     }
 
-    public function processarEtapa2($nome, $sobrenome, $cpf)
+    public function processarEtapa2($nome, $sobrenome, $formacao, $cpf)
     {
-        if (empty($nome) || empty($sobrenome) || empty($cpf)) {
+        if (empty($nome) || empty($sobrenome) || empty($formacao) || empty($cpf)) {
             return "Todos os campos são obrigatórios.";
         }
         if ($this->usuarioModel->cpfJaExiste($cpf)) {
             return "Este CPF já está cadastrado.";
         }
 
-        $_SESSION['cadastro_etapa2'] = ['nome' => $nome, 'sobrenome' => $sobrenome, 'cpf' => $cpf];
+        $_SESSION['cadastro_etapa2'] = ['nome' => $nome, 'sobrenome' => $sobrenome, 'formacao' => $formacao, 'cpf' => $cpf];
         return null;
     }
 
