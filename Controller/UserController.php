@@ -14,29 +14,35 @@ class UserController {
                 return;
             }
 
-            $apiKey = $_ENV['GOOGLE_API_KEY'] ?? null;
+            $apiKey = $_ENV['GROQ_API_KEY'] ?? null;
             if (!$apiKey) {
-                 throw new Exception("Chave da API do Google não encontrada. Verifique seu arquivo .env.");
+                 throw new Exception("Chave da API da Groq não encontrada. Verifique seu arquivo .env.");
             }
             
-            // ==================================================================
-            // CORREÇÃO FINAL: Usando o endpoint MAIS ESTÁVEL e o modelo MAIS COMPATÍVEL
-            // ==================================================================
-            $model = 'gemini-1.0-pro'; // O modelo mais compatível
-            $url = 'https://generativelanguage.googleapis.com/v1beta/models/' . $model . ':generateContent?key=' . $apiKey;
+            $url = 'https://api.groq.com/openai/v1/chat/completions';
 
+          
             $data = [
-                'contents' => [
+                'model' => 'llama-3.1-8b-instant', 
+                'messages' => [
                     [
-                        'parts' => [
-                            ['text' => 'Você é a Lazo AI, uma assistente de IA amigável e prestativa da plataforma de e-learning ClassAI. Seu propósito é ajudar os alunos. Suas respostas devem ser concisas e encorajadoras. Responda à seguinte pergunta: ' . $userQuestion]
-                        ]
+                        'role' => 'system',
+                        'content' => 'Você é a Lazo AI, uma assistente de IA amigável e prestativa da plataforma de e-learning ClassAI. Seu propósito é ajudar os alunos, respondendo duvidas e auxiliando para melhor aprendizado. Suas respostas devem ser concisas e encorajadoras.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $userQuestion
                     ]
                 ]
             ];
 
+            $headers = [
+                'Authorization: Bearer ' . $apiKey,
+                'Content-Type: application/json'
+            ];
+
             $ch = curl_init($url );
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -46,20 +52,12 @@ class UserController {
             curl_close($ch);
 
             if ($httpcode !== 200 ) {
-                throw new Exception("Erro na API do Google (Código: $httpcode ). Resposta: " . $response);
+                throw new Exception("Erro na API da Groq (Código: $httpcode ). Resposta: " . $response);
             }
 
             $result = json_decode($response, true);
-            
-            if (empty($result['candidates'][0]['content']['parts'][0]['text'])) {
-                 // Verifica se o bloqueio foi por segurança
-                 if (!empty($result['promptFeedback']['blockReason'])) {
-                    throw new Exception("A API do Google bloqueou a resposta por segurança. Motivo: " . $result['promptFeedback']['blockReason']);
-                 }
-                 throw new Exception("A API do Google retornou uma resposta vazia ou em um formato inesperado.");
-            }
 
-            $lazoResponse = $result['candidates'][0]['content']['parts'][0]['text'];
+            $lazoResponse = $result['choices'][0]['message']['content'] ?? "Desculpe, não consegui processar sua pergunta no momento.";
 
             echo json_encode(['reply' => $lazoResponse]);
 
