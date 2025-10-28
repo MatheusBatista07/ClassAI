@@ -379,162 +379,49 @@ gap: 2.0rem;
 }
 
 /* Indicador de nova notificação (bolinha verde) */
-.notification-dot {
+
+.module-card.locked {
+    position: relative; /* Necessário para posicionar o overlay */
+    pointer-events: none; /* Impede cliques no card bloqueado */
+}
+
+/* Overlay que cobre o card para criar o efeito de bloqueio */
+.module-card.locked .lock-overlay {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 10px;
-    height: 10px;
-    background-color: #22c55e; /* Verde vibrante */
-    border-radius: 50%;
-    border: 2px solid var(--bg-dark); /* Borda para destacar do fundo */
-    display: none; /* Oculto por padrão */
-}
-
-/* Encontre esta regra e APLIQUE AS MUDANÇAS ABAIXO */
-.notifications-popup {
-    position: absolute;
-    top: 20px;      /* Distância do topo da área de conteúdo principal */
-    right: 30px;    /* Distância da direita da área de conteúdo principal */
-    width: 380px;
-    background-color: #1c0936;
-    border-radius: 16px;
-    border: 1px solid #4a2c6d;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow: hidden;
-    display: none;
-    flex-direction: column;
-}
-
-
-.popup-header {
-    padding: 16px 24px;
-    border-bottom: 1px solid #3a1f5a;
-}
-
-.popup-header h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-light);
-    margin: 0;
-}
-
-.popup-tabs {
-    display: flex;
-    padding: 8px 24px;
-    border-bottom: 1px solid #3a1f5a;
-    gap: 16px;
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    padding: 8px 0;
-    font-size: 0.9rem;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.3s;
-}
-
-.tab-button:hover {
-    color: var(--text-light);
-}
-
-.tab-button.active {
-    color: var(--text-light);
-    font-weight: 600;
-}
-
-/* Linha indicadora da aba ativa */
-.tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background-color: #8a3ffc;
-}
-
-.tab-button .badge {
-    background-color: #502d7a;
-    color: var(--text-light);
-    font-size: 0.75rem;
-    padding: 3px 6px;
-    border-radius: 6px;
-    margin-left: 6px;
-}
-
-.popup-body {
-    padding: 8px 16px 16px 16px;
-    max-height: 400px;
-    overflow-y: auto;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semitransparente */
+    backdrop-filter: blur(8px); /* Efeito de desfoque (funciona em navegadores modernos) */
+    -webkit-backdrop-filter: blur(8px); /* Suporte para Safari */
+    border-radius: 12px; /* Mantém as bordas arredondadas do card pai */
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
-
-/* Estilo da barra de rolagem do pop-up */
-.popup-body::-webkit-scrollbar { width: 6px; }
-.popup-body::-webkit-scrollbar-track { background: transparent; }
-.popup-body::-webkit-scrollbar-thumb { background: #4a2c6d; border-radius: 10px; }
-.popup-body::-webkit-scrollbar-thumb:hover { background: #6b3fa0; }
-
-/* Cartão de Notificação Individual */
-.notification-card {
-    background-color: #2d1b4e;
-    padding: 16px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.notification-card-header {
-    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 12px;
-    color: var(--text-light);
-    font-weight: 600;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+    z-index: 2; /* Garante que o overlay fique por cima do conteúdo */
+}
+
+/* Ícone de cadeado */
+.lock-overlay .lock-icon {
+    font-size: 3rem; /* Tamanho grande para o ícone */
+    margin-bottom: 0.5rem;
+}
+
+/* Texto "Inscreva-se para desbloquear" */
+.lock-overlay .lock-text {
     font-size: 1rem;
+    font-weight: 600;
 }
 
-.notification-card-header i {
-    color: #c49dff; /* Roxo claro para o ícone */
-}
-
-.notification-card p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin: 0;
-}
-
-.notification-card-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #c49dff;
+/* Estilo para o botão quando o usuário está inscrito */
+.cta-button.subscribed {
+    background-color: #6C00C4; /* Cor verde para indicar sucesso */
+    cursor: default; /* Remove o cursor de ponteiro */
+    text-align: center;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.3s;
 }
-
-.notification-card-link:hover {
-    color: var(--text-light);
-}
-
-
-
-
-
-
-
-
-
-
-
-

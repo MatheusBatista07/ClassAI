@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassAI - Página do Curso</title>
+    <title>ClassAI - Aula</title>
+    <!-- Links de CSS e Fontes (incluindo Font Awesome para ícones) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS da página de módulos (reutilizaremos a base ) e o novo CSS da aula -->
     <link rel="stylesheet" href="../Templates/css/pagina-curso.css">
-     <link rel="stylesheet" href="../Templates/css/notificacao.css">
+    <link rel="stylesheet" href="../Templates/css/pagina-modulo.css">
+    <!-- CSS de Notificação -->
+    <link rel="stylesheet" href="../Templates/css/notificacao.css">
 </head>
 <body>
 
-    <!-- 1. SIDEBAR (Barra Lateral ) -->
+    <!-- 1. SIDEBAR (Estrutura idêntica) -->
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
         <ul class="nav-menu">
@@ -29,12 +33,12 @@
         </ul>
     </div>
 
-    <!-- 2. MAIN CONTENT (TODA a área principal da página) -->
+    <!-- 2. MAIN CONTENT (Área principal) -->
     <div class="main-content">
 
-        <!-- 2.1. HEADER (Cabeçalho) -->
+        <!-- 2.1. HEADER (Estrutura idêntica com correção da notificação) -->
         <div class="header">
-            <div></div> <!-- Elemento para alinhamento dos ícones à direita -->
+            <div></div>
             <div class="header-icons">
                 <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
                 <div class="header-icon notification-icon-container">
@@ -48,60 +52,46 @@
             </div>
         </div>
 
-        <!-- 2.2. CONTEÚDO DO CURSO (Dentro do main-content ) -->
-        <div class="conteudo__principal">
-            <!-- Coluna da Esquerda -->
-            <div class="left-column">
-                <header>
-                    <h1 style="font-weight:700;">Chat GPT no dia a dia: Automatize tarefas com texto</h1>
-                    <div class="info-line">
-                        <p><img class="icon-text" src="../Images/Página do Curso/ícone lapis.png" alt="lápis"> Professor João Gomes</p>
-                        <p>Nível de dificuldade: Iniciante</p>
+        <!-- 2.2. CONTEÚDO DA AULA (NOVA SEÇÃO ) -->
+        <div class="lesson-area">
+            <header class="lesson-header">
+                <!-- Título do módulo será inserido aqui pelo JS -->
+            </header>
+
+            <div class="lesson-content-grid">
+                <!-- Coluna da Esquerda: Vídeos -->
+                <div class="video-section">
+                    <h2>Vídeo Aula</h2>
+                    <div id="video-list" class="video-grid">
+                        <!-- Placeholders de vídeo serão inseridos aqui -->
                     </div>
-                </header>
-                <section class="description" style="font-weight: 200;">
-                    <p>Descubra como usar o poder do ChatGPT para simplificar sua rotina! Neste curso prático, você aprenderá a automatizar tarefas do dia a dia utilizando comandos de texto inteligentes.</p>
-                    <p>Desde escrever e-mails e organizar ideias até gerar relatórios, criar conteúdos e resolver problemas rapidamente – tudo com a ajuda da inteligência artificial. Ideal para quem quer ganhar tempo, aumentar a produtividade e transformar sua maneira de trabalhar com texto.</p>
-                </section>
-                <section class="modules">
-                    <h2 style="color: white; font-weight: 700;">Módulos</h2>
-                    <div class="modules-container">
-                        <div class="modules-track"></div>
+                </div>
+
+                <!-- Coluna da Direita: Materiais -->
+                <div class="materials-section">
+                    <h2>Material de Estudo</h2>
+                    <div id="materials-list" class="materials-list">
+                        <!-- Links de material serão inseridos aqui -->
                     </div>
-                </section>
-            </div>
-            <!-- Coluna da Direita -->
-            <div class="right-column">
-                <div class="hero-image"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
-                <button class="cta-button">Inscreva-se</button>
-                <div class="target-audience">
-                    <h3>Para quem é...</h3>
-                    <ul>
-                        <li>Marketing e Comunicação</li>
-                        <li>Educação</li>
-                        <li>Tecnologia (Dev, TI, etc.)</li>
-                        <li>Saúde (com cuidado!)</li>
-                        <li>Empreendedores e Freelancers</li>
-                        <li>Criativos (escritores, artistas, designers)</li>
-                    </ul>
                 </div>
             </div>
         </div>
-
-        <!-- 2.3. POP-UP DE NOTIFICAÇÕES (Dentro do main-content para herdar o posicionamento) -->
+        
+        <!-- Pop-up de Notificações (estrutura idêntica) -->
         <div class="notifications-popup" id="notifications-popup">
             <div class="popup-header"><h2>Notificações</h2></div>
             <div class="popup-tabs">
                 <button class="tab-button active" data-tab="todas">Todas <span class="badge" id="todas-badge"></span></button>
+                <button class="tab-button" data-tab="alertas">Alertas</button>
+                <button class="tab-button" data-tab="noticias">Notícias</button>
             </div>
             <div class="popup-body" id="notification-list"></div>
         </div>
 
-    </div> <!-- Fechamento CORRETO do .main-content -->
+    </div>
 
     <!-- 3. SCRIPTS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Templates/js/pagina-curso.js"></script>
+    <script src="../Templates/js/pagina-modulo.js"></script>
     <script src="../Templates/js/notificacao.js"></script>
 
 </body>
