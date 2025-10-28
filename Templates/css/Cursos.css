@@ -34,7 +34,7 @@ body {
 }
 
 .sidebar .img-logo {
-    width: 140px !important;  /* muda o número até ficar do tamanho que tu quer */
+    width: 140px !important; 
     height: auto !important;
     display: block;
     margin: 0 auto 20px auto;
@@ -171,6 +171,10 @@ body {
     color: var(--text-light);
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.org {
+    display: flex;
 }
 
 .header-icon:hover {
@@ -412,4 +416,231 @@ input {
   width: 150px;    /* Defina a largura desejada para o mascote */
   height: auto;    /* A altura se ajustará automaticamente */
   z-index: 1000;   /* Garante que o mascote fique acima da maioria dos outros elementos */
+}
+
+.header .header_mobile{
+    display: none ;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+.sidebar {
+    min-height: 100vh;
+    width: 200px;
+    position: fixed;
+    padding: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    margin-left: 200px;
+    padding: 30px;
+}
+
+.cima h1{
+    font-size: 1.5rem;
+}
+
+.pesquisa {
+    margin-left: 2rem;
+    width: 8rem;
+}
+
+input {
+    font-size: .8rem;
+    width: 5rem;
+}
+
+.filtro {
+    align-items: center;
+    justify-content: center;
+    padding-top: .0rem;
+}
+.filtro p {
+    font-size: .7rem;
+    margin-bottom:.0rem;
+}
+
+.courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: .0px;
+    margin-top: 2rem;
+}
+
+.course-card {
+    width: 15rem;
+    margin-bottom: 1rem;
+}
+
+.course-image-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.course-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+}
+
+.course-image-container .fa-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #ff4d4d;
+    font-size: 20px;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.course-info {
+    flex-grow: 1;
+}
+
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
+}
+
+.course-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.course-author img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden; /* Esconde as partes da imagem que saem para fora do círculo */
+    display: flex; /* Centraliza a imagem dentro do círculo */
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Cor de fundo caso a imagem falhe */
+     object-fit: cover; /* ESSA É A PROPRIEDADE MÁGICA! */
+}
+
+.course-author span {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.btn-course {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-purple);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-course:hover {
+    background-color: #5a25d7;
+}
+
+
+
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2000; 
+    background-color: var(--bg-dark);
+    border-right: none;
+    padding: 20px;
+    overflow-y: auto; 
+}
+    
+body.sidebar-open .sidebar {
+       transform: translateX(0);
+}
+
+.header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centraliza conteúdo */
+        align-items: center;
+        background-color: var(--bg-dark);
+        padding: 10px 20px;
+        z-index: 3000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Esconde os ícones do header desktop */
+    .header-icon,
+    .header-icons,
+    .user-profile {
+        display: none;
+    }
+
+    /* Mostra o header mobile */
+    .header .header_mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header .header_mobile .img-logo {
+        width: 120px;
+    }
+
+    .header .header_mobile i {
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+    }
+
+.main-content {
+    margin-left: 0px;
+    padding: 30px;
+}
+
+.cima {
+    display: flex;
+    flex-direction: column;
+}
+
+.pesquisa {
+    margin-left: 0rem;
+}
+
+.cima h1 {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+}
+
+.org {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+.pesquisa {
+    width: 55%;
+}
+
+.lazinho {
+    width: 120px;
+    height: auto;
+}
 }

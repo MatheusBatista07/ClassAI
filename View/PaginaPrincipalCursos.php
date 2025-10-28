@@ -132,9 +132,15 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
 
 
             </div>
+            <div class="header_mobile">
+                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    class="img-logo">
+                <i class="bi bi-list"></i>
+            </div>
         </div>
     <div class="cima">
         <h1>Página de Cursos</h1>
+    <div class="org">
         <div class="pesquisa">
             <input type="text" placeholder="Pesquisar">
             <button class="pesq">
@@ -145,6 +151,7 @@ if (isset($_GET['action']) && $_GET['action'] !== '') {
         <div class="filtro">
             <p>Filtrar</p>
         </div>
+    </div>
     </div>
 
 
