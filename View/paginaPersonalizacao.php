@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erro = $controller->processarEtapa3($nome_usuario, $descricao, $foto);
     
     if ($erro === null) {
-        header('Location: paginaLogin.php');
+        header('Location: pagina-login.php');
         exit;
     }
 }
