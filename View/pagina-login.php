@@ -23,16 +23,13 @@
             <h2 style="color: white">O que vamos aprender hoje?</h2>
             
             <div class="inputs">
-            <input type="text" name="userEmail" class="userEmail" placeholder="E-mail">
-            <p class="msg_erro"  style="color: red;">este campo é obrigatório</p>
-            <input type="text" name="userPassword" class="userPassword" placeholder="Senha">
-            <p class="msg_erro"  style="color: red;">este campo é obrigatório</p>
+            <input type="text" name="userEmail" class="userEmail" placeholder="E-mail" required>
+            
+            <input type="text" name="userPassword" class="userPassword" placeholder="Senha" required>
             <p class="esqueceuSenha" style="color: #C37BFF">Esqueceu a senha?</p>
             </div>
 
             <div class="buttons">
-                <a href="https://accounts.google.com/v3/signin/accountchooser?dsh=S1930013800%3A1760449800043570&elo=1&ifkv=AfYwgwXw6nL7aYaFXBT9ctMlYrS5YZZXUvRLyOiyCQpWJtM7WKLA9ww8TZizvliCwOEeET5L_2_m&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="continuarCom"> <img class="logo" src="../Images/Login/Logo Google.png" alt="Logo Google"> Continuar com o Google</a>
-                <a href="" class="continuarCom"> <img class="logo" src="../Images/Login/Logo Apple.png" alt="Logo Apple"> Continuar com a Apple</a>
                 <button class="entrar">Entrar</button>
             </div>
             <p class="nao_tem_conta" style="color: #C37BFF">Não tem conta? <a class="cadastre_se" href="" style="color: #C37BFF">Cadastre-se</a></p>
