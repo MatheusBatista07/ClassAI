@@ -196,3 +196,25 @@ body {
 .send-button:hover {
     transform: scale(1.1);
 }
+
+.message.lazo-message ul,
+.message.lazo-message ol {
+    padding-left: 25px; 
+    margin-top: 10px;   
+    margin-bottom: 10px;
+}
+
+
+.message.lazo-message p {
+    margin-bottom: 0.5em; 
+}
+
+
+.message.lazo-message p:last-child {
+    margin-bottom: 0;
+}
+
+
+.message.lazo-message strong {
+    color: #e0e0e0; 
+}
