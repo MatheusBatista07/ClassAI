@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Corrigindo para o nome do arquivo CSS com DOIS Zs -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>templates/css/lazoai.css">
 </head>
 <body>
@@ -34,7 +32,8 @@
         </footer>
     </div>
     
-    <!-- CORREÇÃO CRÍTICA: Usando o nome do arquivo com DOIS Zs, como na sua estrutura -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="<?php echo BASE_URL; ?>templates/js/lazoai.js"></script>
+
 </body>
 </html>
