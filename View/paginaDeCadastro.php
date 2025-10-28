@@ -74,16 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <p class="nao_tem_conta" style="color: #C37BFF">Já tem conta? <a class="cadastre_se" href="paginaLogin.php" style="color: #C37BFF">Entrar</a></p>
+                    <p class="nao_tem_conta" style="color: #C37BFF">Já tem conta? <a class="cadastre_se" href="pagina-login.php" style="color: #C37BFF">Entrar</a></p>
                 </form>
 
                 <div class="lazzo">
-                    <figure><img class="lazzoImg" src="../Images/Página de Login e Cadastro/LazzoCadastro.png" alt="Lazzo"></figure>
+                    <figure><img class="lazzoImg" src="../Images/Login/LazzoCadastro.png" alt="Lazzo"></figure>
                 </div>
             </div>
         </main>
     </div>
-    <!-- O JS de validação foi removido/limpo, então ele não vai mais interferir -->
     <script src="../Templates/js/paginaDeCadastro.js"></script> 
     <script src="../Templates/js/MostrarSenha.js"></script>
 </body>

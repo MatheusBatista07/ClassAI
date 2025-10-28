@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="lazzo">
                     <figure>
-                        <img class="lazzoImg" src="../Images/Página de Login e Cadastro/LazzoCadastro.png" alt="Lazzo">
+                        <img class="lazzoImg" src="../Images/Login/LazzoCadastro.png" alt="Lazzo">
                     </figure>
                 </div>
             </div>

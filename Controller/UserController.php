@@ -13,9 +13,6 @@ class UserController
     public function __construct()
     {
         $this->usuarioModel = new UserModel();
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
     }
 
     public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
@@ -42,11 +39,17 @@ class UserController
         if (empty($nome) || empty($sobrenome) || empty($formacao) || empty($cpf)) {
             return "Todos os campos são obrigatórios.";
         }
-        if ($this->usuarioModel->cpfJaExiste($cpf)) {
+
+        $cpfLimpo = preg_replace('/[^0-9]/', '', $cpf);
+        if (strlen($cpfLimpo) != 11) {
+            return "O CPF digitado é inválido.";
+        }
+
+        if ($this->usuarioModel->cpfJaExiste($cpfLimpo)) {
             return "Este CPF já está cadastrado.";
         }
 
-        $_SESSION['cadastro_etapa2'] = ['nome' => $nome, 'sobrenome' => $sobrenome, 'formacao' => $formacao, 'cpf' => $cpf];
+        $_SESSION['cadastro_etapa2'] = ['nome' => $nome, 'sobrenome' => $sobrenome, 'formacao' => $formacao, 'cpf' => $cpfLimpo];
         return null;
     }
 
@@ -62,7 +65,6 @@ class UserController
             $caminhoUpload = __DIR__ . '/../../public/uploads/perfil/';
 
             if (!is_dir($caminhoUpload)) {
-                // Apenas cria o diretório se ele não existir
                 mkdir($caminhoUpload, 0777, true);
             }
 
@@ -72,7 +74,6 @@ class UserController
             if (move_uploaded_file($foto['tmp_name'], $caminhoCompleto)) {
                 $foto_url = 'public/uploads/perfil/' . $nomeArquivo;
             } else {
-                // Adiciona um retorno de erro caso o upload falhe por permissão, etc.
                 return "Erro ao salvar a imagem. Verifique as permissões do servidor.";
             }
         }
@@ -88,12 +89,37 @@ class UserController
             ]
         );
 
-        // AGORA ESTA PARTE SERÁ EXECUTADA
         if ($this->usuarioModel->salvarUsuario($dadosCompletos)) {
             session_destroy();
-            return null; // Retorna null para indicar sucesso
+            return null;
         } else {
             return "Ocorreu um erro ao tentar salvar os dados no banco. Tente novamente.";
+        }
+    }
+
+    public function processarLogin($email, $senha)
+    {
+        if (empty($email) || empty($senha)) {
+            return "E-mail e senha são obrigatórios.";
+        }
+
+        $usuario = $this->usuarioModel->encontrarUsuarioPorEmail($email);
+
+        if ($usuario) {
+            if (password_verify($senha, $usuario['senha'])) {
+                unset($_SESSION['cadastro_etapa1']);
+                unset($_SESSION['cadastro_etapa2']);
+
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_email'] = $usuario['email'];
+
+                return null;
+            } else {
+                return "Senha incorreta. Por favor, tente novamente.";
+            }
+        } else {
+            return "Nenhum usuário encontrado com este e-mail.";
         }
     }
 }
