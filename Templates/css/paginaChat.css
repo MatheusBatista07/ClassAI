@@ -249,7 +249,7 @@ body {
 .chat-container {
     background-color: var(--bg-sidebar ); /* #1a0a2e */
     border-radius: 16px;
-    padding: 24px;
+    padding: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -362,14 +362,15 @@ body {
     margin-left: 16px;
 }
 
+
 /* Ajustes responsivos para o chat */
 @media (max-width: 850px) {
     .chat-header {
         flex-direction: column;
         align-items: flex-start;
     }
-    .search-bar {
-        width: 100%;
+    .chat-header h1{
+        font-size: 1rem;
     }
     .chat-item {
         padding: 12px;
@@ -378,10 +379,17 @@ body {
         font-size: 0.9rem;
     }
     .chat-message {
-        font-size: 0.8rem;
+        font-size: 0.5rrem;
     }
     .chat-time {
         font-size: 0.7rem;
+    }
+    .chat-avatar{
+        display: flex;
+        justify-content: space-between;
+        width: 2rem;
+        height: 2rem;
+
     }
 }
 
