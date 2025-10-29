@@ -54,5 +54,21 @@ class ChatModel {
             return []; // Retorna um array vazio em caso de erro
         }
     }
+
+    public function getProfessores(int $excludeUserId = 0): array
+{
+    $sql = "SELECT id, nome, sobrenome, foto_perfil_url 
+            FROM usuarios 
+            WHERE funcao = 'professor' AND id != ?";
+    
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$excludeUserId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        // Em um projeto real, você deveria logar este erro.
+        return []; // Retorna um array vazio se der erro.
+    }
+}
 }
 ?>

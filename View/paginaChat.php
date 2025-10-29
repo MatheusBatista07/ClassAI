@@ -1,10 +1,24 @@
 <?php
-// No futuro, você pode colocar aqui o código PHP para buscar a lista de amigos do banco
-// e o ID do usuário da sessão.
-// Ex: require_once '../Controller/UserController.php';
-// $userController = new UserController();
-// $listaDeAmigos = $userController->getFriends();
-$currentUserId = 4; // Por enquanto, definimos o usuário logado como ID 1
+session_start();
+
+// Proteção: Se o usuário não estiver logado, redireciona para o login
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: pagina-login.php');
+    exit;
+}
+
+// Inclui o ChatController
+require_once __DIR__ . '/../Controller/ChatController.php';
+
+// Pega o ID do usuário logado da sessão
+$currentUserId = $_SESSION['usuario_id'];
+
+// Cria uma instância do controller
+$chatController = new \Controller\ChatController();
+
+// CHAMA O MÉTODO PARA BUSCAR A LISTA DE CONTATOS (PROFESSORES)
+$listaDeContatos = $chatController->getContactList($currentUserId);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
