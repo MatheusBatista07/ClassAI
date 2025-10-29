@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['userPassword'] ?? '';
     $erro = $controller->processarLogin($email, $senha);
     if ($erro === null) {
-        header('Location: pagina-inicial.php');
+        header('Location: paginaChat.php');
         exit;
     }
 }

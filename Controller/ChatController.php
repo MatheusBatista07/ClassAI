@@ -1,0 +1,88 @@
+<?php
+// Controller/ChatController.php
+
+namespace Controller;
+
+// 1. As importações 'use' permanecem, pois elas apenas dizem ao PHP quais namespaces usar.
+use Model\ChatModel;
+use Model\UserModel;
+use Pusher\Pusher;
+use Pusher\PusherException;
+
+// 2. REMOVEMOS os 'require_once' daqui. Eles não pertencem a este arquivo.
+// A responsabilidade de carregar os Models e o vendor/autoload.php
+// é do script de entrada (como api.php ou paginaChat.php).
+
+class ChatController {
+
+    private $pusher;
+    private $chatModel;
+
+    public function __construct() {
+        // 3. ADICIONAMOS O TESTE DE DIAGNÓSTICO AQUI.
+        // Se você vir esta mensagem na aba "Rede", saberemos que o problema está DEPOIS desta linha.
+        // die("DEBUG: Construtor do ChatController foi alcançado.");
+
+        require_once __DIR__ . '/../Config/Configuration.php';
+
+        // Esta linha agora depende que o 'pai' (api.php) tenha carregado o ChatModel.php
+        $this->chatModel = new ChatModel();
+
+        try {
+            $this->pusher = new Pusher(
+                PUSHER_APP_KEY,
+                PUSHER_APP_SECRET,
+                PUSHER_APP_ID,
+                ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]
+            );
+        } catch (PusherException $e) {
+            die("Erro ao conectar com o Pusher: " . $e->getMessage());
+        }
+    }
+    
+    public function sendMessage() {
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
+            return;
+        }
+        $senderId = (int)$data['senderId'];
+        $receiverId = (int)$data['receiverId'];
+        $messageText = htmlspecialchars($data['message']);
+        
+        $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
+        
+        if ($success) {
+            $channelName = 'chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
+            $eventName = 'new-message';
+            $payload = [
+                'senderId' => $senderId,
+                'receiverId' => $receiverId,
+                'message' => $messageText,
+                'timestamp' => date('Y-m-d H:i:s')
+            ];
+            $this->pusher->trigger($channelName, $eventName, $payload);
+            echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
+        } else {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
+        }
+    }
+    
+    public function getMessages($userId, $contactId) {
+        // Esta linha agora depende que o 'pai' (api.php) tenha carregado o ChatModel.php
+        $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);
+        // A linha abaixo é crucial para garantir que a resposta seja JSON
+        header('Content-Type: application/json');
+        echo json_encode($messages);
+    }
+
+    public function getContactList(int $currentUserId): array
+    {
+        // Esta linha agora depende que o 'pai' (paginaChat.php) tenha carregado o UserModel.php
+        $userModel = new UserModel();
+        return $userModel->getTodosUsuarios($currentUserId);
+    }
+}
+?>

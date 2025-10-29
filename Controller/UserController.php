@@ -53,49 +53,84 @@ class UserController
         return null;
     }
 
-    public function processarEtapa3($nome_usuario, $descricao, $foto)
-    {
-        if (empty($nome_usuario)) {
-            return "O nome de usuário é obrigatório.";
+// Em Controller/UserController.php
+
+// ... (dentro da classe UserController)
+
+// Este é um exemplo de como o método de processar a etapa 3 deveria ser.
+// Adapte ao nome do seu método.
+public function processarEtapa3(array $postData, array $fileData) {
+    
+    // Inicia a sessão para pegar os dados das etapas anteriores
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Validação dos dados do formulário (nome de usuário, etc.)
+    $nome_usuario = $postData['username'] ?? '';
+    $descricao = $postData['description'] ?? '';
+    // Adicione outras validações se necessário...
+
+    // --- LÓGICA DE UPLOAD DA IMAGEM (A PARTE QUE FALTAVA) ---
+    $caminhoFoto = null; // Começa como nulo
+
+    // Verifica se um arquivo foi enviado e se não houve erro no upload
+    if (isset($fileData['profile_photo']) && $fileData['profile_photo']['error'] === UPLOAD_ERR_OK) {
+        
+        $foto = $fileData['profile_photo'];
+        $nomeOriginal = $foto['name'];
+        $caminhoTemporario = $foto['tmp_name'];
+
+        // Define a pasta de destino
+        $pastaDestino = __DIR__ . '/../public/uploads/perfil/';
+        
+        // Garante que a pasta de destino exista
+        if (!is_dir($pastaDestino)) {
+            mkdir($pastaDestino, 0777, true);
         }
 
-        $foto_url = null;
+        // Cria um nome de arquivo único para evitar sobreposição
+        $extensao = pathinfo($nomeOriginal, PATHINFO_EXTENSION);
+        $nomeUnico = uniqid() . '-' . bin2hex(random_bytes(8)) . '.' . $extensao;
+        
+        // Define o caminho completo do destino
+        $caminhoCompletoDestino = $pastaDestino . $nomeUnico;
 
-        if (isset($foto) && $foto['error'] == UPLOAD_ERR_OK) {
-            $caminhoUpload = __DIR__ . '/../../public/uploads/perfil/';
-
-            if (!is_dir($caminhoUpload)) {
-                mkdir($caminhoUpload, 0777, true);
-            }
-
-            $nomeArquivo = uniqid() . '-' . basename($foto['name']);
-            $caminhoCompleto = $caminhoUpload . $nomeArquivo;
-
-            if (move_uploaded_file($foto['tmp_name'], $caminhoCompleto)) {
-                $foto_url = 'public/uploads/perfil/' . $nomeArquivo;
-            } else {
-                return "Erro ao salvar a imagem. Verifique as permissões do servidor.";
-            }
-        }
-
-        $dadosCompletos = array_merge(
-            $_SESSION['cadastro_etapa1'],
-            $_SESSION['cadastro_etapa2'],
-            [
-                'nome_usuario' => $nome_usuario,
-                'descricao' => $descricao,
-                'foto_perfil_url' => $foto_url,
-                'termos_aceitos' => true
-            ]
-        );
-
-        if ($this->usuarioModel->salvarUsuario($dadosCompletos)) {
-            session_destroy();
-            return null;
+        // **A FUNÇÃO MÁGICA: Move o arquivo do local temporário para o destino permanente**
+        if (move_uploaded_file($caminhoTemporario, $caminhoCompletoDestino)) {
+            // SUCESSO! Agora, salvamos o caminho relativo no banco.
+            $caminhoFoto = 'public/uploads/perfil/' . $nomeUnico;
         } else {
-            return "Ocorreu um erro ao tentar salvar os dados no banco. Tente novamente.";
+            // Falha ao mover o arquivo, pode ser um problema de permissão na pasta.
+            // Por enquanto, apenas ignoramos a foto.
+            $caminhoFoto = null;
         }
     }
+    // --- FIM DA LÓGICA DE UPLOAD ---
+
+    // Junta todos os dados para salvar no banco
+    $dadosUsuario = array_merge(
+        $_SESSION['cadastro_etapa1'] ?? [],
+        $_SESSION['cadastro_etapa2'] ?? [],
+        [
+            'nome_usuario' => $nome_usuario,
+            'descricao' => $descricao,
+            'foto_perfil_url' => $caminhoFoto // Usa o caminho da foto que foi salva
+        ]
+    );
+
+    $userModel = new \Model\UserModel();
+    if ($userModel->salvarUsuario($dadosUsuario)) {
+        // Limpa a sessão e redireciona para o login
+        session_destroy();
+        header('Location: ../View/pagina-login.php?sucesso=cadastro');
+        exit;
+    } else {
+        // Retorna uma mensagem de erro
+        return "Ocorreu um erro ao finalizar o cadastro. Tente novamente.";
+    }
+}
+
 
     public function processarLogin($email, $senha)
     {

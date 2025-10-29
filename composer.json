@@ -14,5 +14,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "pusher/pusher-php-server": "^7.2"
+    }
 }
