@@ -1,13 +1,14 @@
 <?php
-    // No futuro, você pode colocar aqui o código PHP para buscar a lista de amigos do banco
-    // e o ID do usuário da sessão.
-    // Ex: require_once '../Controller/UserController.php';
-    // $userController = new UserController();
-    // $listaDeAmigos = $userController->getFriends();
-    $currentUserId = 4; // Por enquanto, definimos o usuário logado como ID 1
+// No futuro, você pode colocar aqui o código PHP para buscar a lista de amigos do banco
+// e o ID do usuário da sessão.
+// Ex: require_once '../Controller/UserController.php';
+// $userController = new UserController();
+// $listaDeAmigos = $userController->getFriends();
+$currentUserId = 4; // Por enquanto, definimos o usuário logado como ID 1
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +18,9 @@
     <link rel="stylesheet" href="../Templates/css/paginaChat.css">
 </head>
 <!-- 1. Adicionamos o ID do usuário logado aqui para o JS poder pegar facilmente -->
-<body data-user-id="<?php echo $currentUserId; ?>"> 
-    
+
+<body data-user-id="<?php echo $currentUserId; ?>">
+
     <!-- Sidebar (sem alterações ) -->
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
@@ -32,7 +34,8 @@
         <div class="nav-divider"></div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-question-circle"></i> Ajuda e FAQ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Modo escuro <i class="bi bi-moon-stars ms-auto"></i></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Modo escuro <i class="bi bi-moon-stars ms-auto"></i></a>
+            </li>
         </ul>
     </div>
 
@@ -41,7 +44,8 @@
         <div class="header">
             <div></div>
             <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
+                <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo"
+                        class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
                 <div class="user-profile">
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
@@ -49,31 +53,40 @@
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </div>
 
         <!-- Container principal do chat -->
         <div class="chat-wrapper">
-            
+
             <!-- VISUALIZAÇÃO 1: LISTA DE CONTATOS -->
             <div id="contacts-view" class="chat-container">
                 <div class="chat-header">
-                    <!-- ... seu código do chat-header ... -->
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-chat-left-text-fill me-3" style="font-size: 1.4rem;"></i>
+                        <div>
+                            <h1 class="h4 mb-0">Página de Chat</h1>
+                            <p class="text-muted mb-0">Suas conversas recentes</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="chat-list">
                     <!-- NOTA: IDs dos contatos ajustados para simular uma conversa com o usuário 1 -->
-                    <div class="chat-item" data-contact-id="2" data-contact-name="Professor João Gomes" data-contact-avatar="https://via.placeholder.com/50/FFC300">
-                        <img src="https://via.placeholder.com/50/FFC300" alt="Avatar" class="chat-avatar">
+                    <div class="chat-item" data-contact-id="2" data-contact-name="Professor João"
+                        data-contact-avatar="https://via.placeholder.com/50/FFC300">
+                        <img src="../Images/Página de Apresentação/Lazo.png" alt="Avatar" class="chat-avatar">
                         <div class="chat-info">
-                            <div class="chat-name">Professor João Gomes</div>
+                            <div class="chat-name">Professor João</div>
                             <div class="chat-message">Clique para ver a conversa...</div>
                         </div>
                         <div class="chat-time"></div>
                     </div>
-                    <div class="chat-item" data-contact-id="3" data-contact-name="Professor Cleber" data-contact-avatar="https://via.placeholder.com/50/DAF7A6">
-                        <img src="https://via.placeholder.com/50/DAF7A6" alt="Avatar" class="chat-avatar">
+                    <div class="chat-item" data-contact-id="3" data-contact-name="Professor Cleber"
+                        data-contact-avatar="../Images/Página de Apresentação/Lazo.png">
+                        <img src="../Images/Página de Apresentação/Lazo.png" alt="Avatar" class="chat-avatar">
                         <div class="chat-info">
                             <div class="chat-name">Professor Cleber</div>
                             <div class="chat-message">Clique para ver a conversa...</div>
@@ -93,7 +106,7 @@
                         <div id="conversation-status" class="chat-status">Online</div>
                     </div>
                     <div class="ms-auto">
-                        <button class="btn btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
+                        <button class="btn btn-icon"></i></button>
                     </div>
                 </div>
 
@@ -114,11 +127,12 @@
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- 3. ADICIONADO O SCRIPT DO PUSHER (essencial para tempo real ) -->
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    
+
     <!-- Seu script do chat, que agora pode usar o Pusher -->
     <script src="../Templates/js/paginaChat.js"></script>
 </body>
+
 </html>
