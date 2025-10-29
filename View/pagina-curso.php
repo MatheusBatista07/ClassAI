@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassAI - Página do Curso</title>
+    <title>ClassAI | (Nome do curso)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -75,13 +75,13 @@
                 <div class="hero-image"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
                 <button class="cta-button">Inscreva-se</button>
                 <div class="target-audience">
-                    <h3>Para quem é...</h3>
+                      <h3>Para quem é...</h3>
                     <ul>
                         <li>Marketing e Comunicação</li>
                         <li>Educação</li>
                         <li>Tecnologia (Dev, TI, etc.)</li>
                         <li>Saúde (com cuidado!)</li>
-                        <li>Empreendedores e Freelancers</li>
+                      <li>Empreendedores e Freelancers</li>
                         <li>Criativos (escritores, artistas, designers)</li>
                     </ul>
                 </div>

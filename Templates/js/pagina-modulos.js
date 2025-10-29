@@ -1,70 +1,48 @@
+// No arquivo: meu-curso.js
+
 document.addEventListener('DOMContentLoaded', function() {
+    // ================== CORREÇÃO 1: Adotar a mesma lógica da página de aulas ==================
+    
+    // Simular um banco de dados de módulos, organizados por curso_id
+    const databaseModulos = {
+        '7': [ // Módulos para o curso_id = 7
+            { id: 1, descricao: 'Fundamentos do ChatGPT e Aplicações no Dia a Dia', imagem: '...', duracao: '1h30' },
+            { id: 2, descricao: 'Automatizando Tarefas com Texto e Criatividade', imagem: '...', duracao: '2h' },
+            { id: 3, descricao: 'Organização Pessoal e Produtividade com a IA', imagem: '...', duracao: '2h' }
+        ],
+        '8': [ // Módulos para um hipotético curso_id = 8 (Python)
+            { id: 4, descricao: 'Sintaxe Básica do Python', imagem: '...', duracao: '1h' },
+            { id: 5, descricao: 'Estruturas de Dados', imagem: '...', duracao: '2h' }
+        ]
+    };
 
-    // 1. Simulação dos dados dos módulos (mesmos dados da página anterior)
-    const modulosDoCurso = [
-        {
-            modulo: 1,
-            titulo: 'FUNDAMENTOS',
-            descricao: 'Fundamentos do ChatGPT e Aplicações no Dia a Dia',
-            duracao: '1h30',
-            imagem: 'https://i.imgur.com/QZ5Am3C.png'
-        },
-        {
-            modulo: 2,
-            titulo: 'AUTOMAÇÃO E CRIATIVIDADE',
-            descricao: 'Automatizando Tarefas com Texto e Criatividade',
-            duracao: '2h',
-            imagem: 'https://i.imgur.com/uVw02Tf.png' // Imagem diferente para o módulo 2
-        },
-        {
-            modulo: 3,
-            titulo: 'ORGANIZAÇÃO E PRODUTIVIDADE',
-            descricao: 'Organização Pessoal e Produtividade com a IA',
-            duracao: '2h',
-            imagem: 'https://i.imgur.com/7gKk9dC.png' // Imagem diferente para o módulo 3
-        },
-        // Adicione mais módulos aqui para testar o grid
-        {
-            modulo: 4,
-            titulo: 'FUNDAMENTOS',
-            descricao: 'Fundamentos do ChatGPT e Aplicações no Dia a Dia',
-            duracao: '1h30',
-            imagem: 'https://i.imgur.com/QZ5Am3C.png'
-        },
-        {
-            modulo: 5,
-            titulo: 'AUTOMAÇÃO E CRIATIVIDADE',
-            descricao: 'Automatizando Tarefas com Texto e Criatividade',
-            duracao: '2h',
-            imagem: 'https://i.imgur.com/uVw02Tf.png'
-        },
-        {
-            modulo: 6,
-            titulo: 'ORGANIZAÇÃO E PRODUTIVIDADE',
-            descricao: 'Organização Pessoal e Produtividade com a IA',
-            duracao: '2h',
-            imagem: 'https://i.imgur.com/7gKk9dC.png'
-        },
-    ];
+    // Ler qual curso deve ser exibido
+    const urlParams = new URLSearchParams(window.location.search);
+    const cursoId = urlParams.get('curso_id');
 
-    // 2. Referência ao container do grid no HTML
-    const gridContainer = document.getElementById('modules-grid' );
+    // Selecionar os módulos corretos com base no ID do curso
+    const modulosDoCurso = databaseModulos[cursoId] || []; // Pega os módulos ou um array vazio se o curso não for encontrado
 
-    // 3. Função para renderizar os módulos
+    const gridContainer = document.getElementById('modules-grid');
+
     function carregarModulos() {
         if (!gridContainer) return;
+        gridContainer.innerHTML = '';
 
-        gridContainer.innerHTML = ''; // Limpa o container
+        if (modulosDoCurso.length === 0) {
+            gridContainer.innerHTML = '<p>Nenhum módulo encontrado para este curso.</p>';
+            return;
+        }
 
         modulosDoCurso.forEach(modulo => {
-            // Cria o HTML para cada card. Note que o card inteiro é um link.
+            // ================== CORREÇÃO 2: Usar o nome de parâmetro consistente ('id') ==================
             const cardHTML = `
-                <a href="/curso/modulo/${modulo.modulo}" class="module-card">
+                <a href="pagina-aula.php?id=${modulo.id}" class="module-card">
                     <div class="module-image-container">
-                        <img src="${modulo.imagem}" alt="Capa do ${modulo.titulo}">
+                        <img src="${modulo.imagem}" alt="Capa do módulo">
                     </div>
                     <div class="module-content">
-                        <h3>Módulo ${modulo.modulo} <img src="../Images/Página do Curso/ícone de livro.png"></img></h3>
+                        <h3>Módulo ${modulo.id} <i class="far fa-bookmark"></i></h3>
                         <p>${modulo.descricao}</p>
                         <div class="duration">
                             <i class="far fa-clock"></i>
@@ -77,7 +55,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 4. Carrega os módulos quando a página é aberta
     carregarModulos();
-
 });
