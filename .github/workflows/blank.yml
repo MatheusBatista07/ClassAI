@@ -19,14 +19,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          # O cache vai procurar o package-lock.json a partir da raiz
-          cache-dependency-path: ClassAI/package-lock.json
+          # A CONFIGURAÇÃO DE CACHE FOI TOTALMENTE REMOVIDA
 
       - name: Instalar dependências
-        # Entra na pasta e RODA o comando de instalação
         run: cd ClassAI && npm ci
 
       - name: Rodar os testes
-        # Entra na pasta e RODA o comando de teste
         run: cd ClassAI && npm test
