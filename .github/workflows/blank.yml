@@ -19,10 +19,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          # A CONFIGURAÇÃO DE CACHE FOI TOTALMENTE REMOVIDA
+          cache: 'npm' # Vamos tentar com o cache de novo, agora deve funcionar
 
       - name: Instalar dependências
-        run: cd ClassAI && npm ci
+        run: npm ci # Roda o comando diretamente na raiz
 
       - name: Rodar os testes
-        run: cd ClassAI && npm test
+        run: npm test # Roda o comando diretamente na raiz
