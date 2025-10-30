@@ -1,0 +1,35 @@
+# Nome do Workflow
+name: CI/CD - Build e Testes
+
+# Gatilhos: quando este workflow deve rodar
+on:
+  push:
+    branches: [ "main" ] # Roda quando há um push na branch main
+  pull_request:
+    branches: [ "main" ] # Roda quando um pull request é aberto para a main
+
+# Tarefas a serem executadas
+jobs:
+  build-and-test: # Nome da tarefa
+    # Sistema operacional que será usado
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clona o seu repositório para dentro da máquina virtual
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Configura o Node.js na versão correta
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Use a versão do Node.js do seu projeto
+          cache: 'yarn' # Habilita o cache para o Yarn, para instalações mais rápidas
+
+      # 3. Instala as dependências do projeto
+      - name: Instalar dependências
+        run: yarn install --frozen-lockfile
+
+      # 4. Executa os testes (adapte o comando se for diferente)
+      - name: Rodar os testes
+        run: yarn test # <-- MUITO IMPORTANTE: Verifique se este é o comando correto no seu package.json
