@@ -353,13 +353,28 @@ body {
 }
 
 .chat-message .bi-check2-all {
-    color: #34b7f1; /* Cor para status 'lido' */
+    color: #34b7f1; 
 }
 
 .chat-time {
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-left: 16px;
+}
+
+.chat-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+
+.chat-status.online {
+    color: #28a745;
+}
+
+
+.chat-status.offline {
+    color: #dc3545; 
 }
 
 

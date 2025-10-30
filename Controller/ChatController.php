@@ -1,17 +1,11 @@
 <?php
-// Controller/ChatController.php
 
 namespace Controller;
 
-// 1. As importações 'use' permanecem, pois elas apenas dizem ao PHP quais namespaces usar.
 use Model\ChatModel;
 use Model\UserModel;
 use Pusher\Pusher;
 use Pusher\PusherException;
-
-// 2. REMOVEMOS os 'require_once' daqui. Eles não pertencem a este arquivo.
-// A responsabilidade de carregar os Models e o vendor/autoload.php
-// é do script de entrada (como api.php ou paginaChat.php).
 
 class ChatController {
 
@@ -19,13 +13,7 @@ class ChatController {
     private $chatModel;
 
     public function __construct() {
-        // 3. ADICIONAMOS O TESTE DE DIAGNÓSTICO AQUI.
-        // Se você vir esta mensagem na aba "Rede", saberemos que o problema está DEPOIS desta linha.
-        // die("DEBUG: Construtor do ChatController foi alcançado.");
-
         require_once __DIR__ . '/../Config/Configuration.php';
-
-        // Esta linha agora depende que o 'pai' (api.php) tenha carregado o ChatModel.php
         $this->chatModel = new ChatModel();
 
         try {
@@ -54,7 +42,7 @@ class ChatController {
         $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
         
         if ($success) {
-            $channelName = 'chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
+            $channelName = 'presence-chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
             $eventName = 'new-message';
             $payload = [
                 'senderId' => $senderId,
@@ -71,18 +59,49 @@ class ChatController {
     }
     
     public function getMessages($userId, $contactId) {
-        // Esta linha agora depende que o 'pai' (api.php) tenha carregado o ChatModel.php
         $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);
-        // A linha abaixo é crucial para garantir que a resposta seja JSON
         header('Content-Type: application/json');
         echo json_encode($messages);
     }
 
     public function getContactList(int $currentUserId): array
     {
-        // Esta linha agora depende que o 'pai' (paginaChat.php) tenha carregado o UserModel.php
         $userModel = new UserModel();
         return $userModel->getTodosUsuarios($currentUserId);
     }
+
+    public function pusherAuth()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['usuario_id'])) {
+            header('HTTP/1.1 403 Forbidden');
+            echo 'Acesso negado.';
+            exit;
+        }
+
+        $socketId = $_POST['socket_id'] ?? '';
+        $channelName = $_POST['channel_name'] ?? '';
+        
+        if (empty($socketId) || empty($channelName)) {
+            header('HTTP/1.1 400 Bad Request');
+            echo 'socket_id e channel_name são obrigatórios.';
+            exit;
+        }
+
+        $presenceData = [
+            'id' => $_SESSION['usuario_id'],
+            'name' => $_SESSION['usuario_nome'] ?? 'Usuário Anônimo'
+        ];
+
+        try {
+            $auth = $this->pusher->presence_auth($channelName, $socketId, $presenceData['id'], $presenceData);
+            echo $auth;
+        } catch (\Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            error_log('Pusher Auth Error: ' . $e->getMessage());
+            echo 'Erro ao autenticar no Pusher.';
+        }
+    }
 }
-?>

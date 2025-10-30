@@ -8,11 +8,9 @@ require_once __DIR__ . '/Connection.php';
 
 class UserModel
 {
-
     private $db;
     private $key;
     private $cipher;
-
     private static $masterPassword = 'SenhaMestraSuperSecretaDoClassAi!2025';
 
     public function __construct()
@@ -67,33 +65,26 @@ class UserModel
     public function salvarUsuario($dados)
     {
         $sql = "INSERT INTO usuarios (nome, sobrenome, formacao, funcao, cpf, email, senha, nome_usuario, foto_perfil_url, descricao, termos_aceitos) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
 
-        // Pega o valor de 'termos_aceitos' do array de dados. Se não existir, assume 'false'.
         $termosAceitos = isset($dados['termos_aceitos']) && $dados['termos_aceitos'];
 
-        // Prepara os dados para a execução, garantindo que 'termos_aceitos' seja 0 ou 1.
         $params = [
             $dados['nome'] ?? null,
             $dados['sobrenome'] ?? null,
             $dados['formacao'] ?? null,
-            'aluno', // Define a função padrão como 'aluno'
+            'aluno',
             $this->hashCpfParaBusca($dados['cpf'] ?? ''),
             $dados['email'] ?? null,
             $this->hashPassword($dados['senha'] ?? ''),
             $dados['nome_usuario'] ?? null,
             $dados['foto_perfil_url'] ?? null,
             $dados['descricao'] ?? null,
-            // =======================================================
-            // A CORREÇÃO ESTÁ AQUI:
-            // Converte o valor booleano (true/false) para um inteiro (1/0).
-            // =======================================================
             (int)$termosAceitos
         ];
 
-        // A linha 76 agora receberá os parâmetros corretamente formatados.
         return $stmt->execute($params);
     }
 
@@ -104,28 +95,55 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca todos os usuários cadastrados no sistema, exceto o próprio usuário logado.
-     *
-     * @param int $excludeUserId O ID do usuário logado, para não aparecer na própria lista.
-     * @return array Uma lista com todos os outros usuários.
-     */
     public function getTodosUsuarios(int $excludeUserId): array
     {
-        // A consulta agora busca todos os usuários, sem filtrar pela função.
-        // Adicionamos a coluna 'funcao' ao SELECT para uso futuro na View.
-        $sql = "SELECT id, nome, sobrenome, foto_perfil_url, funcao 
-                FROM usuarios 
-                WHERE id != ?";
-
+        $sql = "SELECT id, nome, sobrenome, foto_perfil_url, funcao, status, ultimo_acesso
+            FROM usuarios 
+            WHERE id != ?";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->execute([$excludeUserId]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            // Em um ambiente de produção, seria bom logar o erro.
-            // error_log("Erro ao buscar todos os usuários: " . $e->getMessage());
-            return []; // Retorna um array vazio para evitar que a aplicação quebre.
+            return [];
+        }
+    }
+
+
+    public function encontrarUsuarioPorId(int $id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deletarUsuario(int $id): string|false
+    {
+        $usuario = $this->encontrarUsuarioPorId($id);
+        if (!$usuario) {
+            return false;
+        }
+
+        $caminhoFoto = $usuario['foto_perfil_url'];
+
+        $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = ?");
+        $sucesso = $stmt->execute([$id]);
+
+        if ($sucesso) {
+            return $caminhoFoto;
+        } else {
+            return false;
+        }
+    }
+
+    public function atualizarStatus(int $userId, string $status): bool
+    {
+        $sql = "UPDATE usuarios SET status = ?, ultimo_acesso = NOW() WHERE id = ?";
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$status, $userId]);
+        } catch (\PDOException $e) {
+            return false;
         }
     }
 }

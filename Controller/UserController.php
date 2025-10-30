@@ -30,7 +30,7 @@ class UserController
             return "Este e-mail já está em uso.";
         }
 
-        $_SESSION['cadastro_etapa1'] = ['email' => $email, 'senha' => $senha];
+        $_SESSION['cadastro_etapa1'] = ['email' => $email, 'senha' => $senha, 'termos_aceitos' => $termos];
         return null;
     }
 
@@ -53,84 +53,53 @@ class UserController
         return null;
     }
 
-// Em Controller/UserController.php
-
-// ... (dentro da classe UserController)
-
-// Este é um exemplo de como o método de processar a etapa 3 deveria ser.
-// Adapte ao nome do seu método.
-public function processarEtapa3(array $postData, array $fileData) {
-    
-    // Inicia a sessão para pegar os dados das etapas anteriores
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // Validação dos dados do formulário (nome de usuário, etc.)
-    $nome_usuario = $postData['username'] ?? '';
-    $descricao = $postData['description'] ?? '';
-    // Adicione outras validações se necessário...
-
-    // --- LÓGICA DE UPLOAD DA IMAGEM (A PARTE QUE FALTAVA) ---
-    $caminhoFoto = null; // Começa como nulo
-
-    // Verifica se um arquivo foi enviado e se não houve erro no upload
-    if (isset($fileData['profile_photo']) && $fileData['profile_photo']['error'] === UPLOAD_ERR_OK) {
-        
-        $foto = $fileData['profile_photo'];
-        $nomeOriginal = $foto['name'];
-        $caminhoTemporario = $foto['tmp_name'];
-
-        // Define a pasta de destino
-        $pastaDestino = __DIR__ . '/../public/uploads/perfil/';
-        
-        // Garante que a pasta de destino exista
-        if (!is_dir($pastaDestino)) {
-            mkdir($pastaDestino, 0777, true);
+    public function processarEtapa3(array $postData, array $fileData)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
 
-        // Cria um nome de arquivo único para evitar sobreposição
-        $extensao = pathinfo($nomeOriginal, PATHINFO_EXTENSION);
-        $nomeUnico = uniqid() . '-' . bin2hex(random_bytes(8)) . '.' . $extensao;
-        
-        // Define o caminho completo do destino
-        $caminhoCompletoDestino = $pastaDestino . $nomeUnico;
+        $nome_usuario = $postData['username'] ?? '';
+        $descricao = $postData['description'] ?? '';
+        $caminhoFoto = null;
 
-        // **A FUNÇÃO MÁGICA: Move o arquivo do local temporário para o destino permanente**
-        if (move_uploaded_file($caminhoTemporario, $caminhoCompletoDestino)) {
-            // SUCESSO! Agora, salvamos o caminho relativo no banco.
-            $caminhoFoto = 'public/uploads/perfil/' . $nomeUnico;
+        if (isset($fileData['profile_photo']) && $fileData['profile_photo']['error'] === UPLOAD_ERR_OK) {
+            $foto = $fileData['profile_photo'];
+            $caminhoTemporario = $foto['tmp_name'];
+            $pastaDestino = __DIR__ . '/../public/uploads/perfil/';
+            
+            if (!is_dir($pastaDestino)) {
+                mkdir($pastaDestino, 0775, true);
+            }
+
+            $extensao = pathinfo($foto['name'], PATHINFO_EXTENSION);
+            $nomeUnico = uniqid('user_') . bin2hex(random_bytes(8)) . '.' . $extensao;
+            $caminhoCompletoDestino = $pastaDestino . $nomeUnico;
+
+            if (move_uploaded_file($caminhoTemporario, $caminhoCompletoDestino)) {
+                $caminhoFoto = 'public/uploads/perfil/' . $nomeUnico;
+            }
+        }
+
+        $dadosUsuario = array_merge(
+            $_SESSION['cadastro_etapa1'] ?? [],
+            $_SESSION['cadastro_etapa2'] ?? [],
+            [
+                'nome_usuario' => $nome_usuario,
+                'descricao' => $descricao,
+                'foto_perfil_url' => $caminhoFoto
+            ]
+        );
+
+        if ($this->usuarioModel->salvarUsuario($dadosUsuario)) {
+            session_unset();
+            session_destroy();
+            header('Location: ../View/pagina-login.php?status=cadastro_sucesso');
+            exit;
         } else {
-            // Falha ao mover o arquivo, pode ser um problema de permissão na pasta.
-            // Por enquanto, apenas ignoramos a foto.
-            $caminhoFoto = null;
+            return "Ocorreu um erro ao finalizar o cadastro. Tente novamente.";
         }
     }
-    // --- FIM DA LÓGICA DE UPLOAD ---
-
-    // Junta todos os dados para salvar no banco
-    $dadosUsuario = array_merge(
-        $_SESSION['cadastro_etapa1'] ?? [],
-        $_SESSION['cadastro_etapa2'] ?? [],
-        [
-            'nome_usuario' => $nome_usuario,
-            'descricao' => $descricao,
-            'foto_perfil_url' => $caminhoFoto // Usa o caminho da foto que foi salva
-        ]
-    );
-
-    $userModel = new \Model\UserModel();
-    if ($userModel->salvarUsuario($dadosUsuario)) {
-        // Limpa a sessão e redireciona para o login
-        session_destroy();
-        header('Location: ../View/pagina-login.php?sucesso=cadastro');
-        exit;
-    } else {
-        // Retorna uma mensagem de erro
-        return "Ocorreu um erro ao finalizar o cadastro. Tente novamente.";
-    }
-}
-
 
     public function processarLogin($email, $senha)
     {
@@ -142,19 +111,41 @@ public function processarEtapa3(array $postData, array $fileData) {
 
         if ($usuario) {
             if (password_verify($senha, $usuario['senha'])) {
-                unset($_SESSION['cadastro_etapa1']);
-                unset($_SESSION['cadastro_etapa2']);
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+                session_regenerate_id(true);
 
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
-                $_SESSION['usuario_email'] = $usuario['email'];
-
-                return null;
+                
+                $this->usuarioModel->atualizarStatus($usuario['id'], 'online');
+                
+                header('Location: ../View/paginaChat.php');
+                exit;
             } else {
                 return "Senha incorreta. Por favor, tente novamente.";
             }
         } else {
             return "Nenhum usuário encontrado com este e-mail.";
         }
+    }
+
+    public function processarDelecao(int $userId): bool
+    {
+        $caminhoFoto = $this->usuarioModel->deletarUsuario($userId);
+
+        if ($caminhoFoto === false) {
+            return false;
+        }
+
+        if (!empty($caminhoFoto)) {
+            $caminhoCompletoArquivo = __DIR__ . '/../' . $caminhoFoto;
+            if (file_exists($caminhoCompletoArquivo)) {
+                @unlink($caminhoCompletoArquivo);
+            }
+        }
+        
+        return true;
     }
 }

@@ -1,51 +1,17 @@
 <?php
-// api.php
-
-// ===================================================================
-// PASSO 1: FORÇAR A EXIBIÇÃO DE TODOS OS ERROS. ESSENCIAL!
-// ===================================================================
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// ===================================================================
-// PASSO 2: TENTAR INCLUIR OS ARQUIVOS E VER ONDE QUEBRA
-// ===================================================================
-// Usamos 'require' em vez de 'require_once' no debug para garantir que ele tente carregar.
-// O '@' suprime o warning padrão para que possamos capturar o erro de forma limpa.
-try {
-    // Tentativa de carregar o Controller. Se o caminho estiver errado, ele vai falhar aqui.
-    require_once __DIR__ . '/Controller/ChatController.php';
-} catch (Throwable $e) {
-    // Se a inclusão falhar, o script morre aqui e mostra o erro.
-    http_response_code(500 );
-    header('Content-Type: application/json');
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Falha crítica ao carregar dependências do PHP.',
-        'error_details' => 'O arquivo api.php não conseguiu encontrar o ChatController.php.',
-        'path_tried' => __DIR__ . '/Controller/ChatController.php',
-        'exception' => $e->getMessage()
-    ]);
-    exit;
-}
-
-// Se chegou até aqui, o ChatController.php foi encontrado.
 header('Content-Type: application/json');
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Model/UserModel.php';
+require_once __DIR__ . '/Model/ChatModel.php';
+require_once __DIR__ . '/Controller/ChatController.php';
+
 $action = $_GET['action'] ?? '';
 
-if (empty($action)) {
-    http_response_code(400 );
-    echo json_encode(['status' => 'error', 'message' => 'Ação não especificada.']);
-    exit;
-}
-
-// ===================================================================
-// PASSO 3: EXECUTAR A LÓGICA DENTRO DE UM BLOCO TRY...CATCH GIGANTE
-// ===================================================================
 try {
-    // Agora, se o erro estiver DENTRO do ChatController (ex: ele não acha o Model),
-    // este bloco vai capturar.
     $controller = new \Controller\ChatController();
 
     switch ($action) {
@@ -62,21 +28,31 @@ try {
             break;
 
         case 'sendMessage':
-            // ... (código do sendMessage)
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->sendMessage();
+            } else {
+                http_response_code(405 );
+                echo json_encode(['status' => 'error', 'message' => 'Método não permitido para esta ação.']);
+            }
+            break;
+
+        case 'pusherAuth':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->pusherAuth();
+            }
             break;
 
         default:
             http_response_code(404 );
-            echo json_encode(['status' => 'error', 'message' => 'Endpoint de ação não encontrado.']);
+            echo json_encode(['status' => 'error', 'message' => 'Endpoint de API não encontrado.']);
             break;
     }
 
 } catch (Throwable $e) {
-    // Captura qualquer erro fatal (ex: Classe 'Model\ChatModel' não encontrada) e o exibe como JSON
     http_response_code(500 );
     echo json_encode([
         'status' => 'error',
-        'message' => 'Erro fatal durante a execução do controller.',
+        'message' => 'Erro fatal no servidor durante a execução da API.',
         'error_details' => [
             'message' => $e->getMessage(),
             'file' => $e->getFile(),
