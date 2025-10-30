@@ -1,7 +1,6 @@
 # Nome do Workflow
 name: CI/CD - Build e Testes
 
-# Gatilhos: quando este workflow deve rodar
 on:
   push:
     branches: [ "main" ]
@@ -12,6 +11,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    # Define o diretório de trabalho padrão para todos os passos deste job
+    defaults:
+      run:
+        working-directory: ./ClassAI # <-- PASSO CHAVE: Diz para todos os comandos rodarem dentro da pasta ClassAI
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -20,10 +24,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm' # <-- MUDANÇA 1: Cache para npm
+          cache: 'npm'
+          # O cache também precisa saber onde está o package-lock.json
+          cache-dependency-path: ClassAI/package-lock.json
 
       - name: Instalar dependências
-        run: npm ci # <-- MUDANÇA 2: Usar 'npm ci' que é o equivalente seguro do 'npm install' para CI/CD
+        run: npm ci
 
       - name: Rodar os testes
-        run: npm test # <-- MUDANÇA 3: Usar 'npm test'
+        run: npm test
