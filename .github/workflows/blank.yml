@@ -11,11 +11,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    # Define o diretório de trabalho padrão para todos os passos deste job
-    defaults:
-      run:
-        working-directory: ./ClassAI # <-- Isso continua aqui, é importante!
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -25,10 +20,13 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          # A linha 'cache-dependency-path' foi REMOVIDA
+          # O cache vai procurar o package-lock.json a partir da raiz
+          cache-dependency-path: ClassAI/package-lock.json
 
       - name: Instalar dependências
-        run: npm ci
+        # Entra na pasta e RODA o comando de instalação
+        run: cd ClassAI && npm ci
 
       - name: Rodar os testes
-        run: npm test
+        # Entra na pasta e RODA o comando de teste
+        run: cd ClassAI && npm test
