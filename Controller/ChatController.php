@@ -42,7 +42,7 @@ class ChatController {
         $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
         
         if ($success) {
-            $channelName = 'presence-chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
+            $channelName = 'private-chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
             $eventName = 'new-message';
             $payload = [
                 'senderId' => $senderId,

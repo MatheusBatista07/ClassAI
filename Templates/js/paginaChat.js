@@ -1,179 +1,184 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const PUSHER_KEY = "7c0e3086c3a3afbb1b08";
-  const PUSHER_CLUSTER = "us2";
+    const PUSHER_KEY = "7c0e3086c3a3afbb1b08";
+    const PUSHER_CLUSTER = "us2";
+    const currentUserId = parseInt(document.body.dataset.userId, 10);
 
-  const currentUserId = parseInt(document.body.dataset.userId, 10);
-  let activeContactId = null;
-  let pusherChannel = null;
+    let activeContactId = null;
+    let conversationChannel = null;
+    const onlineUsers = new Set();
 
-  const contactsView = document.getElementById("contacts-view");
-  const conversationView = document.getElementById("conversation-view");
-  const messageList = document.getElementById("message-list");
-  const messageInput = document.getElementById("message-input");
-  const sendMessageBtn = document.getElementById("send-message-btn");
-  const backButton = document.getElementById("back-to-contacts");
-  const conversationAvatar = document.getElementById("conversation-avatar");
-  const conversationName = document.getElementById("conversation-name");
+    const contactsView = document.getElementById("contacts-view");
+    const conversationView = document.getElementById("conversation-view");
+    const messageList = document.getElementById("message-list");
+    const messageInput = document.getElementById("message-input");
+    const sendMessageBtn = document.getElementById("send-message-btn");
+    const backButton = document.getElementById("back-to-contacts");
+    const conversationAvatar = document.getElementById("conversation-avatar");
+    const conversationName = document.getElementById("conversation-name");
+    const statusElement = document.getElementById("conversation-status");
 
-  const pusher = new Pusher(PUSHER_KEY, {
-    cluster: PUSHER_CLUSTER,
-    authEndpoint: '/ClassAI/api.php?action=pusherAuth'
-  });
+    const pusher = new Pusher(PUSHER_KEY, {
+        cluster: PUSHER_CLUSTER,
+        authEndpoint: '/ClassAI/api.php?action=pusherAuth'
+    });
 
-  function appendMessage(text, senderId) {
-    const messageDiv = document.createElement("div");
-    const messageType = senderId === currentUserId ? "sent" : "received";
-    messageDiv.classList.add("message", messageType);
-    messageDiv.textContent = text;
-    messageList.appendChild(messageDiv);
-    messageList.scrollTop = messageList.scrollHeight;
-  }
+    const sitePresenceChannel = pusher.subscribe('presence-site');
 
-  async function fetchAndDisplayHistory() {
-    messageList.innerHTML =
-      '<div class="text-center text-muted p-3">Carregando histórico...</div>';
+    sitePresenceChannel.bind('pusher:subscription_succeeded', (members) => {
+        onlineUsers.clear();
+        members.each(member => onlineUsers.add(member.id));
+        updateAllContactStatuses();
+    });
 
-    const url = `/ClassAI/api.php?action=getMessages&userId=${currentUserId}&contactId=${activeContactId}`;
+    sitePresenceChannel.bind('pusher:member_added', (member) => {
+        onlineUsers.add(member.id);
+        updateStatusForContact(member.id);
+    });
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(
-          `Falha na API: Status ${response.status}. Resposta do servidor: ${errorText}`
-        );
-      }
+    sitePresenceChannel.bind('pusher:member_removed', (member) => {
+        onlineUsers.delete(member.id);
+        updateStatusForContact(member.id);
+    });
 
-      const messages = await response.json();
-      messageList.innerHTML = "";
-
-      if (messages.length === 0) {
-        messageList.innerHTML =
-          '<div class="text-center text-muted p-3">Seja o primeiro a enviar uma mensagem!</div>';
-      } else {
-        messages.forEach((msg) => {
-          appendMessage(msg.conteudo, parseInt(msg.id_remetente, 10));
+    function updateAllContactStatuses() {
+        document.querySelectorAll('.chat-item').forEach(item => {
+            const contactId = parseInt(item.dataset.contactId, 10);
+            if (onlineUsers.has(contactId)) {
+                item.dataset.contactStatus = 'online';
+            } else {
+                item.dataset.contactStatus = 'offline';
+            }
         });
-      }
-    } catch (error) {
-      console.error("Erro ao carregar histórico:", error);
-      messageList.innerHTML =
-        '<div class="text-center text-danger p-3">Não foi possível carregar as mensagens. Verifique o console (F12).</div>';
     }
-  }
 
-  async function sendMessage() {
-    const messageText = messageInput.value.trim();
-    if (messageText === "" || !activeContactId) return;
-
-    const tempMessage = messageText;
-    messageInput.value = "";
-
-    const url = "/ClassAI/api.php?action=sendMessage";
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          senderId: currentUserId,
-          receiverId: activeContactId,
-          message: tempMessage,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(
-          `Falha na API ao enviar: Status ${response.status}. Resposta: ${errorText}`
-        );
-      }
-    } catch (error) {
-      console.error("Erro ao enviar mensagem:", error);
-      alert("Não foi possível enviar a mensagem.");
-      messageInput.value = tempMessage;
+    function updateStatusForContact(contactId) {
+        const contactItem = document.querySelector(`.chat-item[data-contact-id="${contactId}"]`);
+        if (contactItem) {
+            if (onlineUsers.has(contactId)) {
+                contactItem.dataset.contactStatus = 'online';
+            } else {
+                contactItem.dataset.contactStatus = 'offline';
+            }
+        }
+        if (contactId === activeContactId) {
+            const isOnline = onlineUsers.has(contactId);
+            statusElement.textContent = isOnline ? 'Online' : 'Offline';
+            statusElement.className = `chat-status ${isOnline ? 'online' : 'offline'}`;
+        }
     }
-  }
 
-  function subscribeToChannel() {
-    if (pusherChannel) {
-        pusher.unsubscribe(pusherChannel.name);
-    }
-    
-    const channelName = `presence-chat-${Math.min(currentUserId, activeContactId)}-${Math.max(currentUserId, activeContactId)}`;
-    pusherChannel = pusher.subscribe(channelName);
+    function openConversation(contactElement) {
+        activeContactId = parseInt(contactElement.dataset.contactId, 10);
+        conversationAvatar.src = contactElement.dataset.contactAvatar;
+        conversationName.textContent = contactElement.dataset.contactName;
 
-    const statusElement = document.getElementById('conversation-status');
-
-    pusherChannel.bind('pusher:subscription_succeeded', (members) => {
-        const isOnline = members.count > 1;
+        const isOnline = onlineUsers.has(activeContactId);
         statusElement.textContent = isOnline ? 'Online' : 'Offline';
         statusElement.className = `chat-status ${isOnline ? 'online' : 'offline'}`;
-    });
 
-    pusherChannel.bind('pusher:member_added', (member) => {
-        statusElement.textContent = 'Online';
-        statusElement.className = 'chat-status online';
-    });
+        fetchAndDisplayHistory();
+        subscribeToConversationChannel();
 
-    pusherChannel.bind('pusher:member_removed', (member) => {
-        statusElement.textContent = 'Offline';
-        statusElement.className = 'chat-status offline';
-    });
+        contactsView.style.display = "none";
+        conversationView.style.display = "flex";
+        messageInput.focus();
+    }
 
-    pusherChannel.bind('new-message', (data) => {
-        if ((parseInt(data.senderId, 10) === currentUserId && parseInt(data.receiverId, 10) === activeContactId) ||
-            (parseInt(data.senderId, 10) === activeContactId && parseInt(data.receiverId, 10) === currentUserId)) {
-            appendMessage(data.message, parseInt(data.senderId, 10));
+    function subscribeToConversationChannel() {
+        if (conversationChannel) {
+            pusher.unsubscribe(conversationChannel.name);
+        }
+        const channelName = `private-chat-${Math.min(currentUserId, activeContactId)}-${Math.max(currentUserId, activeContactId)}`;
+        conversationChannel = pusher.subscribe(channelName);
+
+        conversationChannel.bind('new-message', (data) => {
+            if ((parseInt(data.senderId, 10) === currentUserId && parseInt(data.receiverId, 10) === activeContactId) ||
+                (parseInt(data.senderId, 10) === activeContactId && parseInt(data.receiverId, 10) === currentUserId)) {
+                appendMessage(data.message, parseInt(data.senderId, 10));
+            }
+        });
+    }
+    
+    async function sendMessage() {
+        const messageText = messageInput.value.trim();
+        if (messageText === "" || !activeContactId) return;
+
+        const tempMessage = messageText;
+        messageInput.value = "";
+
+        const url = "/ClassAI/api.php?action=sendMessage";
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    senderId: currentUserId,
+                    receiverId: activeContactId,
+                    message: tempMessage,
+                }),
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Falha na API: ${errorText}`);
+            }
+        } catch (error) {
+            console.error("Erro ao enviar mensagem:", error);
+            alert("Não foi possível enviar a mensagem.");
+            messageInput.value = tempMessage;
+        }
+    }
+
+    function backToContacts() {
+        if (conversationChannel) {
+            pusher.unsubscribe(conversationChannel.name);
+            conversationChannel = null;
+        }
+        activeContactId = null;
+        contactsView.style.display = "block";
+        conversationView.style.display = "none";
+    }
+
+    function appendMessage(text, senderId) {
+        const messageDiv = document.createElement("div");
+        const messageType = senderId === currentUserId ? "sent" : "received";
+        messageDiv.classList.add("message", messageType);
+        messageDiv.textContent = text;
+        messageList.appendChild(messageDiv);
+        messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    async function fetchAndDisplayHistory() {
+        messageList.innerHTML = '<div class="text-center text-muted p-3">Carregando...</div>';
+        const url = `/ClassAI/api.php?action=getMessages&userId=${currentUserId}&contactId=${activeContactId}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Falha na API');
+            const messages = await response.json();
+            messageList.innerHTML = "";
+            if (messages.length === 0) {
+                messageList.innerHTML = '<div class="text-center text-muted p-3">Inicie a conversa!</div>';
+            } else {
+                messages.forEach(msg => appendMessage(msg.conteudo, parseInt(msg.id_remetente, 10)));
+            }
+        } catch (error) {
+            console.error("Erro ao carregar histórico:", error);
+            messageList.innerHTML = '<div class="text-center text-danger p-3">Erro ao carregar mensagens.</div>';
+        }
+    }
+
+    document.querySelectorAll(".chat-item").forEach((item) => {
+        item.addEventListener("click", () => openConversation(item));
+    });
+    backButton.addEventListener("click", backToContacts);
+    sendMessageBtn.addEventListener("click", sendMessage);
+    messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
         }
     });
-  }
-
-  function openConversation(contactElement) {
-    activeContactId = parseInt(contactElement.dataset.contactId, 10);
-    conversationAvatar.src = contactElement.dataset.contactAvatar;
-    conversationName.textContent = contactElement.dataset.contactName;
-
-    const status = contactElement.dataset.contactStatus;
-    const statusElement = document.getElementById("conversation-status");
-    statusElement.textContent = status === "online" ? "Online" : "Offline";
-    statusElement.className = `chat-status ${status}`;
-
-    fetchAndDisplayHistory();
-    subscribeToChannel();
-    contactsView.style.display = "none";
-    conversationView.style.display = "flex";
-    messageInput.focus();
-  }
-
-  function backToContacts() {
-    if (pusherChannel) {
-      pusher.unsubscribe(pusherChannel.name);
-      pusherChannel = null;
+    const menuToggle = document.querySelector(".header_mobile .bi-list");
+    if (menuToggle) {
+        menuToggle.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
     }
-    activeContactId = null;
-    contactsView.style.display = "block";
-    conversationView.style.display = "none";
-  }
-
-  document.querySelectorAll(".chat-item").forEach((item) => {
-    item.addEventListener("click", () => openConversation(item));
-  });
-
-  backButton.addEventListener("click", backToContacts);
-  sendMessageBtn.addEventListener("click", sendMessage);
-
-  messageInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-
-  const menuToggle = document.querySelector(".header_mobile .bi-list");
-  if (menuToggle) {
-    menuToggle.addEventListener("click", () =>
-      document.body.classList.toggle("sidebar-open")
-    );
-  }
 });
