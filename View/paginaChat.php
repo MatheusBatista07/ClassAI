@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../auth.php';
-
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Model/ChatModel.php';
 require_once __DIR__ . '/../Controller/ChatController.php';
@@ -52,9 +51,9 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                 <div class="user-profile">
                     <a href="/ClassAI/logout.php" title="Sair da sua conta">
                         <?php
-                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'])
+                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'] )
                             ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url'])
-                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome']) . '&background=random';
+                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome'] ) . '&background=random';
                         ?>
                         <img src="<?php echo $avatarUsuarioLogado; ?>"
                             alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
@@ -89,16 +88,19 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                         <?php foreach ($listaDeContatos as $contato):
                             $avatarUrl = !empty($contato['foto_perfil_url'])
                                 ? "/ClassAI/" . htmlspecialchars($contato['foto_perfil_url'])
-                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome']) . '&background=random';
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome'] ) . '&background=random';
                         ?>
                             <div class="chat-item"
                                 data-contact-id="<?php echo $contato['id']; ?>"
                                 data-contact-name="<?php echo htmlspecialchars($contato['nome'] . ' ' . $contato['sobrenome']); ?>"
                                 data-contact-avatar="<?php echo $avatarUrl; ?>"
-                                data-contact-status="<?php echo htmlspecialchars($contato['status']); ?>">
+                                data-contact-status="<?php echo htmlspecialchars($contato['status'] ?? 'offline'); ?>">
 
-                                <img src="<?php echo $avatarUrl; ?>"
-                                    alt="Avatar de <?php echo htmlspecialchars($contato['nome']); ?>" class="chat-avatar">
+                                <div class="chat-avatar-container">
+                                    <img src="<?php echo $avatarUrl; ?>"
+                                        alt="Avatar de <?php echo htmlspecialchars($contato['nome']); ?>" class="chat-avatar">
+                                    <div class="status-indicator"></div>
+                                </div>
 
                                 <div class="chat-info">
                                     <div class="chat-name"><?php echo htmlspecialchars($contato['nome'] . ' ' . $contato['sobrenome']); ?></div>
@@ -117,9 +119,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                     <img id="conversation-avatar" src="" alt="Avatar" class="chat-avatar">
                     <div class="conversation-info">
                         <div id="conversation-name" class="chat-name"></div>
-                        <div id="conversation-status" class="chat-status">
-                            <!--Status preenchido pelo JavaScript -->
-                        </div>
+                        <div id="conversation-status" class="chat-status"></div>
                     </div>
                     <div class="ms-auto"><button class="btn btn-icon"></button></div>
                 </div>

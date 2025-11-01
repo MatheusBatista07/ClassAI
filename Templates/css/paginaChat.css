@@ -660,3 +660,28 @@ body {
     flex-direction: column;
     height: 80vh; /* Ocupa uma altura maior na tela */
 }
+
+.chat-avatar-container {
+    position: relative;
+    margin-right: 15px;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: #868e96;
+    transition: background-color 0.3s ease;
+}
+
+.chat-item[data-contact-status='online'] .status-indicator {
+    background-color: #28a745;
+}
+
+.chat-item[data-contact-status='offline'] .status-indicator {
+    background-color: #868e96;
+}

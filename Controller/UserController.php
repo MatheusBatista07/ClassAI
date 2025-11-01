@@ -67,7 +67,7 @@ class UserController
             $foto = $fileData['profile_photo'];
             $caminhoTemporario = $foto['tmp_name'];
             $pastaDestino = __DIR__ . '/../public/uploads/perfil/';
-            
+
             if (!is_dir($pastaDestino)) {
                 mkdir($pastaDestino, 0775, true);
             }
@@ -114,13 +114,18 @@ class UserController
                 if (session_status() == PHP_SESSION_NONE) {
                     session_start();
                 }
+
+                if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] != $usuario['id']) {
+                    $this->usuarioModel->atualizarStatus($_SESSION['usuario_id'], 'offline');
+                }
+
                 session_regenerate_id(true);
 
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
-                
+
                 $this->usuarioModel->atualizarStatus($usuario['id'], 'online');
-                
+
                 header('Location: ../View/paginaChat.php');
                 exit;
             } else {
@@ -130,6 +135,7 @@ class UserController
             return "Nenhum usuário encontrado com este e-mail.";
         }
     }
+
 
     public function processarDelecao(int $userId): bool
     {
@@ -145,7 +151,7 @@ class UserController
                 @unlink($caminhoCompletoArquivo);
             }
         }
-        
+
         return true;
     }
 }

@@ -24,47 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sitePresenceChannel = pusher.subscribe('presence-site');
 
-    sitePresenceChannel.bind('pusher:subscription_succeeded', (members) => {
+    const updateOnlineStatus = (members) => {
         onlineUsers.clear();
-        members.each(member => onlineUsers.add(member.id));
+        members.each(member => onlineUsers.add(parseInt(member.id, 10)));
         updateAllContactStatuses();
-    });
+    };
 
-    sitePresenceChannel.bind('pusher:member_added', (member) => {
-        onlineUsers.add(member.id);
-        updateStatusForContact(member.id);
-    });
-
-    sitePresenceChannel.bind('pusher:member_removed', (member) => {
-        onlineUsers.delete(member.id);
-        updateStatusForContact(member.id);
-    });
+    sitePresenceChannel.bind('pusher:subscription_succeeded', updateOnlineStatus);
+    sitePresenceChannel.bind('pusher:member_added', () => sitePresenceChannel.trigger('pusher:subscription_succeeded', sitePresenceChannel.members));
+    sitePresenceChannel.bind('pusher:member_removed', () => sitePresenceChannel.trigger('pusher:subscription_succeeded', sitePresenceChannel.members));
 
     function updateAllContactStatuses() {
         document.querySelectorAll('.chat-item').forEach(item => {
             const contactId = parseInt(item.dataset.contactId, 10);
-            if (onlineUsers.has(contactId)) {
-                item.dataset.contactStatus = 'online';
-            } else {
-                item.dataset.contactStatus = 'offline';
+            const isOnline = onlineUsers.has(contactId);
+            
+            item.dataset.contactStatus = isOnline ? 'online' : 'offline';
+
+            if (contactId === activeContactId) {
+                statusElement.textContent = isOnline ? 'Online' : 'Offline';
+                statusElement.className = `chat-status ${isOnline ? 'online' : 'offline'}`;
             }
         });
-    }
-
-    function updateStatusForContact(contactId) {
-        const contactItem = document.querySelector(`.chat-item[data-contact-id="${contactId}"]`);
-        if (contactItem) {
-            if (onlineUsers.has(contactId)) {
-                contactItem.dataset.contactStatus = 'online';
-            } else {
-                contactItem.dataset.contactStatus = 'offline';
-            }
-        }
-        if (contactId === activeContactId) {
-            const isOnline = onlineUsers.has(contactId);
-            statusElement.textContent = isOnline ? 'Online' : 'Offline';
-            statusElement.className = `chat-status ${isOnline ? 'online' : 'offline'}`;
-        }
     }
 
     function openConversation(contactElement) {
