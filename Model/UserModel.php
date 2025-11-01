@@ -85,7 +85,11 @@ class UserModel
             (int)$termosAceitos
         ];
 
-        return $stmt->execute($params);
+        if ($stmt->execute($params)) {
+            return $this->db->lastInsertId();
+        } else {
+            return false;
+        }
     }
 
     public function encontrarUsuarioPorEmail($email)
@@ -108,7 +112,6 @@ class UserModel
             return [];
         }
     }
-
 
     public function encontrarUsuarioPorId(int $id)
     {

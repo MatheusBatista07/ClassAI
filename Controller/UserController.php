@@ -91,7 +91,34 @@ class UserController
             ]
         );
 
-        if ($this->usuarioModel->salvarUsuario($dadosUsuario)) {
+        $novoUsuarioId = $this->usuarioModel->salvarUsuario($dadosUsuario);
+
+        if ($novoUsuarioId) {
+            try {
+                require_once __DIR__ . '/../vendor/autoload.php';
+                require_once __DIR__ . '/../Config/Configuration.php';
+                $pusher = new \Pusher\Pusher(
+                    PUSHER_APP_KEY,
+                    PUSHER_APP_SECRET,
+                    PUSHER_APP_ID,
+                    ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]
+                );
+
+                $novoUsuario = $this->usuarioModel->encontrarUsuarioPorId($novoUsuarioId);
+
+                $payload = [
+                    'id' => $novoUsuario['id'],
+                    'nome' => $novoUsuario['nome'],
+                    'sobrenome' => $novoUsuario['sobrenome'],
+                    'foto_perfil_url' => $novoUsuario['foto_perfil_url']
+                ];
+
+                $pusher->trigger('canal-usuarios', 'novo-usuario-cadastrado', $payload);
+
+            } catch (\Exception $e) {
+                error_log("Pusher trigger falhou em novo-usuario-cadastrado: " . $e->getMessage());
+            }
+
             session_unset();
             session_destroy();
             header('Location: ../View/pagina-login.php?status=cadastro_sucesso');
@@ -135,7 +162,6 @@ class UserController
             return "Nenhum usuário encontrado com este e-mail.";
         }
     }
-
 
     public function processarDelecao(int $userId): bool
     {

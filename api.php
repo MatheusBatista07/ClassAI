@@ -4,24 +4,32 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/Model/UserModel.php';
-require_once __DIR__ . '/Model/ChatModel.php';
-require_once __DIR__ . '/Controller/ChatController.php';
 
 $action = $_GET['action'] ?? '';
+
+$acoesProtegidas = ['sendMessage', 'getMessages'];
+if (in_array($action, $acoesProtegidas) && !isset($_SESSION['usuario_id'])) {
+    http_response_code(403 );
+    echo json_encode(['status' => 'error', 'message' => 'Acesso negado. Usuário não autenticado.']);
+    exit;
+}
 
 try {
     $controller = new \Controller\ChatController();
 
     switch ($action) {
         case 'getMessages':
-            $userId = $_GET['userId'] ?? 0;
+            $userId = $_SESSION['usuario_id']; 
             $contactId = $_GET['contactId'] ?? 0;
             
-            if ($userId == 0 || $contactId == 0) {
+            if ($contactId == 0) {
                  http_response_code(400 );
-                 echo json_encode(['status' => 'error', 'message' => 'userId e contactId são obrigatórios.']);
+                 echo json_encode(['status' => 'error', 'message' => 'contactId é obrigatório.']);
                  exit;
             }
             $controller->getMessages($userId, $contactId);

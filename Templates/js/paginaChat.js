@@ -22,17 +22,71 @@ document.addEventListener("DOMContentLoaded", function () {
         authEndpoint: '/ClassAI/api.php?action=pusherAuth'
     });
 
+    const usersChannel = pusher.subscribe('canal-usuarios');
+
+    usersChannel.bind('novo-usuario-cadastrado', function(data) {
+        if (data.id === currentUserId) {
+            return;
+        }
+        const existingContact = document.querySelector(`.chat-item[data-contact-id="${data.id}"]`);
+        if (existingContact) {
+            return;
+        }
+        adicionarNovoContatoNaTela(data);
+    });
+
+    function adicionarNovoContatoNaTela(contato) {
+        const chatList = document.querySelector('.chat-list');
+        if (!chatList) return;
+
+        const emptyMessage = chatList.querySelector('.text-center');
+        if (emptyMessage) {
+            emptyMessage.remove();
+        }
+
+        const avatarUrl = contato.foto_perfil_url
+            ? `/ClassAI/${contato.foto_perfil_url}`
+            : `https://ui-avatars.com/api/?name=${encodeURIComponent(contato.nome )}&background=random`;
+
+        const novoContatoDiv = document.createElement('div');
+        novoContatoDiv.className = 'chat-item';
+        novoContatoDiv.dataset.contactId = contato.id;
+        novoContatoDiv.dataset.contactName = `${contato.nome} ${contato.sobrenome}`;
+        novoContatoDiv.dataset.contactAvatar = avatarUrl;
+        novoContatoDiv.dataset.contactStatus = 'offline';
+
+        novoContatoDiv.innerHTML = `
+            <div class="chat-avatar-container">
+                <img src="${avatarUrl}" alt="Avatar de ${contato.nome}" class="chat-avatar">
+                <div class="status-indicator"></div>
+            </div>
+            <div class="chat-info">
+                <div class="chat-name">${contato.nome} ${contato.sobrenome}</div>
+                <div class="chat-message">Clique para iniciar a conversa...</div>
+            </div>
+            <div class="chat-time"></div>
+        `;
+
+        chatList.prepend(novoContatoDiv);
+    }
+
     const sitePresenceChannel = pusher.subscribe('presence-site');
 
-    const updateOnlineStatus = (members) => {
+    sitePresenceChannel.bind('pusher:subscription_succeeded', (members) => {
         onlineUsers.clear();
         members.each(member => onlineUsers.add(parseInt(member.id, 10)));
         updateAllContactStatuses();
-    };
+    });
 
-    sitePresenceChannel.bind('pusher:subscription_succeeded', updateOnlineStatus);
-    sitePresenceChannel.bind('pusher:member_added', () => sitePresenceChannel.trigger('pusher:subscription_succeeded', sitePresenceChannel.members));
-    sitePresenceChannel.bind('pusher:member_removed', () => sitePresenceChannel.trigger('pusher:subscription_succeeded', sitePresenceChannel.members));
+    sitePresenceChannel.bind('pusher:member_added', (member) => {
+        onlineUsers.add(parseInt(member.id, 10));
+        updateAllContactStatuses();
+    });
+
+    sitePresenceChannel.bind('pusher:member_removed', (member) => {
+        onlineUsers.delete(parseInt(member.id, 10));
+        updateAllContactStatuses();
+    });
 
     function updateAllContactStatuses() {
         document.querySelectorAll('.chat-item').forEach(item => {
@@ -147,9 +201,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.querySelectorAll(".chat-item").forEach((item) => {
-        item.addEventListener("click", () => openConversation(item));
-    });
+    const chatList = document.querySelector('.chat-list');
+    if (chatList) {
+        chatList.addEventListener('click', function(event) {
+            const chatItem = event.target.closest('.chat-item');
+            if (chatItem) {
+                openConversation(chatItem);
+            }
+        });
+    }
+
     backButton.addEventListener("click", backToContacts);
     sendMessageBtn.addEventListener("click", sendMessage);
     messageInput.addEventListener("keypress", (e) => {
@@ -158,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
+    
     const menuToggle = document.querySelector(".header_mobile .bi-list");
     if (menuToggle) {
         menuToggle.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
