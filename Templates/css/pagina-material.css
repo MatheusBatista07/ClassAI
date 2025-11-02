@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body {
+    background-color: #140025;
+    color: white;
+    font-family: 'Montserrat', 'ChakraPetch', Arial, Helvetica, sans-serif;
+    margin-top: 3.0rem;
+    margin-left: 2.0rem;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo_material p{
+    width: 90.0rem;
+    line-height: 1.5rem;
+    font-size: 1.2rem;
+}
