@@ -54,11 +54,28 @@
             <div class="left-column">
                 <header>
                     <h1 style="font-weight:700;">Chat GPT no dia a dia: Automatize tarefas com texto</h1>
+                    <div class="hero-image-responsive"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
                     <div class="info-line">
                         <p><img class="icon-text" src="../Images/Página do Curso/ícone lapis.png" alt="lápis"> Professor João Gomes</p>
                         <p>Nível de dificuldade: Iniciante</p>
                     </div>
                 </header>
+
+                  <div class="header_mobile">
+                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    class="img-logo">
+
+                <div class="iconezinhos" style="display: flex; gap: 1.0rem">
+                 <div class="header-icon notification-icon-container">
+                    <i class="bi bi-bell" id="notification-bell-mobile"></i>
+                    <div class="notification-dot" id="notification-dot-mobile"></div>
+                </div>
+                <i class="bi bi-list"></i>
+                </div>
+
+            </div>
+
+
                 <section class="description" style="font-weight: 200;">
                     <p>Descubra como usar o poder do ChatGPT para simplificar sua rotina! Neste curso prático, você aprenderá a automatizar tarefas do dia a dia utilizando comandos de texto inteligentes.</p>
                     <p>Desde escrever e-mails e organizar ideias até gerar relatórios, criar conteúdos e resolver problemas rapidamente – tudo com a ajuda da inteligência artificial. Ideal para quem quer ganhar tempo, aumentar a produtividade e transformar sua maneira de trabalhar com texto.</p>

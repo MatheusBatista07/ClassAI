@@ -425,3 +425,222 @@ gap: 2.0rem;
     text-align: center;
     text-decoration: none;
 }
+
+.hero-image-responsive{
+    display: none;
+}
+
+.header_mobile{
+    display: none;
+  }
+
+/* _______________________________________________________ */
+/* ===========================
+   📱 Responsividade: Tablets
+   min-width: 768px até max-width: 1024px
+=========================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    min-height: 100vh;
+    width: 200px;
+    position: fixed;
+    padding: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100; /* garante que fique sobre o fundo, mas abaixo do conteúdo */
+  }
+
+  /* ===== Main Content ===== */
+  .main-content {
+    margin-left: 200px; /* evita sobreposição */
+    padding: 20px;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  /* ===== Conteúdo Principal ===== */
+  .conteudo__principal {
+    flex-direction: column; /* empilha as colunas */
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .left-column, 
+  .right-column {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .right-column {
+    margin-top: 2rem;
+  }
+
+
+  /* ===== Imagens ===== */
+  .hero-image {
+    display: none; /* esconde a imagem grande da direita */
+  }
+
+  .hero-image-responsive {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .hero-image-responsive img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  /* ===== Botão ===== */
+  .cta-button {
+    width: 100%;
+    max-width: 700px;
+    font-size: 1.5rem;
+  }
+
+  /* ===== Cards ===== */
+  .modules-track {
+    justify-content: center;
+  }
+
+  /* ===== Notificações ===== */
+    .notifications-popup {
+    width: 350px;
+    right: 20px;
+    left: auto; /* impede que fique centralizado */
+    top: 80px;
+  }
+
+  .header_mobile{
+    display: none;
+  } 
+}
+
+/* ===========================
+   📱 Responsividade Mobile
+   only screen and (min-width: 320px) and (max-width: 767px)
+=========================== */
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2000;
+    background-color: var(--bg-dark);
+    border-right: none;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  /* Sidebar aberta (classe controlada por JS no body) */
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  /* ===== Header Desktop ===== */
+  .header {
+    display: none; /* Oculta header desktop */
+  }
+
+  /* ===== Header Mobile ===== */
+  .header_mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-dark);
+    padding: 10px 20px;
+    z-index: 3000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .header_mobile .img-logo {
+    width: 120px;
+    height: auto;
+  }
+
+  .header_mobile i {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* ===== Main Content ===== */
+  .main-content {
+    margin-left: 0;
+    padding-top: 80px; /* espaço pro header fixo */
+    padding-bottom: 20px;
+    padding-inline: 20px;
+  }
+
+  /* ===== Layout principal ===== */
+  .conteudo__principal {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* ===== Hero Image ===== */
+  .hero-image {
+    display: none;
+  }
+
+  .hero-image-responsive {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .hero-image-responsive img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  /* ===== Botão CTA ===== */
+  .cta-button {
+    width: 100%;
+    font-size: 1.3rem;
+    height: 3rem;
+  }
+
+  /* ===== Módulos ===== */
+  .modules-track {
+    justify-content: center;
+  }
+
+  /* ===== Notificações ===== */
+     .notifications-popup {
+    width: 350px;
+    right: 20px;
+    left: auto; /* impede que fique centralizado */
+    top: 80px;
+    margin-top: 3.0rem;
+  }
+}
+
+

@@ -1,14 +1,20 @@
-   // LÓGICA DE NOTIFICAÇÕES
-
+// LÓGICA DE NOTIFICAÇÕES
 document.addEventListener('DOMContentLoaded', function() {
 
-    const notificationBell = document.getElementById('notification-bell');
+    // Seleciona os ícones e elementos do popup
+    const notificationBells = [
+        document.getElementById('notification-bell'),
+        document.getElementById('notification-bell-mobile')
+    ];
     const notificationPopup = document.getElementById('notifications-popup');
-    const notificationDot = document.getElementById('notification-dot');
+    const notificationDots = [
+        document.getElementById('notification-dot'),
+        document.getElementById('notification-dot-mobile')
+    ];
     const notificationList = document.getElementById('notification-list');
     const todasBadge = document.getElementById('todas-badge');
 
-    if (!notificationBell || !notificationPopup || !notificationDot || !notificationList || !todasBadge) {
+    if (!notificationPopup || !notificationList || !todasBadge) {
         console.warn("Elementos de notificação não encontrados. A funcionalidade está desativada.");
         return;
     }
@@ -26,7 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         notifications.forEach(notif => {
-            const iconClass = { 'bem-vindo': 'fa-solid fa-party-horn', 'curso': 'fa-solid fa-graduation-cap', 'feedback': 'fa-solid fa-star', 'mensagem': 'fa-solid fa-comment-dots' }[notif.type] || 'fa-solid fa-bell';
+            const iconClass = { 
+                'bem-vindo': 'fa-solid fa-party-horn', 
+                'curso': 'fa-solid fa-graduation-cap', 
+                'feedback': 'fa-solid fa-star', 
+                'mensagem': 'fa-solid fa-comment-dots' 
+            }[notif.type] || 'fa-solid fa-bell';
             const notificationCardHTML = `
                 <div class="notification-card">
                     <div class="notification-card-header"><i class="${iconClass}"></i><span>${notif.title}</span></div>
@@ -42,7 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const fortyEightHoursAgo = now - (3600 * 1000 * 48);
         mockDatabase.notifications = mockDatabase.notifications.filter(notif => notif.timestamp > fortyEightHoursAgo);
         const unreadNotifications = mockDatabase.notifications.filter(notif => !notif.viewed);
-        notificationDot.style.display = unreadNotifications.length > 0 ? 'block' : 'none';
+
+        // Atualiza todos os pontos de notificação
+        notificationDots.forEach(dot => {
+            if(dot) dot.style.display = unreadNotifications.length > 0 ? 'block' : 'none';
+        });
+
         todasBadge.textContent = mockDatabase.notifications.length;
         renderNotifications([...mockDatabase.notifications].reverse());
     }
@@ -58,13 +74,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    notificationBell.addEventListener('click', function(event) {
-        event.stopPropagation();
-        togglePopup();
+    // Atrela clique a todos os ícones de sino
+    notificationBells.forEach(bell => {
+        if(!bell) return;
+        bell.addEventListener('click', function(event) {
+            event.stopPropagation();
+            togglePopup();
+        });
     });
 
+    // Fecha o popup ao clicar fora
     document.addEventListener('click', function(event) {
-        if (!notificationPopup.contains(event.target) && event.target !== notificationBell) {
+        const clickedOnBell = notificationBells.some(bell => bell && bell.contains(event.target));
+        if (!notificationPopup.contains(event.target) && !clickedOnBell) {
             notificationPopup.style.display = 'none';
         }
     });
