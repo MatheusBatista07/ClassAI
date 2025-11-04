@@ -52,6 +52,20 @@
             </div>
         </div>
 
+            <div class="header_mobile">
+                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    class="img-logo">
+
+                <div class="iconezinhos" style="display: flex; gap: 1.0rem">
+                 <div class="header-icon notification-icon-container">
+                    <i class="bi bi-bell" id="notification-bell-mobile"></i>
+                    <div class="notification-dot" id="notification-dot-mobile"></div>
+                </div>
+                <i class="bi bi-list"></i>
+                </div>
+
+            </div>
+
         <!-- 2.2. CONTEÚDO DA AULA (NOVA SEÇÃO ) -->
         <div class="lesson-area">
             <header class="lesson-header">
@@ -82,10 +96,10 @@
             <div class="popup-header"><h2>Notificações</h2></div>
             <div class="popup-tabs">
                 <button class="tab-button active" data-tab="todas">Todas <span class="badge" id="todas-badge"></span></button>
-                <button class="tab-button" data-tab="alertas">Alertas</button>
-                <button class="tab-button" data-tab="noticias">Notícias</button>
             </div>
-            <div class="popup-body" id="notification-list"></div>
+            <div class="popup-bo
+            
+            dy" id="notification-list"></div>
         </div>
 
     </div>
@@ -93,6 +107,7 @@
     <!-- 3. SCRIPTS -->
     <script src="../Templates/js/pagina-modulo.js"></script>
     <script src="../Templates/js/notificacao.js"></script>
+    <script src="../Templates/js/sandwich.js"></script>
 
 </body>
 </html>
