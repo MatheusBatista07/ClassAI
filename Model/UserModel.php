@@ -99,19 +99,56 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getTodosUsuarios(int $excludeUserId): array
-    {
-        $sql = "SELECT id, nome, sobrenome, foto_perfil_url, funcao, status, ultimo_acesso
-            FROM usuarios 
-            WHERE id != ?";
-        try {
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$excludeUserId]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            return [];
-        }
+// Dentro da classe UserModel
+
+public function getTodosUsuarios(int $currentUserId): array
+{
+    $sql = "
+        SELECT 
+            u.id, 
+            u.nome, 
+            u.sobrenome, 
+            u.foto_perfil_url, 
+            u.status,
+            (
+                SELECT m.conteudo 
+                FROM mensagens m 
+                WHERE (m.id_remetente = u.id AND m.id_destinatario = :currentUserId1) 
+                   OR (m.id_remetente = :currentUserId2 AND m.id_destinatario = u.id)
+                ORDER BY m.timestamp DESC 
+                LIMIT 1
+            ) AS ultima_mensagem,
+            (
+                SELECT m.timestamp 
+                FROM mensagens m 
+                WHERE (m.id_remetente = u.id AND m.id_destinatario = :currentUserId3) 
+                   OR (m.id_remetente = :currentUserId4 AND m.id_destinatario = u.id)
+                ORDER BY m.timestamp DESC 
+                LIMIT 1
+            ) AS timestamp_ultima_mensagem
+        FROM 
+            usuarios u
+        WHERE 
+            u.id != :currentUserId5
+        ORDER BY 
+            timestamp_ultima_mensagem DESC
+    ";
+
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':currentUserId1', $currentUserId, PDO::PARAM_INT);
+        $stmt->bindValue(':currentUserId2', $currentUserId, PDO::PARAM_INT);
+        $stmt->bindValue(':currentUserId3', $currentUserId, PDO::PARAM_INT);
+        $stmt->bindValue(':currentUserId4', $currentUserId, PDO::PARAM_INT);
+        $stmt->bindValue(':currentUserId5', $currentUserId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Erro ao buscar lista de contatos: " . $e->getMessage());
+        return [];
     }
+}
+
 
     public function encontrarUsuarioPorId(int $id)
     {

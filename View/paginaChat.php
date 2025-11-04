@@ -104,9 +104,31 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
 
                                 <div class="chat-info">
                                     <div class="chat-name"><?php echo htmlspecialchars($contato['nome'] . ' ' . $contato['sobrenome']); ?></div>
-                                    <div class="chat-message">Clique para iniciar a conversa...</div>
+                                    <div class="chat-message">
+                                        <?php
+                                            if (!empty($contato['ultima_mensagem'])) {
+                                                $mensagem = htmlspecialchars($contato['ultima_mensagem']);
+                                                echo mb_strlen($mensagem) > 30 ? mb_substr($mensagem, 0, 30) . '...' : $mensagem;
+                                            } else {
+                                                echo 'Clique para iniciar a conversa...';
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
-                                <div class="chat-time"></div>
+                                <div class="chat-meta">
+                                    <div class="chat-time">
+                                        <?php
+                                            if (!empty($contato['timestamp_ultima_mensagem'])) {
+                                                try {
+                                                    $date = new DateTime($contato['timestamp_ultima_mensagem']);
+                                                    echo $date->format('H:i');
+                                                } catch (Exception $e) {
+                                                }
+                                            }
+                                        ?>
+                                    </div>
+                                    <span class="unread-count" style="display: none;">0</span>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>

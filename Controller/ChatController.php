@@ -28,35 +28,42 @@ class ChatController {
         }
     }
     
-    public function sendMessage() {
-        $data = json_decode(file_get_contents('php://input'), true);
-        if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
-            header("HTTP/1.1 400 Bad Request");
-            echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
-            return;
-        }
-        $senderId = (int)$data['senderId'];
-        $receiverId = (int)$data['receiverId'];
-        $messageText = htmlspecialchars($data['message']);
-        
-        $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
-        
-        if ($success) {
-            $channelName = 'private-chat-' . min($senderId, $receiverId) . '-' . max($senderId, $receiverId);
-            $eventName = 'new-message';
-            $payload = [
-                'senderId' => $senderId,
-                'receiverId' => $receiverId,
-                'message' => $messageText,
-                'timestamp' => date('Y-m-d H:i:s')
-            ];
-            $this->pusher->trigger($channelName, $eventName, $payload);
-            echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
-        } else {
-            header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
-        }
+public function sendMessage() {
+    date_default_timezone_set('America/Sao_Paulo');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
+        header("HTTP/1.1 400 Bad Request");
+        echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
+        return;
     }
+    $senderId = (int)$data['senderId'];
+    $receiverId = (int)$data['receiverId'];
+    $messageText = htmlspecialchars($data['message']);
+    
+    $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
+    
+    if ($success) {
+        $channelName = 'private-chat-user-' . $receiverId;
+        $eventName = 'new-message';
+        $payload = [
+            'senderId' => $senderId,
+            'receiverId' => $receiverId,
+            'message' => $messageText,
+            'timestamp' => date('Y-m-d H:i:s')
+        ];
+        
+        $socketId = $data['socket_id'] ?? null;
+        $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
+        
+        echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
+    } else {
+        header("HTTP/1.1 500 Internal Server Error");
+        echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
+    }
+}
+
+
     
     public function getMessages($userId, $contactId) {
         $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);

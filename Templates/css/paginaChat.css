@@ -24,7 +24,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     min-height: 100vh;
     width: 280px;
@@ -88,13 +87,11 @@ body {
     margin: 20px 0;
 }
 
-/* Main Content */
 .main-content {
     margin-left: 280px;
     padding: 30px;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -153,7 +150,6 @@ body {
     margin-right: 4px;
 }
 
-/* Certificates Section */
 .certificates-header {
     margin-bottom: 30px;
 }
@@ -242,12 +238,8 @@ body {
     display: none ;
 }
 
-/* ================================================= */
-/*                     PÁGINA DE CHAT                  */
-/* ================================================= */
-
 .chat-container {
-    background-color: var(--bg-sidebar ); /* #1a0a2e */
+    background-color: var(--bg-sidebar );
     border-radius: 16px;
     padding: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -258,7 +250,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    flex-wrap: wrap; /* Para responsividade */
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -356,199 +348,19 @@ body {
     color: #34b7f1; 
 }
 
-.chat-time {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-left: 16px;
-}
-
 .chat-status {
     font-size: 0.85rem;
     font-weight: bold;
 }
 
-
 .chat-status.online {
     color: #28a745;
 }
-
 
 .chat-status.offline {
     color: #dc3545; 
 }
 
-
-/* Ajustes responsivos para o chat */
-@media (max-width: 850px) {
-    .chat-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .chat-header h1{
-        font-size: 1rem;
-    }
-    .chat-item {
-        padding: 12px;
-    }
-    .chat-name {
-        font-size: 0.9rem;
-    }
-    .chat-message {
-        font-size: 0.5rrem;
-    }
-    .chat-time {
-        font-size: 0.7rem;
-    }
-    .chat-avatar{
-        display: flex;
-        justify-content: space-between;
-        width: 2rem;
-        height: 2rem;
-
-    }
-}
-
-
-
-
-
-
-
-/* ================================================= */
-/*                  RESPONSIVIDADE                   */
-/* ================================================= */
-
-@media (max-width: 850px) {
-    /* 1. Esconde a sidebar e ajusta o conteúdo principal */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        transform: translateX(-100%); /* Começa escondida */
-        transition: transform 0.3s ease-in-out;
-        z-index: 2000; /* Fica por cima de tudo */
-        background-color: var(--bg-dark);
-        border-right: none;
-        padding: 20px;
-        overflow-y: auto; /* Permite rolar se o menu for grande */
-    }
-
-    /* Mostra a sidebar quando a classe 'sidebar-open' é adicionada */
-    body.sidebar-open .sidebar {
-        transform: translateX(0);
-    }
-
-    /* HEADER MOBILE */
-    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center; /* Centraliza conteúdo */
-        align-items: center;
-        background-color: var(--bg-dark);
-        padding: 10px 20px;
-        z-index: 3000;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Esconde os ícones do header desktop */
-    .header-icon,
-    .header-icons,
-    .user-profile {
-        display: none;
-    }
-
-    /* Mostra o header mobile */
-    .header .header_mobile {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    .header .header_mobile .img-logo {
-        width: 120px;
-    }
-
-    .header .header_mobile i {
-        font-size: 28px;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Ajusta conteúdo principal pra não ficar atrás do header fixo */
-    .main-content {
-        margin-left: 0;
-        margin-top: 80px;
-        padding: 20px;
-    }
-
-    /* =============================== */
-    /*    AJUSTE DOS CARDS MOBILE     */
-    /* =============================== */
-
-    .card {
-        display: flex;
-        flex-direction: column; /* empilha conteúdo */
-        align-items: flex-start;
-        text-align: left;
-        gap: 10px;
-    }
-
-    /* se tiver imagem no card, deixa ela certinha */
-    .card img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-
-    /* botão "Ver Certificado" ocupa a largura total */
-    .card .btn-ver-certificado,
-    .card button {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    /* caso tenha uma div de ações */
-    .card .actions {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .certificate-action{
-        display: flex;
-        width: 8.8rem;
-        font-size: 0.6rem;
-    }
-
-    .certificate-title{
-        font-size: 0.7rem;
-    }
-
-    .certificate-subtitle{
-        font-size: 0.6rem;
-        display: none;
-       }
-}   
-
-/* Seu CSS existente vai aqui... (não vou colar tudo de novo para ser breve) */
-/* ... */
-/* Cole todo o seu CSS original acima desta linha */
-
-
-/* ================================================= */
-/*            ESTILOS PARA JANELA DE CONVERSA        */
-/* ================================================= */
-
-/* Wrapper para as duas visualizações */
 .chat-wrapper {
     width: 100%;
 }
@@ -577,14 +389,9 @@ body {
     flex-grow: 1;
 }
 
-.chat-status {
-    font-size: 0.8rem;
-    color: #22c55e; /* Verde para "Online" */
-}
-
 .message-list {
-    height: 60vh; /* Altura fixa para a lista de mensagens */
-    overflow-y: auto; /* Habilita a rolagem */
+    height: 60vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -592,32 +399,53 @@ body {
     margin-bottom: 16px;
 }
 
-/* Estilo para as bolhas de mensagem */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+    margin-bottom: 10px;
+}
+
+.message-wrapper.sent {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message-wrapper.received {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
 .message {
     padding: 10px 16px;
     border-radius: 18px;
-    max-width: 70%;
+    max-width: 100%;
     line-height: 1.4;
+    margin-bottom: 4px;
 }
 
 .message.sent {
     background-color: var(--accent-purple);
     color: var(--text-light);
     border-bottom-right-radius: 4px;
-    align-self: flex-end; /* Alinha à direita */
 }
 
 .message.received {
     background-color: var(--bg-card);
     color: var(--text-light);
     border-bottom-left-radius: 4px;
-    align-self: flex-start; /* Alinha à esquerda */
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0 8px;
 }
 
 .message-input-area {
     display: flex;
     gap: 10px;
-    margin-top: auto; /* Empurra para o final */
+    margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -654,11 +482,10 @@ body {
     color: white;
 }
 
-/* Ajuste para a altura do container da conversa */
 #conversation-view.chat-container {
     display: flex;
     flex-direction: column;
-    height: 80vh; /* Ocupa uma altura maior na tela */
+    height: 80vh;
 }
 
 .chat-avatar-container {
@@ -673,15 +500,175 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    border: 2px solid white;
-    background-color: #868e96;
+    border: 2px solid var(--bg-sidebar);
+    background-color: #6c757d;
     transition: background-color 0.3s ease;
 }
 
 .chat-item[data-contact-status='online'] .status-indicator {
-    background-color: #28a745;
+    background-color: #22c55e;
 }
 
 .chat-item[data-contact-status='offline'] .status-indicator {
-    background-color: #868e96;
+    background-color: #6c757d;
+}
+
+.chat-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    margin-left: 16px;
+    min-width: 50px;
+}
+
+.chat-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.unread-count {
+    background-color: #25D366;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+    min-width: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 850px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 2000;
+        background-color: var(--bg-dark);
+        border-right: none;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    body.sidebar-open .sidebar {
+        transform: translateX(0);
+    }
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-dark);
+        padding: 10px 20px;
+        z-index: 3000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-icon,
+    .header-icons,
+    .user-profile {
+        display: none;
+    }
+
+    .header .header_mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header .header_mobile .img-logo {
+        width: 120px;
+    }
+
+    .header .header_mobile i {
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-top: 80px;
+        padding: 20px;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 10px;
+    }
+
+    .card img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .card .btn-ver-certificado,
+    .card button {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .card .actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .certificate-action{
+        display: flex;
+        width: 8.8rem;
+        font-size: 0.6rem;
+    }
+
+    .certificate-title{
+        font-size: 0.7rem;
+    }
+
+    .certificate-subtitle{
+        font-size: 0.6rem;
+        display: none;
+    }
+    
+    .chat-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .chat-header h1{
+        font-size: 1rem;
+    }
+    .chat-item {
+        padding: 12px;
+    }
+    .chat-name {
+        font-size: 0.9rem;
+    }
+    .chat-message {
+        font-size: 0.5rrem;
+    }
+    .chat-time {
+        font-size: 0.7rem;
+    }
+    .chat-avatar{
+        display: flex;
+        justify-content: space-between;
+        width: 2rem;
+        height: 2rem;
+    }
 }
