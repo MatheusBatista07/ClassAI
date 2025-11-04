@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="user-profile">
-                    <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
+                    <img src="../Images/Página Inicial/Reynan.webp" alt="Avatar do Usuário" class="user-avatar">
                     <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
@@ -95,9 +95,17 @@
                 <div class="col-lg-8">
                     <section class="profile-card-main mb-4">
                         <div class="profile-intro">
-                            <h2 class="user-name">
-                                <span class="decorated-name">Jeferson Souza</span>
-                            </h2>
+                            <!-- Contêiner para alinhar o nome e a carinha -->
+                            <div class="user-title-line">
+                                <h2 class="user-name">
+                                    <span class="decorated-name">Jeferson Souza</span>
+                                </h2>
+                                <!-- CARINHA FELIZ ADICIONADA AQUI -->
+                                <div class="mood-face-container">
+                                    <img src="../Images/Página Inicial/carinha feliz.png" alt="Humor da constância"
+                                        class="mood-face">
+                                </div>
+                            </div>
                             <p class="user-course">Aluno - Técnico em Logística</p>
                         </div>
 
@@ -150,9 +158,11 @@
                             </div>
                         </header>
                         <div class="row g-4">
-                            <div class="col-md-6 col-xl-4">
+                            <!-- Card 1 -->
+                            <div class="col-6 col-md-6 col-xl-4">
                                 <article class="course-card" data-course-id="1">
-                                    <img src="https://i.imgur.com/Lz2d6fM.png" class="card-img-top" alt="Curso ChatGPT">
+                                    <img src="../Images/Página Inicial/curso1.png" class="card-img-top"
+                                        alt="Curso ChatGPT">
                                     <div class="card-body">
                                         <h4 class="course-title">ChatGPT no dia a dia: Automatize tarefas com texto</h4>
                                         <div class="course-instructor-info">
@@ -164,9 +174,10 @@
                                     </div>
                                 </article>
                             </div>
-                            <div class="col-md-6 col-xl-4">
+                            <!-- Card 2 -->
+                            <div class="col-6 col-md-6 col-xl-4">
                                 <article class="course-card" data-course-id="2">
-                                    <img src="https://i.imgur.com/uI9A9eM.png" class="card-img-top"
+                                    <img src="../Images/Página Inicial/curso2.png" class="card-img-top"
                                         alt="Curso IA para Leigos">
                                     <div class="card-body">
                                         <h4 class="course-title">Introdução à Inteligência Artificial para Leigos</h4>
@@ -179,9 +190,10 @@
                                     </div>
                                 </article>
                             </div>
-                            <div class="col-md-6 col-xl-4">
+                            <!-- Card 3 -->
+                            <div class="col-6 col-md-6 col-xl-4">
                                 <article class="course-card" data-course-id="3">
-                                    <img src="https://i.imgur.com/VvBvYyq.png" class="card-img-top"
+                                    <img src="../Images/Página Inicial/curso3.png" class="card-img-top"
                                         alt="Curso Prompt Engineering">
                                     <div class="card-body">
                                         <h4 class="course-title">Prompt Engineering para Iniciantes</h4>
@@ -196,6 +208,7 @@
                             </div>
                         </div>
                     </section>
+
                 </div>
 
                 <div class="col-lg-4">
@@ -204,25 +217,29 @@
                         <ul class="list-unstyled course-list-hover">
                             <li>
                                 <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/Lz2d6fM.png" alt="Capa do curso IA para Pequenos Empreendedores" class="course-item-image">
+                                    <img src="https://i.imgur.com/Lz2d6fM.png"
+                                        alt="Capa do curso IA para Pequenos Empreendedores" class="course-item-image">
                                     <span>IA para Pequenos Empreendedores</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/uI9A9eM.png" alt="Capa do curso IA para Profissionais de RH" class="course-item-image">
+                                    <img src="https://i.imgur.com/uI9A9eM.png"
+                                        alt="Capa do curso IA para Profissionais de RH" class="course-item-image">
                                     <span>IA para Profissionais de RH</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/VvBvYyq.png" alt="Capa do curso IA para Vendedores" class="course-item-image">
+                                    <img src="https://i.imgur.com/VvBvYyq.png" alt="Capa do curso IA para Vendedores"
+                                        class="course-item-image">
                                     <span>IA para Vendedores e Atendimento ao Cliente</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/johG9Yt.png" alt="Capa do curso IA para Designers" class="course-item-image">
+                                    <img src="https://i.imgur.com/johG9Yt.png" alt="Capa do curso IA para Designers"
+                                        class="course-item-image">
                                     <span>IA para Designers: Crie Artes e Protótipos com Ferramentas de IA</span>
                                 </a>
                             </li>
