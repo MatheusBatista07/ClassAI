@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
     --bg-dark: #0a0015;
@@ -238,8 +238,8 @@ body {
     height: 1.5rem;
 }
 
-.header .header_mobile{
-    display: none ;
+.header .header_mobile {
+    display: none;
 }
 
 
@@ -253,6 +253,7 @@ body {
 /* ================================================= */
 
 @media (max-width: 850px) {
+
     /* 1. Esconde a sidebar e ajusta o conteúdo principal */
     .sidebar {
         position: fixed;
@@ -261,13 +262,16 @@ body {
         width: 100%;
         height: 100%;
         min-height: 100vh;
-        transform: translateX(-100%); /* Começa escondida */
+        transform: translateX(-100%);
+        /* Começa escondida */
         transition: transform 0.3s ease-in-out;
-        z-index: 2000; /* Fica por cima de tudo */
+        z-index: 2000;
+        /* Fica por cima de tudo */
         background-color: var(--bg-dark);
         border-right: none;
         padding: 20px;
-        overflow-y: auto; /* Permite rolar se o menu for grande */
+        overflow-y: auto;
+        /* Permite rolar se o menu for grande */
     }
 
     /* Mostra a sidebar quando a classe 'sidebar-open' é adicionada */
@@ -282,7 +286,8 @@ body {
         left: 0;
         width: 100%;
         display: flex;
-        justify-content: center; /* Centraliza conteúdo */
+        justify-content: center;
+        /* Centraliza conteúdo */
         align-items: center;
         background-color: var(--bg-dark);
         padding: 10px 20px;
@@ -315,18 +320,18 @@ body {
         cursor: pointer;
     }
 
-    .user-profile-mobile{
-           display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    background-color: #290841;
-    padding: 0.2rem;
-    border-radius: 1rem;
-    transition: background-color 0.2s ease-in-out;
+    .user-profile-mobile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        background-color: #290841;
+        padding: 0.2rem;
+        border-radius: 1rem;
+        transition: background-color 0.2s ease-in-out;
     }
 
-    .user-avatar-mobile{
+    .user-avatar-mobile {
         width: 3.5rem;
     }
 
@@ -343,7 +348,8 @@ body {
 
     .card {
         display: flex;
-        flex-direction: column; /* empilha conteúdo */
+        flex-direction: column;
+        /* empilha conteúdo */
         align-items: flex-start;
         text-align: left;
         gap: 10px;
@@ -372,18 +378,18 @@ body {
         justify-content: center;
     }
 
-    .certificate-action{
+    .certificate-action {
         display: flex;
         width: 8.8rem;
         font-size: 0.6rem;
     }
 
-    .certificate-title{
+    .certificate-title {
         font-size: 0.7rem;
     }
 
-    .certificate-subtitle{
+    .certificate-subtitle {
         font-size: 0.6rem;
         display: none;
-       }
+    }
 }
