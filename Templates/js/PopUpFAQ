@@ -1,0 +1,25 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const accordion = document.querySelector('.accordion');
+    const faqSection = document.querySelector('.faq-list-section');
+
+    if (accordion && faqSection) {
+        accordion.addEventListener('scroll', function() {
+            // Verifica se a posição do scroll + a altura visível é igual (ou maior) à altura total do conteúdo
+            const isAtEnd = accordion.scrollTop + accordion.clientHeight >= accordion.scrollHeight - 1;
+
+            if (isAtEnd) {
+                // Adiciona a classe que esconde o fade
+                faqSection.classList.add('scrolled-to-end');
+            } else {
+                // Remove a classe se o usuário rolar para cima novamente
+                faqSection.classList.remove('scrolled-to-end');
+            }
+        });
+
+        // Verifica o estado inicial, caso a lista já comece sem precisar de scroll
+        const needsScroll = accordion.scrollHeight > accordion.clientHeight;
+        if (!needsScroll) {
+            faqSection.classList.add('scrolled-to-end');
+        }
+    }
+});
