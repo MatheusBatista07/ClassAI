@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const currentUserId = document.body.dataset.userId;
     if (!currentUserId) return;
@@ -6,20 +5,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const PUSHER_KEY = "7c0e3086c3a3afbb1b08";
     const PUSHER_CLUSTER = "us2";
     
+    if (!window.pusher) {
+        window.pusher = new Pusher(PUSHER_KEY, {
+            cluster: PUSHER_CLUSTER,
+            authEndpoint: '/ClassAI/api.php?action=pusherAuth'
+        });
+        console.log("NOVA CONEXÃO PUSHER CRIADA");
+    }
+    
     window.onlineUsers = new Set();
 
-    const pusher = new Pusher(PUSHER_KEY, {
-        cluster: PUSHER_CLUSTER,
-        authEndpoint: '/ClassAI/api.php?action=pusherAuth'
-    });
-
-    const sitePresenceChannel = pusher.subscribe('presence-site');
+    const sitePresenceChannel = window.pusher.subscribe('presence-site');
 
     function updateVisualStatus() {
         document.querySelectorAll('.chat-item[data-contact-status]').forEach(item => {
             const contactId = parseInt(item.dataset.contactId, 10);
             const isOnline = window.onlineUsers.has(contactId);
-            
             item.dataset.contactStatus = isOnline ? 'online' : 'offline';
         });
 
@@ -35,12 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     sitePresenceChannel.bind('pusher:subscription_succeeded', (members) => {
+        console.log("CONECTADO AO CANAL 'presence-site'");
         window.onlineUsers.clear();
         members.each(member => window.onlineUsers.add(parseInt(member.id, 10)));
+        console.log("USUÁRIOS ONLINE:", window.onlineUsers);
         updateVisualStatus();
     });
 
     sitePresenceChannel.bind('pusher:member_added', (member) => {
+        console.log("USUÁRIO ENTROU:", member.id);
         window.onlineUsers.add(parseInt(member.id, 10));
         updateVisualStatus();
     });
@@ -54,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logoutLink) {
         logoutLink.addEventListener('click', function(e) {
             e.preventDefault();
-            pusher.disconnect();
+            if (window.pusher) {
+                window.pusher.disconnect();
+            }
             setTimeout(() => { window.location.href = this.href; }, 100);
         });
     }

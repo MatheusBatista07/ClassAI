@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
-
-/* =============================================== */
-/*                 VARIÁVEIS E GERAL               */
-/* =============================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'  );
 
 :root {
     --bg-dark: #0a0015;
@@ -29,10 +25,6 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
 }
-
-/* =============================================== */
-/*               SIDEBAR E HEADER                  */
-/* =============================================== */
 
 .sidebar {
     min-height: 100vh;
@@ -163,10 +155,6 @@ body {
     display: none;
 }
 
-/* ======================================================= */
-/*      PÁGINA PRINCIPAL: TÍTULOS E CARD DE PERFIL         */
-/* ======================================================= */
-
 .main-title {
     font-size: 2rem;
     font-weight: 700;
@@ -262,10 +250,6 @@ body {
     margin-left: 48px;
 }
 
-/* ======================================================= */
-/*             CARDS DE RESUMO DE CURSOS                   */
-/* ======================================================= */
-
 .summary-card {
     background-color: var(--purple-dark);
     border-radius: 24px;
@@ -322,10 +306,6 @@ body {
     color: var(--text-secondary);
     margin: 0.25rem 0 0 0;
 }
-
-/* ======================================================= */
-/*                  CURSOS EM TENDÊNCIA                    */
-/* ======================================================= */
 
 .section-header-actions {
     display: flex;
@@ -474,10 +454,6 @@ body {
     color: white;
 }
 
-/* ======================================================= */
-/*      COLUNA DA DIREITA: CURSOS EM ANDAMENTO E CHAT      */
-/* ======================================================= */
-
 .right-section-card {
     background-color: var(--purple-medium);
     border-radius: 1rem;
@@ -540,10 +516,6 @@ body {
     text-underline-offset: 4px;
 }
 
-/* ======================================================= */
-/*                         CHAT                            */
-/* ======================================================= */
-
 .chat-item {
     display: flex;
     align-items: center;
@@ -556,16 +528,12 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
-
 li:last-child .chat-item {
     border-bottom: none;
 }
 
-
 .chat-item:hover {
-    
     border-color: var(--purple-light); 
-   
     box-shadow: 0 0 10px 2px rgba(147, 51, 234, 0.2); 
 }
 
@@ -627,19 +595,13 @@ li:last-child .chat-item {
     align-self: flex-start;
 }
 
-
 .course-card.liked::after {
     content: '\f415'; 
     background-color: #dc3545; 
     color: white;
 }
 
-/* ================================================= */
-/*                  RESPONSIVIDADE                   */
-/* ================================================= */
-
 @media (max-width: 850px) {
-    
     .sidebar {
         position: fixed;
         top: 0;
@@ -656,11 +618,9 @@ li:last-child .chat-item {
         overflow-y: auto; 
     }
 
-    
     body.sidebar-open .sidebar {
         transform: translateX(0);
     }
-
 
     .header {
         position: fixed;
@@ -676,14 +636,12 @@ li:last-child .chat-item {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    
     .header-icon,
     .header-icons,
     .user-profile {
         display: none;
     }
 
-   
     .header .header_mobile {
         display: flex;
         justify-content: space-between;
@@ -701,10 +659,50 @@ li:last-child .chat-item {
         cursor: pointer;
     }
 
-
     .main-content {
         margin-left: 0;
         margin-top: 80px;
         padding: 20px;
     }
+}
+
+.chat-list-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.chat-list-link:hover .chat-item {
+    border-color: var(--purple-light);
+    box-shadow: 0 0 10px 2px rgba(147, 51, 234, 0.2);
+}
+
+.chat-avatar-container {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.chat-avatar-container img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.status-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #6c757d;
+    border: 2px solid var(--purple-medium);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: background-color 0.3s ease;
+}
+
+.chat-item[data-contact-status="online"] .status-indicator {
+    background-color: #22C55E;
 }

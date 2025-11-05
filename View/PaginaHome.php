@@ -28,7 +28,7 @@ if ($caminhoFoto) {
     $fotoUsuario = 'https://via.placeholder.com/40';
 }
 
-$chatModel = new \Model\ChatModel( );
+$chatModel = new \Model\ChatModel();
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
 
 ?>
@@ -44,7 +44,7 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
     <link rel="stylesheet" href="../Templates/css/PaginaHome.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId); ?>">
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
 
@@ -235,11 +235,12 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                         </ul>
                     </section>
 
+                    <!-- SEÇÃO DO CHAT CORRIGIDA -->
                     <section class="right-section-card">
                         <h3 class="section-title mb-3"><i class="bi bi-chat-dots-fill"></i> Chat</h3>
-                        <ul class="list-unstyled">
-                            <?php if (empty($conversasRecentes )): ?>
-                                <li class="text-center text-muted p-3">Nenhuma conversa recente.</li>
+                        <div class="chat-list-home">
+                            <?php if (empty($conversasRecentes)): ?>
+                                <p class="text-center text-muted p-3">Nenhuma conversa recente.</p>
                             <?php else: ?>
                                 <?php foreach ($conversasRecentes as $conversa): ?>
                                     <?php
@@ -254,10 +255,10 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']);
                                     ?>
-                                    <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">
-                                        <li class="chat-item">
+                                    <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
+                                        <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">
                                             <div class="chat-avatar-container">
                                                 <img src="<?php echo htmlspecialchars($fotoContato); ?>" alt="Avatar de <?php echo $nomeContato; ?>">
                                                 <div class="status-indicator"></div>
@@ -270,11 +271,11 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                                                 </div>
                                             </div>
                                             <time class="chat-time"><?php echo $horaFormatada; ?></time>
-                                        </li>
+                                        </div>
                                     </a>
                                 <?php endforeach; ?>
                             <?php endif; ?>
-                        </ul>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -282,8 +283,9 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Templates/js/PaginaHome.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script src="../Templates/js/globalPresence.js"></script>
+    <script src="../Templates/js/PaginaHome.js"></script>
 </body>
 
 </html>

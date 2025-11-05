@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../auth.php';
+$userId = $_SESSION['usuario_id'] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +10,13 @@
     <title>(TÍTULO DO MATERIAL)</title>
     <link rel="stylesheet" href="../Templates/css/pagina-material.css">
 </head>
-<body>
+<body data-user-id="<?php echo htmlspecialchars($userId); ?>">
 
 <header>
     <a href="pagina-modulo.php" class="voltar">
         <img src="../Images/Certificado/Seta_retornar.png" alt="voltar">
     </a>
 </header>
-
 
 <div class="container">
 <div class="conteudo_material">
@@ -31,5 +34,8 @@
 </div>
     
 </div>
+
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="../Templates/js/globalPresence.js"></script>
 </body>
 </html>

@@ -1,6 +1,13 @@
+// Arquivo: Templates/js/paginaChat.js (VERSÃO FINAL CORRIGIDA)
+
 document.addEventListener("DOMContentLoaded", function () {
-    const PUSHER_KEY = "7c0e3086c3a3afbb1b08";
-    const PUSHER_CLUSTER = "us2";
+    // 2. Verifica se a conexão global existe. Se não, não faz nada.
+    if (!window.pusher) {
+        console.error("Conexão global do Pusher não encontrada. O globalPresence.js deve ser carregado primeiro.");
+        return;
+    }
+
+    const pusher = window.pusher; // Usa a conexão existente
     const currentUserId = parseInt(document.body.dataset.userId, 10);
 
     let activeContactId = null;
@@ -16,11 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const conversationAvatar = document.getElementById("conversation-avatar");
     const conversationName = document.getElementById("conversation-name");
     const statusElement = document.getElementById("conversation-status");
-
-    const pusher = new Pusher(PUSHER_KEY, {
-        cluster: PUSHER_CLUSTER,
-        authEndpoint: '/ClassAI/api.php?action=pusherAuth'
-    });
 
     const myPersonalChannelName = `private-chat-user-${currentUserId}`;
     const myPersonalChannel = pusher.subscribe(myPersonalChannelName);
