@@ -85,16 +85,27 @@
                     <i class="bi bi-bell"></i>
                 </div>
 
+
+
                 <div class="user-profile">
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
                     <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
+
+
+            <!--Header mobile-->
             <div class="header_mobile">
                 <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
                     class="img-logo">
-                <i class="bi bi-list"></i>
+                  <div class="user-profile-mobile">
+                    <img src="../Images/Página de Apresentação/Lazo.png" alt="Avatar do Usuário" class="user-avatar-mobile">
+                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                </div>
             </div>
+
+
+
         </div>
 
         <div class="certificates-section">

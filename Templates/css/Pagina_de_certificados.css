@@ -315,6 +315,10 @@ body {
         cursor: pointer;
     }
 
+    .user-avatar-mobile{
+        width: 3.5rem;
+    }
+
     /* Ajusta conteúdo principal pra não ficar atrás do header fixo */
     .main-content {
         margin-left: 0;
