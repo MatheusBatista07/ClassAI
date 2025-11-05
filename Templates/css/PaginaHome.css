@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
 
-/* =============================================== */
-/*                 VARIÁVEIS E GERAL               */
-/* =============================================== */
-
 :root {
     --bg-dark: #0a0015;
     --purple-dark: #190D2B;
@@ -29,10 +25,6 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
 }
-
-/* =============================================== */
-/*               SIDEBAR E HEADER                  */
-/* =============================================== */
 
 .sidebar {
     min-height: 100vh;
@@ -164,10 +156,6 @@ body {
 .header .header_mobile {
     display: none;
 }
-
-/* ======================================================= */
-/*      PÁGINA PRINCIPAL: TÍTULOS E CARD DE PERFIL         */
-/* ======================================================= */
 
 .main-title {
     font-size: 2rem;
