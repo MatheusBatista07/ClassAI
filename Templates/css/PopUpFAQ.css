@@ -251,10 +251,6 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* =============================================== */
-/*           AJUSTES PARA LAYOUT LARGO             */
-/* =============================================== */
-
 @media (min-width: 768px) {
     .btn-submit {
         width: auto;
