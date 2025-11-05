@@ -315,6 +315,17 @@ body {
         cursor: pointer;
     }
 
+    .user-profile-mobile{
+           display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background-color: #290841;
+    padding: 0.2rem;
+    border-radius: 1rem;
+    transition: background-color 0.2s ease-in-out;
+    }
+
     .user-avatar-mobile{
         width: 3.5rem;
     }
