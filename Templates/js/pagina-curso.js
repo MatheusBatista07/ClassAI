@@ -1,4 +1,4 @@
-// No arquivo: pagina-curso.js (ou como você o chamou)
+// Js dos cursos
 
 document.addEventListener('DOMContentLoaded', function() {
     // ================== CORREÇÃO 1: Simular o ID do curso atual ==================

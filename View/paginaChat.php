@@ -31,7 +31,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
         <ul class="nav-menu">
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="#" class="nav-link active"><i class="bi bi-chat"></i> Chat</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-book"></i> Cursos</a></li>
+            <li class="nav-item"><a href="PaginaPrincipalCursos.php" class="nav-link"><i class="bi bi-book"></i> Cursos</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
         </ul>

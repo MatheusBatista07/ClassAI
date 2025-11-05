@@ -1,18 +1,24 @@
-
 <?php
+
+use Model\Connection;
+require_once __DIR__ . '/../Model/Connection.php';
 
 class CursosModel {
     private $db;
 
     public function __construct() {
-        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8";
-        $this->db = new PDO($dsn, DB_USER, DB_PASSWORD);
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->db = Connection::getInstance();
     }
 
-public function getAllCourses() {
-    $stmt = $this->db->query("SELECT id, nome_curso, instrutor, instrutor_foto_url, curso_foto_url, status FROM cursos_avaliados");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+    public function getAllCourses() {
+        $stmt = $this->db->query("SELECT id_curso, nome_curso, prof_curso, prof_foto_url, capa_curso, dificuldade FROM cursos ORDER BY nome_curso ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getInscricoesByUserId(int $userId) {
+        $stmt = $this->db->prepare("SELECT id_curso_fk, status FROM inscricoes WHERE id_usuario_fk = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    }
 }
 ?>
