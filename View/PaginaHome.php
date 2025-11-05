@@ -95,12 +95,10 @@
                 <div class="col-lg-8">
                     <section class="profile-card-main mb-4">
                         <div class="profile-intro">
-                            <!-- Contêiner para alinhar o nome e a carinha -->
                             <div class="user-title-line">
                                 <h2 class="user-name">
                                     <span class="decorated-name">Jeferson Souza</span>
                                 </h2>
-                                <!-- CARINHA FELIZ ADICIONADA AQUI -->
                                 <div class="mood-face-container">
                                     <img src="../Images/Página Inicial/carinha feliz.png" alt="Humor da constância"
                                         class="mood-face">
@@ -157,55 +155,35 @@
                                 </div>
                             </div>
                         </header>
+                        
+                        <!-- LOCAL CORRETO PARA O LOOP DOS CURSOS -->
                         <div class="row g-4">
-                            <!-- Card 1 -->
-                            <div class="col-6 col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="1">
-                                    <img src="../Images/Página Inicial/curso1.png" class="card-img-top"
-                                        alt="Curso ChatGPT">
-                                    <div class="card-body">
-                                        <h4 class="course-title">ChatGPT no dia a dia: Automatize tarefas com texto</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/S2ankoG.png" alt="Avatar Aline Santos"
-                                                class="instructor-avatar">
-                                            <span class="course-instructor">Aline Santos</span>
+                            <?php 
+                            // Supondo que a variável $cursos venha do seu controller
+                            // Se não houver cursos, você pode colocar um 'else' ou simplesmente não mostrar nada.
+                            if (isset($cursos ) && !empty($cursos)):
+                                foreach ($cursos as $curso): 
+                            ?>
+                                <div class="col-6 col-md-6 col-xl-4">
+                                    <article class="course-card" data-course-id="<?php echo htmlspecialchars($curso['id']); ?>">
+                                        <img src="<?php echo htmlspecialchars($curso['imagem_url']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($curso['titulo']); ?>">
+                                        <div class="card-body">
+                                            <h4 class="course-title"><?php echo htmlspecialchars($curso['titulo']); ?></h4>
+                                            <div class="course-instructor-info">
+                                                <img src="<?php echo htmlspecialchars($curso['instrutor_avatar']); ?>" alt="Avatar" class="instructor-avatar">
+                                                <span class="course-instructor"><?php echo htmlspecialchars($curso['instrutor_nome']); ?></span>
+                                            </div>
+                                            <button class="btn btn-enroll w-100">Matricular-me</button>
                                         </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
-                                    </div>
-                                </article>
-                            </div>
-                            <!-- Card 2 -->
-                            <div class="col-6 col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="2">
-                                    <img src="../Images/Página Inicial/curso2.png" class="card-img-top"
-                                        alt="Curso IA para Leigos">
-                                    <div class="card-body">
-                                        <h4 class="course-title">Introdução à Inteligência Artificial para Leigos</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/johG9Yt.png" alt="Avatar João Pedro"
-                                                class="instructor-avatar">
-                                            <span class="course-instructor">João Pedro</span>
-                                        </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
-                                    </div>
-                                </article>
-                            </div>
-                            <!-- Card 3 -->
-                            <div class="col-6 col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="3">
-                                    <img src="../Images/Página Inicial/curso3.png" class="card-img-top"
-                                        alt="Curso Prompt Engineering">
-                                    <div class="card-body">
-                                        <h4 class="course-title">Prompt Engineering para Iniciantes</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/I9X1LpA.png" alt="Avatar Pedro Carlos"
-                                                class="instructor-avatar">
-                                            <span class="course-instructor">Pedro Carlos</span>
-                                        </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
-                                    </div>
-                                </article>
-                            </div>
+                                    </article>
+                                </div>
+                            <?php 
+                                endforeach;
+                            else:
+
+                                echo "<p>Nenhum curso em tendência no momento.</p>";
+                            endif;
+                            ?>
                         </div>
                     </section>
 
