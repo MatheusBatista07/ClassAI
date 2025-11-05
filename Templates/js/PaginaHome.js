@@ -1,18 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const courseCards = document.querySelectorAll('.course-card');
-
     
     courseCards.forEach(card => {
-        
-        const likeIcon = card.querySelector('::after'); 
-        
-    
         const courseId = card.dataset.courseId;
 
-      
         card.addEventListener('click', function(event) {
-          
             const heartRect = card.getBoundingClientRect();
             const heartSize = 32; 
             const heartX = heartRect.right - 16 - (heartSize / 2);
@@ -21,43 +14,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (distance < heartSize / 2) { 
                 event.preventDefault(); 
-                event.stopPropagation(); 
+                event.stopPropagation();
 
-              
                 card.classList.toggle('liked');
-
-            
                 sendLike(courseId, card.classList.contains('liked'));
             }
         });
     });
 
-});
+    function sendLike(courseId, isLiked) {
+        console.log(`Curso ${courseId} foi ${isLiked ? 'curtido' : 'descurtido'}`);
+    }
 
+    const container = document.getElementById('trending-courses-container');
+    const prevButton = document.getElementById('carousel-prev');
+    const nextButton = document.getElementById('carousel-next');
 
-function sendLike(courseId, isLiked) {
-    console.log(`Curso ${courseId} foi ${isLiked ? 'curtido' : 'descurtido'}`);
+    if (container && prevButton && nextButton) {
 
-    fetch('/user/like', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest' 
-        },
-        body: JSON.stringify({
-            course_id: courseId,
-            liked: isLiked
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            console.log('Ação registrada com sucesso no servidor!');
-        } else {
-            console.error('Falha ao registrar a ação.');
+        prevButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const scrollAmount = container.querySelector('.course-card').offsetWidth + 24;
+            container.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const scrollAmount = container.querySelector('.course-card').offsetWidth + 24;
+            container.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        function updateCarouselButtons() {
+            if (!container.querySelector('.course-card')) return;
+            
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+            
+            prevButton.classList.toggle('active', container.scrollLeft > 0);
+            nextButton.classList.toggle('active', container.scrollLeft < maxScrollLeft - 5);
         }
-    })
-    .catch(error => {
-        console.error('Erro na requisição:', error);
-    });
-}
+
+        container.addEventListener('scroll', updateCarouselButtons);
+        
+        new ResizeObserver(updateCarouselButtons).observe(container);
+
+        updateCarouselButtons();
+    }
+
+});

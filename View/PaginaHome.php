@@ -28,8 +28,9 @@ if ($caminhoFoto) {
     $fotoUsuario = 'https://via.placeholder.com/40';
 }
 
-$chatModel = new \Model\ChatModel();
+$chatModel = new \Model\ChatModel( );
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
+$cursosTendencia = $cursosModel->getTrendingCourses(12);
 
 ?>
 <!DOCTYPE html>
@@ -42,9 +43,10 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../Templates/css/PaginaHome.css">
+    <link rel="stylesheet" href="../Templates/css/paginaChat.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
 
@@ -155,51 +157,38 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                             <div class="section-header-actions">
                                 <a href="PaginaPrincipalCursos.php" class="btn-view-more">Ver mais</a>
                                 <div class="carousel-nav">
-                                    <a href="#" class="btn-carousel-nav" aria-label="Anterior"><i class="bi bi-chevron-left"></i></a>
-                                    <a href="#" class="btn-carousel-nav active" aria-label="Próximo"><i class="bi bi-chevron-right"></i></a>
+                                    <a href="#" id="carousel-prev" class="btn-carousel-nav" aria-label="Anterior"><i class="bi bi-chevron-left"></i></a>
+                                    <a href="#" id="carousel-next" class="btn-carousel-nav active" aria-label="Próximo"><i class="bi bi-chevron-right"></i></a>
                                 </div>
                             </div>
                         </header>
-                        <div class="row g-4">
-                            <div class="col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="1">
-                                    <img src="https://i.imgur.com/Lz2d6fM.png" class="card-img-top" alt="Curso ChatGPT">
-                                    <div class="card-body">
-                                        <h4 class="course-title">ChatGPT no dia a dia: Automatize tarefas com texto</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/S2ankoG.png" alt="Avatar Aline Santos" class="instructor-avatar">
-                                            <span class="course-instructor">Aline Santos</span>
-                                        </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
+                        <div id="trending-courses-container" class="row g-4">
+                            <?php if (empty($cursosTendencia)): ?>
+                                <div class="col-12">
+                                    <p class="text-center text-muted">Nenhum curso encontrado no momento.</p>
+                                </div>
+                            <?php else: ?>
+                                <?php foreach ($cursosTendencia as $curso): ?>
+                                    <?php
+                                    $imagemCurso = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
+                                    $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
+                                    ?>
+                                    <div class="col-md-6 col-xl-4">
+                                        <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
+                                            <img src="<?php echo $imagemCurso; ?>" class="card-img-top" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>">
+                                            <div class="card-body">
+                                                <h4 class="course-title"><?php echo htmlspecialchars($curso['nome_curso']); ?></h4>
+                                                <div class="course-instructor-info">
+                                                    <img src="<?php echo $fotoInstrutor; ?>" alt="Avatar de <?php echo $nomeInstrutor; ?>" class="instructor-avatar">
+                                                    <span class="course-instructor"><?php echo $nomeInstrutor; ?></span>
+                                                </div>
+                                                <button class="btn btn-enroll w-100">Matricular-me</button>
+                                            </div>
+                                        </article>
                                     </div>
-                                </article>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="2">
-                                    <img src="https://i.imgur.com/uI9A9eM.png" class="card-img-top" alt="Curso IA para Leigos">
-                                    <div class="card-body">
-                                        <h4 class="course-title">Introdução à Inteligência Artificial para Leigos</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/johG9Yt.png" alt="Avatar João Pedro" class="instructor-avatar">
-                                            <span class="course-instructor">João Pedro</span>
-                                        </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <article class="course-card" data-course-id="3">
-                                    <img src="https://i.imgur.com/VvBvYyq.png" class="card-img-top" alt="Curso Prompt Engineering">
-                                    <div class="card-body">
-                                        <h4 class="course-title">Prompt Engineering para Iniciantes</h4>
-                                        <div class="course-instructor-info">
-                                            <img src="https://i.imgur.com/I9X1LpA.png" alt="Avatar Pedro Carlos" class="instructor-avatar">
-                                            <span class="course-instructor">Pedro Carlos</span>
-                                        </div>
-                                        <button class="btn btn-enroll w-100">Matricular-me</button>
-                                    </div>
-                                </article>
-                            </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </section>
                 </div>
@@ -235,11 +224,10 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                         </ul>
                     </section>
 
-                    <!-- SEÇÃO DO CHAT CORRIGIDA -->
                     <section class="right-section-card">
                         <h3 class="section-title mb-3"><i class="bi bi-chat-dots-fill"></i> Chat</h3>
                         <div class="chat-list-home">
-                            <?php if (empty($conversasRecentes)): ?>
+                            <?php if (empty($conversasRecentes )): ?>
                                 <p class="text-center text-muted p-3">Nenhuma conversa recente.</p>
                             <?php else: ?>
                                 <?php foreach ($conversasRecentes as $conversa): ?>
@@ -255,7 +243,7 @@ $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']);
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">
