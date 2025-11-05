@@ -44,4 +44,46 @@ class ChatModel
             return [];
         }
     }
+
+// Cole esta função corrigida no lugar da antiga em Model/ChatModel.php
+
+public function getRecentConversations(int $userId, int $limit = 4): array
+{
+    $sql = "
+        SELECT 
+            u.id AS contact_id,
+            u.nome,
+            u.sobrenome,
+            u.foto_perfil_url,
+            m.conteudo AS ultima_mensagem,
+            m.timestamp,
+            m.status_leitura, -- <<< CORREÇÃO APLICADA AQUI
+            m.id_remetente
+        FROM mensagens m
+        JOIN (
+            SELECT 
+                GREATEST(id_remetente, id_destinatario) as user1,
+                LEAST(id_remetente, id_destinatario) as user2,
+                MAX(id) as last_message_id
+            FROM mensagens
+            WHERE id_remetente = :userId OR id_destinatario = :userId
+            GROUP BY user1, user2
+        ) AS lm ON m.id = lm.last_message_id
+        JOIN usuarios u ON u.id = IF(m.id_remetente = :userId, m.id_destinatario, m.id_remetente)
+        ORDER BY m.timestamp DESC
+        LIMIT :limitVal;
+    ";
+
+    try {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':limitVal', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Erro ao buscar conversas recentes: " . $e->getMessage());
+        return [];
+    }
+}
+
 }

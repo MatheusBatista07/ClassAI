@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../Templates/css/pagina-curso.css">
-     <link rel="stylesheet" href="../Templates/css/notificacao.css">
+    <link rel="stylesheet" href="../Templates/css/notificacao.css">
 </head>
+
 <body>
 
     <!-- 1. SIDEBAR (Barra Lateral ) -->
     <div class="sidebar">
         <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
-            <li class="nav-item"><a href="#" class="nav-link active"><i class="bi bi-book"></i> Cursos</a></li>
+            <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
+            <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
+            <li class="nav-item"><a href="PaginaPrincipalCursos.php" class="nav-link active"><i class="bi bi-book"></i> Cursos</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
         </ul>
@@ -61,19 +63,19 @@
                     </div>
                 </header>
 
-                  <div class="header_mobile">
-                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
-                    class="img-logo">
+                <div class="header_mobile">
+                    <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                        class="img-logo">
 
-                <div class="iconezinhos" style="display: flex; gap: 1.0rem">
-                 <div class="header-icon notification-icon-container">
-                    <i class="bi bi-bell" id="notification-bell-mobile"></i>
-                    <div class="notification-dot" id="notification-dot-mobile"></div>
-                </div>
-                <i class="bi bi-list"></i>
-                </div>
+                    <div class="iconezinhos" style="display: flex; gap: 1.0rem">
+                        <div class="header-icon notification-icon-container">
+                            <i class="bi bi-bell" id="notification-bell-mobile"></i>
+                            <div class="notification-dot" id="notification-dot-mobile"></div>
+                        </div>
+                        <i class="bi bi-list"></i>
+                    </div>
 
-            </div>
+                </div>
 
 
                 <section class="description" style="font-weight: 200;">
@@ -92,13 +94,13 @@
                 <div class="hero-image"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
                 <button class="cta-button">Inscreva-se</button>
                 <div class="target-audience">
-                      <h3>Para quem é...</h3>
+                    <h3>Para quem é...</h3>
                     <ul>
                         <li>Marketing e Comunicação</li>
                         <li>Educação</li>
                         <li>Tecnologia (Dev, TI, etc.)</li>
                         <li>Saúde (com cuidado!)</li>
-                      <li>Empreendedores e Freelancers</li>
+                        <li>Empreendedores e Freelancers</li>
                         <li>Criativos (escritores, artistas, designers)</li>
                     </ul>
                 </div>
@@ -107,7 +109,9 @@
 
         <!-- 2.3. POP-UP DE NOTIFICAÇÕES (Dentro do main-content para herdar o posicionamento) -->
         <div class="notifications-popup" id="notifications-popup">
-            <div class="popup-header"><h2>Notificações</h2></div>
+            <div class="popup-header">
+                <h2>Notificações</h2>
+            </div>
             <div class="popup-tabs">
                 <button class="tab-button active" data-tab="todas">Todas <span class="badge" id="todas-badge"></span></button>
             </div>
@@ -120,6 +124,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Templates/js/pagina-curso.js"></script>
     <script src="../Templates/js/notificacao.js"></script>
-
+    <script src="../Templates/js/globalPresence.js"></script>
 </body>
+
 </html>

@@ -114,7 +114,6 @@ class UserController
                 ];
 
                 $pusher->trigger('canal-usuarios', 'novo-usuario-cadastrado', $payload);
-
             } catch (\Exception $e) {
                 error_log("Pusher trigger falhou em novo-usuario-cadastrado: " . $e->getMessage());
             }
@@ -133,9 +132,7 @@ class UserController
         if (empty($email) || empty($senha)) {
             return "E-mail e senha são obrigatórios.";
         }
-
         $usuario = $this->usuarioModel->encontrarUsuarioPorEmail($email);
-
         if ($usuario) {
             if (password_verify($senha, $usuario['senha'])) {
                 if (session_status() == PHP_SESSION_NONE) {
@@ -150,10 +147,13 @@ class UserController
 
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_sobrenome'] = $usuario['sobrenome'];
+                $_SESSION['usuario_foto_url'] = $usuario['foto_perfil_url'];
+                $_SESSION['usuario_funcao'] = $usuario['funcao'];
 
                 $this->usuarioModel->atualizarStatus($usuario['id'], 'online');
 
-                header('Location: ../View/paginaChat.php');
+                header('Location: ../View/PaginaHome.php');
                 exit;
             } else {
                 return "Senha incorreta. Por favor, tente novamente.";
@@ -162,6 +162,7 @@ class UserController
             return "Nenhum usuário encontrado com este e-mail.";
         }
     }
+
 
     public function processarDelecao(int $userId): bool
     {

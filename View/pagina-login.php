@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['userPassword'] ?? '';
     $erro = $controller->processarLogin($email, $senha);
     if ($erro === null) {
-        header('Location: paginaChat.php');
+        header('Location: PaginaHome.php');
         exit;
     }
 }
@@ -75,5 +75,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 <script src="../Templates/js/MostrarSenha.js"></script>
 <script src="../Templates/js/pagina-login.js"></script>
-
+<script src="../Templates/js/globalPresence.js"></script>
 </html>

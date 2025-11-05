@@ -5,6 +5,7 @@ require_once __DIR__ . '/../Model/ChatModel.php';
 require_once __DIR__ . '/../Controller/ChatController.php';
 
 $currentUserId = $_SESSION['usuario_id'];
+$initialContactId = $_GET['contactId'] ?? 'null';
 
 $userModel = new \Model\UserModel();
 $usuarioLogado = $userModel->encontrarUsuarioPorId($currentUserId);
@@ -24,13 +25,13 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
     <link rel="stylesheet" href="/ClassAI/Templates/css/paginaChat.css">
 </head>
 
-<body data-user-id="<?php echo $currentUserId; ?>">
+<body data-user-id="<?php echo $currentUserId; ?>" data-initial-contact-id="<?php echo $initialContactId; ?>" data-active-contact-id="">
 
     <div class="sidebar">
         <img src="/ClassAI/Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
-            <li class="nav-item"><a href="#" class="nav-link active"><i class="bi bi-chat"></i> Chat</a></li>
+            <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
+            <li class="nav-item"><a href="paginaChat.php" class="nav-link active"><i class="bi bi-chat"></i> Chat</a></li>
             <li class="nav-item"><a href="PaginaPrincipalCursos.php" class="nav-link"><i class="bi bi-book"></i> Cursos</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
@@ -51,9 +52,9 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                 <div class="user-profile">
                     <a href="/ClassAI/logout.php" title="Sair da sua conta">
                         <?php
-                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'] )
+                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'])
                             ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url'])
-                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome'] ) . '&background=random';
+                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome']) . '&background=random';
                         ?>
                         <img src="<?php echo $avatarUsuarioLogado; ?>"
                             alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
@@ -88,7 +89,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                         <?php foreach ($listaDeContatos as $contato):
                             $avatarUrl = !empty($contato['foto_perfil_url'])
                                 ? "/ClassAI/" . htmlspecialchars($contato['foto_perfil_url'])
-                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome'] ) . '&background=random';
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome']) . '&background=random';
                         ?>
                             <div class="chat-item"
                                 data-contact-id="<?php echo $contato['id']; ?>"
@@ -106,25 +107,25 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                                     <div class="chat-name"><?php echo htmlspecialchars($contato['nome'] . ' ' . $contato['sobrenome']); ?></div>
                                     <div class="chat-message">
                                         <?php
-                                            if (!empty($contato['ultima_mensagem'])) {
-                                                $mensagem = htmlspecialchars($contato['ultima_mensagem']);
-                                                echo mb_strlen($mensagem) > 30 ? mb_substr($mensagem, 0, 30) . '...' : $mensagem;
-                                            } else {
-                                                echo 'Clique para iniciar a conversa...';
-                                            }
+                                        if (!empty($contato['ultima_mensagem'])) {
+                                            $mensagem = htmlspecialchars($contato['ultima_mensagem']);
+                                            echo mb_strlen($mensagem) > 30 ? mb_substr($mensagem, 0, 30) . '...' : $mensagem;
+                                        } else {
+                                            echo 'Clique para iniciar a conversa...';
+                                        }
                                         ?>
                                     </div>
                                 </div>
                                 <div class="chat-meta">
                                     <div class="chat-time">
                                         <?php
-                                            if (!empty($contato['timestamp_ultima_mensagem'])) {
-                                                try {
-                                                    $date = new DateTime($contato['timestamp_ultima_mensagem']);
-                                                    echo $date->format('H:i');
-                                                } catch (Exception $e) {
-                                                }
+                                        if (!empty($contato['timestamp_ultima_mensagem'])) {
+                                            try {
+                                                $date = new DateTime($contato['timestamp_ultima_mensagem']);
+                                                echo $date->format('H:i');
+                                            } catch (Exception $e) {
                                             }
+                                        }
                                         ?>
                                     </div>
                                     <span class="unread-count" style="display: none;">0</span>
@@ -157,6 +158,6 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script src="/ClassAI/Templates/js/paginaChat.js"></script>
+    <script src="../Templates/js/globalPresence.js"></script>
 </body>
-
 </html>

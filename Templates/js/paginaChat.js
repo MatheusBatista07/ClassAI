@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let activeContactId = null;
     let conversationChannel = null;
-    const onlineUsers = new Set();
     let typingTimeout = null;
 
     const contactsView = document.getElementById("contacts-view");
@@ -28,31 +27,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
     myPersonalChannel.bind('new-message', function(data) {
         const senderId = parseInt(data.senderId, 10);
-
         if (senderId === activeContactId) {
             appendMessage(data.message, senderId, data.timestamp);
-        }else {
-    const contactItem = document.querySelector(`.chat-item[data-contact-id="${senderId}"]`);
-    if (contactItem) {
-        const unreadBadge = contactItem.querySelector('.unread-count');
-        if (unreadBadge) {
-            let currentCount = unreadBadge.textContent === '99+' ? 99 : (parseInt(unreadBadge.textContent, 10) || 0);
-            currentCount++;
-            unreadBadge.textContent = currentCount > 99 ? '99+' : currentCount;
-            unreadBadge.style.display = 'inline-block';
+        } else {
+            const contactItem = document.querySelector(`.chat-item[data-contact-id="${senderId}"]`);
+            if (contactItem) {
+                const unreadBadge = contactItem.querySelector('.unread-count');
+                if (unreadBadge) {
+                    let currentCount = unreadBadge.textContent === '99+' ? 99 : (parseInt(unreadBadge.textContent, 10) || 0);
+                    currentCount++;
+                    unreadBadge.textContent = currentCount > 99 ? '99+' : currentCount;
+                    unreadBadge.style.display = 'inline-block';
+                }
+            }
         }
-    }
-}
         updateContactListPreview(senderId, data.message, data.timestamp);
     });
 
     const usersChannel = pusher.subscribe('canal-usuarios');
     usersChannel.bind('novo-usuario-cadastrado', function(data) {
-        if (data.id === currentUserId || document.querySelector(`.chat-item[data-contact-id="${data.id}"]`)) {
-            return;
-        }
+        if (data.id === currentUserId || document.querySelector(`.chat-item[data-contact-id="${data.id}"]`)) return;
         adicionarNovoContatoNaTela(data);
     });
+
+    function openConversation(contactElement) {
+        const unreadBadge = contactElement.querySelector('.unread-count');
+        if (unreadBadge) {
+            unreadBadge.textContent = '0';
+            unreadBadge.style.display = 'none';
+        }
+        
+        activeContactId = parseInt(contactElement.dataset.contactId, 10);
+        document.body.dataset.activeContactId = activeContactId;
+
+        conversationAvatar.src = contactElement.dataset.contactAvatar;
+        conversationName.textContent = contactElement.dataset.contactName;
+        
+        if (window.triggerVisualStatusUpdate) {
+            window.triggerVisualStatusUpdate();
+        }
+
+        fetchAndDisplayHistory();
+        subscribeToTypingChannel();
+        contactsView.style.display = "none";
+        conversationView.style.display = "flex";
+        messageInput.focus();
+    }
+
+    function backToContacts() {
+        if (conversationChannel) {
+            conversationChannel.unbind_all();
+            pusher.unsubscribe(conversationChannel.name);
+            conversationChannel = null;
+        }
+        activeContactId = null;
+        document.body.dataset.activeContactId = '';
+        contactsView.style.display = "block";
+        conversationView.style.display = "none";
+    }
 
     function adicionarNovoContatoNaTela(contato) {
         const chatList = document.querySelector('.chat-list');
@@ -81,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <span class="unread-count" style="display: none;">0</span>
             </div>`;
         chatList.prepend(novoContatoDiv);
+        if(window.triggerVisualStatusUpdate) window.triggerVisualStatusUpdate();
     }
 
     function updateContactListPreview(contactId, message, timestamp) {
@@ -100,56 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
         chatList.prepend(contactItem);
     }
 
-    const sitePresenceChannel = pusher.subscribe('presence-site');
-    sitePresenceChannel.bind('pusher:subscription_succeeded', (members) => {
-        onlineUsers.clear();
-        members.each(member => onlineUsers.add(parseInt(member.id, 10)));
-        updateAllContactStatuses();
-    });
-    sitePresenceChannel.bind('pusher:member_added', (member) => {
-        onlineUsers.add(parseInt(member.id, 10));
-        updateAllContactStatuses();
-    });
-    sitePresenceChannel.bind('pusher:member_removed', (member) => {
-        onlineUsers.delete(parseInt(member.id, 10));
-        updateAllContactStatuses();
-    });
-
-    function updateAllContactStatuses() {
-        document.querySelectorAll('.chat-item').forEach(item => {
-            const contactId = parseInt(item.dataset.contactId, 10);
-            const isOnline = onlineUsers.has(contactId);
-            item.dataset.contactStatus = isOnline ? 'online' : 'offline';
-        });
-        if (activeContactId) {
-            updateConversationStatus();
-        }
-    }
-
-    function updateConversationStatus() {
-        if (!activeContactId) return;
-        const isOnline = onlineUsers.has(activeContactId);
-        statusElement.textContent = isOnline ? 'Online' : 'Offline';
-        statusElement.className = `chat-status ${isOnline ? 'online' : 'offline'}`;
-    }
-
-    function openConversation(contactElement) {
-        const unreadBadge = contactElement.querySelector('.unread-count');
-        if (unreadBadge) {
-            unreadBadge.textContent = '0';
-            unreadBadge.style.display = 'none';
-        }
-        activeContactId = parseInt(contactElement.dataset.contactId, 10);
-        conversationAvatar.src = contactElement.dataset.contactAvatar;
-        conversationName.textContent = contactElement.dataset.contactName;
-        updateConversationStatus();
-        fetchAndDisplayHistory();
-        subscribeToTypingChannel();
-        contactsView.style.display = "none";
-        conversationView.style.display = "flex";
-        messageInput.focus();
-    }
-
     function subscribeToTypingChannel() {
         if (conversationChannel) {
             conversationChannel.unbind_all();
@@ -164,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
         conversationChannel.bind('client-stop-typing', (data) => {
-            if (data.senderId === activeContactId) {
-                updateConversationStatus();
+            if (window.triggerVisualStatusUpdate) {
+                window.triggerVisualStatusUpdate();
             }
         });
     }
@@ -197,17 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Não foi possível enviar a mensagem.");
             messageInput.value = tempMessage;
         }
-    }
-
-    function backToContacts() {
-        if (conversationChannel) {
-            conversationChannel.unbind_all();
-            pusher.unsubscribe(conversationChannel.name);
-            conversationChannel = null;
-        }
-        activeContactId = null;
-        contactsView.style.display = "block";
-        conversationView.style.display = "none";
     }
 
     function appendMessage(text, senderId, timestamp) {
@@ -249,9 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleTyping() {
-        if (!conversationChannel || !conversationChannel.subscribed) {
-            return;
-        }
+        if (!conversationChannel || !conversationChannel.subscribed) return;
         clearTimeout(typingTimeout);
         conversationChannel.trigger('client-typing', { senderId: currentUserId });
         typingTimeout = setTimeout(() => {
@@ -283,5 +253,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".header_mobile .bi-list");
     if (menuToggle) {
         menuToggle.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
+    }
+
+    const initialContactId = document.body.dataset.initialContactId;
+    if (initialContactId && initialContactId !== 'null') {
+        setTimeout(() => {
+            const contactToOpen = document.querySelector(`.chat-item[data-contact-id="${initialContactId}"]`);
+            if (contactToOpen) {
+                openConversation(contactToOpen);
+            } else {
+                console.warn("Contato com ID", initialContactId, "não encontrado na lista.");
+            }
+        }, 500);
     }
 });
