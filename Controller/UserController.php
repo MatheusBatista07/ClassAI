@@ -10,9 +10,10 @@ class UserController
 {
     private $usuarioModel;
 
-    public function __construct()
+    // IVY: FIZ A ALTERAÇÃO NECESSÁRIA PARA RODAR O TESTE PHP UNIT
+    public function __construct(UserModel $usuarioModel)
     {
-        $this->usuarioModel = new UserModel();
+        $this->usuarioModel = $usuarioModel;
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
