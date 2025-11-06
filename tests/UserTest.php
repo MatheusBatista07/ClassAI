@@ -31,6 +31,17 @@ class UserTest extends TestCase
         $this->assertEquals("As senhas não conferem.", $resultado);
      }
 
+     #[\PHPUnit\Framework\Attributes\Test]
+     public function it_shouldnt_be_able_to_go_to_second_page_with_already_created_email(){
+        $email = 'email.existente@email.com';
+
+        // Configura o mock: quando o método 'emailJaExiste' for chamado com $emailExistente, ele deve retornar true
+        $this->mockUserModel->method('email')->with($email)->willReturn(true);
+
+        $resultado = $this->userController->processarEtapa1($email, 'senha123', 'senha123', true);
+        $this->assertEquals("Este e-mail já está em uso.", $resultado);
+     }
+
 }
 
 
