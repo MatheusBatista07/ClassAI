@@ -79,6 +79,14 @@ h2 {
     color: #3D056C;
 }
 
+.inputs .msg-erro {
+    display: none; 
+    text-indent: 10px; 
+    margin-top: -10px; 
+    margin-bottom: 10px; 
+    font-size: 0.8rem;
+    color: red;
+}
 
 .form-check {
     display: flex;
@@ -210,4 +218,3 @@ input::placeholder {
         margin-top: 1.5rem;
     }
 }
-
