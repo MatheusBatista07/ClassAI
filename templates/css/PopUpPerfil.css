@@ -1,0 +1,97 @@
+:root {
+    --bg-dark: #1a112b91;
+    --popup-border-color: #6C00C4;
+    --popup-inner-bg: #3D056C;
+    --highlight-color: #6205AE;
+    --text-primary: #FFFFFF;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+
+.profile-popup-outer {
+    background-color: var(--popup-border-color);
+    border-radius: 32px;
+    padding: 10px;
+    box-shadow: 0 12px 45px rgba(125, 4, 255, 0.5);
+}
+
+.profile-popup-inner {
+    background-color: var(--popup-inner-bg);
+    border-radius: 22px;
+    padding: 8px;
+}
+
+.popup-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.expanding-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    background-color: var(--popup-inner-bg); 
+    padding: 12px 24px 12px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-primary);
+    overflow: hidden;
+    z-index: 1;
+}
+
+
+.expanding-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: var(--highlight-color);
+    
+
+    width: 52px; 
+    height: 100%;
+    border-radius: 999px;
+    
+  
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+
+.expanding-button:hover::before {
+    width: 100%;
+}
+
+
+.expanding-button i {
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52px;
+    height: 52px;
+    margin-top: -12px;
+    margin-bottom: -12px;
+    margin-left: -12px;
+}
+
+.expanding-button span {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-left: 8px;
+}
