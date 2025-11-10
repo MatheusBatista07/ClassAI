@@ -25,10 +25,10 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 
 ## 📞 Contato
 
-Matheus Bomfim - bomfimmatheus07@gmail.com
-Ivy Evellin Souza - ivy.evellin01@gmail.com
-Raphael Esposito - raphaelssposito@gmail.com
-Lucas Chaves - lc102434@gmail.com
-Reynan Mesquita - reynanmesquita016@gmail.com
+* Matheus Bomfim - bomfimmatheus07@gmail.com
+* Ivy Evellin Souza - ivy.evellin01@gmail.com
+* Raphael Esposito - raphaelssposito@gmail.com
+* Lucas Chaves - lc102434@gmail.com
+* Reynan Mesquita - reynanmesquita016@gmail.com
 
 Link do Projeto: https://github.com/seu-usuario/ClassAI
