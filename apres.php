@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../Controller/FeedbackController.php';
-require_once __DIR__ . '/../Model/Feedback.php';
+require_once __DIR__ . '/Controller/FeedbackController.php';
+require_once __DIR__ . '/Model/Feedback.php';
 
 use Controller\FeedbackController;
 
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassAi</title>
-    <link rel="stylesheet" href="../Templates/css/Apresentacao.css">
+    <link rel="stylesheet" href="Templates/css/Apresentacao.css">
 </head>
 
 <body>
