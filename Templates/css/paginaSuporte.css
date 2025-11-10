@@ -1,220 +1,237 @@
+/* Reset e configurações globais */
 body {
-    background-color: #270047;
-    background-image: url(../../Images/Página\ de\ Login\ e\ Cadastro/background.png);
+    background-color: #10001C;
+    color: #FFFFFF;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Estilos do Header Desktop */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid #2A0E44;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header figure {
+    margin: 0;
+}
+
+.logo {
+    height: 40px;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-icons .bi-bell-fill {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.user-profile {
+    background-color: #5A2A8A;
+    padding: 0.4rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.lazzo_img {
+    height: 1.5rem;
+}
+
+/* Esconde o Header Mobile por padrão */
+header .header_mobile {
+    display: none;
+}
+
+/* Container principal */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+    margin-top: 2rem;
 }
 
-
-
-.conteudo_principal {
-    margin-top: 2.0rem;
-    background-color: rgba(20, 0, 37, 0.7);
-    border-radius: 3.0rem;
-    display: flex;
-    width: 55.0rem;
-    justify-content: center;
-    align-items: center;
-}
-
-h1 {
-    margin: 0.0rem;
-    text-align: center;
-    margin-top: 1.3rem;
-}
-
-h2 {
-    font-weight: 100;
-    margin-top: 0.2rem;
-    margin-bottom: 2.0rem;
-    text-align: center;
-}
-
-.inputs {
-    display: flex;
-    flex-direction: column;
-    width: 25.0rem;
-    align-items: flex-start; 
-}
-
-.userEmail {
-    display: block;
+main {
     width: 100%;
-    height: 2.5rem;
-    background-color: #E8CEFD;
-    border: none;
-    padding-left: 1.0rem;
-    box-sizing: border-box;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%, 0 80%);
-    margin-bottom: 1.2rem; 
+    max-width: 900px;
 }
 
-.password-label {
-    position: relative;
-    display: flex;
-    align-items: center; 
-    width: 100%;
-    margin-bottom: 1.2rem;
+.back-link {
+    margin-bottom: 1rem;
 }
 
-.password-label .form-control {
-    width: 100%;
-    height: 2.5rem;
-    background-color: #E8CEFD;
-    border: none;
-    padding-left: 1.0rem;
-    padding-right: 45px; 
-    box-sizing: border-box;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%, 0 80%);
-}
-
-.password-label i {
-    position: absolute;
-    right: 15px;
-    cursor: pointer;
-    color: #3D056C;
-}
-
-.inputs .msg-erro {
-    display: none; 
-    text-indent: 10px; 
-    margin-top: -10px; 
-    margin-bottom: 10px; 
-    font-size: 0.8rem;
-    color: red;
-}
-
-.form-check {
+.back-link a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 1.2rem;
-}
-
-input::placeholder {
-    color: #3D056C;
-    font-size: 1.0rem;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     gap: 0.5rem;
 }
 
-.entrar {
-    margin-left: 9.6rem;
-    margin-top: 15px;
-    background-color: #3D056C;
+/* Conteúdo principal com o formulário */
+.conteudo_principal {
+    background-color: #1B052D;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+    gap: 3rem;
+}
+
+.imagem-suporte img {
+    max-width: 300px;
+    height: auto;
+}
+
+.formulario {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.input-group input,
+.input-group textarea {
+    background-color: transparent;
+    border: 2px solid #5A2A8A;
+    border-radius: 0.5rem;
+    padding: 0.8rem 1rem;
+    color: #FFFFFF;
+    font-size: 1rem;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #A0A0A0;
+}
+
+.input-group textarea {
+    height: 80px;
+    resize: none;
+}
+
+.botao-enviar {
+    background-color: #FFFFFF;
+    color: #1A002D;
     border: none;
-    color: white;
-    text-align: center;
-    width: 5.5rem;
-    height: 1.8rem;
-    font-size: 1.0rem;
-    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 7% 100%, 0 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    align-self: flex-end;
+    width: 120px;
 }
 
-.lazzo, .lazzoImg {
-    width: 25.5rem;
+.botao-enviar .bi-send-fill {
+    font-size: 1rem;
 }
 
-.nao_tem_conta {
-    text-align: center;
-    font-weight: 100;
-}
-
-.cadastre_se {
-    cursor: pointer;
-}
-
-.form-check-input {
-    margin-top: 0 !important;
-    width: 18px;
-    height: 18px;
-    accent-color: #C37BFF;
-}
-
-.form-check-label {
-    color: #C37BFF;
-    line-height: 1.2;
-}
-
+/* Media Query para responsividade em telas menores (ATÉ 768px) */
 @media (max-width: 768px) {
+    /* Ajusta o header para ser fixo no topo */
+    header {
+        padding: 1rem 1.5rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #10001C;
+        z-index: 1000;
+        box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    }
 
+    /* Esconde os elementos do header de desktop */
+    header .logo,
+    header .header-icons {
+        display: none;
+    }
 
-      header {
-         padding: 1.5rem;
+    /* Mostra o container do header mobile */
+    header .header_mobile {
         display: flex;
-        justify-content: center;
-        margin-left: 1rem;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header_mobile .img-logo {
+        height: 35px; /* Ajuste o tamanho da logo mobile conforme necessário */
+    }
+    
+    /* Estilo para o grupo do perfil do usuário no mobile */
+    .user-profile-mobile-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        background-color: #290841;
+        padding: 0.3rem;
+        border-radius: 1rem;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .user-avatar-mobile {
+        height: 35px; /* Ajuste o tamanho do avatar mobile */
+        width: auto;
+    }
+
+    /* Ajusta o conteúdo principal para não ficar embaixo do header fixo */
+    .container {
+        padding: 1.5rem;
+        margin-top: 80px; /* Adiciona margem no topo para compensar o header fixo */
     }
 
     .conteudo_principal {
-        flex-direction: column; 
-        width: 90%;             
-        margin-top: 1.5rem;
-        padding: 2.0rem 1.5rem; 
-        border-radius: 2.0rem;
+        flex-direction: column;
+        padding: 2rem;
+        gap: 2rem;
     }
 
-    .lazzo, .lazzoImg { 
-        content: url('../../Images/Página de Login e Cadastro/lazzoMobile.png'); 
-        display: block;
-        position: fixed; 
-        bottom: 0;    
-        right: 0;     
-        width: 360px;   
-        height: auto;    
-        z-index: 1000;   
+    .imagem-suporte img {
+        max-width: 200px;
     }
 
-    .inputs {
+    .botao-enviar {
+        align-self: center;
         width: 100%;
-        align-items: center; 
-    }
-
-    .userEmail, .password-label {
-        width: 100%;
-    }
-    
-    .password-label .form-control, .userEmail {
-        clip-path: none; 
-        border-radius: 0.8rem; 
-    }
-
-    h1 {
-        font-size: 1.8rem; 
-        margin-top: 0;
-    }
-
-    h2 {
-        font-size: 1.0rem;
-        margin-bottom: 2.5rem;
-    }
-
-    .buttons {
-        width: 100%;
-    }
-
-    .entrar {
-        width: 100%;             
-        height: 3.0rem;          
-        margin-left: 0;          
-        clip-path: none;         
-        border-radius: 0.8rem;   
-        font-size: 1.1rem;
-    }
-
-    .nao_tem_conta {
-        margin-top: 1.5rem;
     }
 }
