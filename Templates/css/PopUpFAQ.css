@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
 
-/* =============================================== */
-/*                 VARIÁVEIS E GERAL               */
-/* =============================================== */
-
 :root {
-    --bg-dark: #0F0817;
+    --bg-dark: #0f0817ce;
     --purple-main: #9333EA;
     --purple-dark: #190D2B;
     --green-line: #22C55E;
@@ -22,16 +18,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 40px;
 }
-
-/* =============================================== */
-/*                 ESTRUTURA DO FAQ                */
-/* =============================================== */
 
 .faq-container {
     width: 100%;
-    max-width: 800px; /* Mantém a largura maior para popups */
+    max-width: 1200px; 
     background-color: var(--purple-dark);
     border-radius: 24px;
     border: 1px solid var(--card-border);
@@ -65,12 +57,8 @@ body {
 }
 
 .faq-content {
-    padding: 2rem;
+    padding: 1.62rem;
 }
-
-/* =============================================== */
-/*              INTRODUÇÃO E BUSCA                 */
-/* =============================================== */
 
 .intro-section h2 {
     font-size: 1.75rem;
@@ -125,9 +113,6 @@ body {
     color: var(--text-primary);
 }
 
-/* =============================================== */
-/*      LISTA DE PERGUNTAS (ACCORDION)             */
-/* =============================================== */
 
 .faq-subtitle {
     font-size: 0.9rem;
@@ -214,9 +199,6 @@ body {
     animation: none;
 }
 
-/* =============================================== */
-/*                 SEÇÃO DE CONTATO                */
-/* =============================================== */
 
 .contact-section {
     background-color: var(--purple-main);
