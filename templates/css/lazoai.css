@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap' );
 
 :root {
-    --background-color: #120c1c;
+    --background-color: #120c1ccf;
     --container-bg: #1a1129;
     --input-bg: #4b326f;
     --primary-purple: #a062ff;
-    --border-glow: #6cff87; /* Verde para a borda */
+    --border-glow: #6cff87; 
     --text-color: #f0f0f0;
     --text-secondary: #b3b3b3;
     --border-radius: 30px;
@@ -27,26 +27,39 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+
 }
 
-/* --- Contêiner Principal do Chat --- */
 .chat-container {
-    width: 100%;
-    max-width: 400px;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    max-width: 90%;
     height: 85vh;
     max-height: 800px;
     background-color: var(--container-bg);
-    border-radius: var(--border-radius);
     border: 2px solid;
     border-image: linear-gradient(to bottom, var(--primary-purple), var(--border-glow)) 1;
     box-shadow: 0 0 40px rgba(108, 255, 135, 0.2);
     display: flex;
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
+}
+@media (max-width: 600px) {
+    .chat-container {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        top: auto;
+        transform: none;
+        width: auto;
+        max-width: calc(100% - 40px);
+        height: 60vh;
+        border-radius: 16px;
+    }
 }
 
-/* --- Cabeçalho --- */
 .chat-header {
     padding: 20px;
     position: relative;
@@ -70,7 +83,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
-    text-decoration: none; /* Adicionado para links */
+    text-decoration: none; 
 }
 .close-button:hover {
     background-color: var(--border-glow);
@@ -93,7 +106,6 @@ body {
     50% { transform: translateY(-15px); }
 }
 
-/* --- Corpo do Chat (Mensagens) --- */
 .chat-body {
     flex: 1;
     padding: 0 20px;
@@ -158,7 +170,7 @@ body {
     40% { transform: scale(1.0); }
 }
 
-/* --- Rodapé (Input) --- */
+
 .chat-footer {
     padding: 20px;
 }
