@@ -16,10 +16,10 @@ $userId = $_SESSION['usuario_id'] ?? null;
     <link rel="stylesheet" href="../Templates/css/notificacao.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId  ); ?>">
 
     <div class="sidebar">
-        <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
@@ -39,14 +39,14 @@ $userId = $_SESSION['usuario_id'] ?? null;
         <div class="header">
             <div></div>
             <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
+                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
                 <div class="header-icon notification-icon-container">
                     <i class="bi bi-bell" id="notification-bell"></i>
                     <div class="notification-dot" id="notification-dot"></div>
                 </div>
                 <div class="user-profile">
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
         </div>
@@ -55,15 +55,15 @@ $userId = $_SESSION['usuario_id'] ?? null;
             <div class="left-column">
                 <header>
                     <h1 style="font-weight:700;">Chat GPT no dia a dia: Automatize tarefas com texto</h1>
-                    <div class="hero-image-responsive"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
+                    <div class="hero-image-responsive"><img src="../Images/Pagina-do-Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
                     <div class="info-line">
-                        <p><img class="icon-text" src="../Images/Página do Curso/ícone lapis.png" alt="lápis"> Professor João Gomes</p>
+                        <p><img class="icon-text" src="../Images/Pagina-do-Curso/ícone lapis.png" alt="lápis"> Professor João Gomes</p>
                         <p>Nível de dificuldade: Iniciante</p>
                     </div>
                 </header>
 
                 <div class="header_mobile">
-                    <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
+                    <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII"
                         class="img-logo">
 
                     <div class="iconezinhos" style="display: flex; gap: 1.0rem">
@@ -89,14 +89,14 @@ $userId = $_SESSION['usuario_id'] ?? null;
                 </section>
             </div>
             <div class="right-column">
-                <div class="hero-image"><img src="../Images/Página do Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
+                <div class="hero-image"><img src="../Images/Pagina-do-Curso/imagem_curso.png" alt="Ambiente de trabalho com um laptop"></div>
                 <button class="cta-button">Inscreva-se</button>
                 <div class="target-audience">
                     <h3>Para quem é...</h3>
                     <ul>
                         <li>Marketing e Comunicação</li>
                         <li>Educação</li>
-                        <li>Tecnologia (Dev, TI, etc. )</li>
+                        <li>Tecnologia (Dev, TI, etc.  )</li>
                         <li>Saúde (com cuidado!)</li>
                         <li>Empreendedores e Freelancers</li>
                         <li>Criativos (escritores, artistas, designers)</li>

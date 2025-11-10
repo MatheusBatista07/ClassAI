@@ -1,4 +1,4 @@
-<?php
+ <?php
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../Controller/CursosController.php';
 
@@ -19,7 +19,7 @@ $cursos = $cursoController->getCoursesForUser();
 
 <body>
     <div class="sidebar">
-        <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
@@ -38,15 +38,15 @@ $cursos = $cursoController->getCoursesForUser();
         <div class="header">
             <div></div>
             <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
+                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
                 <div class="user-profile">
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </div>
@@ -64,7 +64,7 @@ $cursos = $cursoController->getCoursesForUser();
 
         <div class="courses-section">
             <div id="courses-list" class="courses-list">
-                <?php if (empty($cursos)): ?>
+                <?php if (empty($cursos )): ?>
                     <p class="loading">Nenhum curso encontrado.</p>
                 <?php else: ?>
                     <?php foreach ($cursos as $curso): ?>
@@ -112,7 +112,7 @@ $cursos = $cursoController->getCoursesForUser();
                 <?php endif; ?>
             </div>
         </div>
-        <img class="lazinho" src="../Images/Página do Curso/lazo_inclinado.png" alt="Mascote lazo inclinado">
+        <img class="lazinho" src="../Images/Pagina-do-Curso/lazo_inclinado.png" alt="Mascote lazo inclinado">
     </div>
 
     <script>

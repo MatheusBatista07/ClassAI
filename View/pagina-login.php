@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <header>
-        <a href="index.php">
+        <a href="../index.php">
             <figure>
-                <img src="../Images/Ícones do header/Logo ClassAi branca.png" alt="Logo ClassAi">
+                <img src="../Images/Icones-do-header/Logo ClassAi branca.png" alt="Logo ClassAi">
             </figure>
         </a>
     </header>
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1 style="color: white">Bem vindo de volta!</h1>
                     <h2 style="color: white">O que vamos aprender hoje?</h2>
 
-                    <?php if ($erro): ?>
+                    <?php if ($erro ): ?>
                         <div class="error-box-php" style="color: red; background-color: #ffdddd; border: 1px solid red; padding: 10px; margin: 15px 0; border-radius: 5px; text-align: center; font-weight: bold;">
                             <?php echo htmlspecialchars($erro); ?>
                         </div>

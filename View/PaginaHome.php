@@ -28,7 +28,7 @@ if ($caminhoFoto) {
     $fotoUsuario = 'https://via.placeholder.com/40';
 }
 
-$chatModel = new \Model\ChatModel( );
+$chatModel = new \Model\ChatModel(  );
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
 $cursosTendencia = $cursosModel->getTrendingCourses(12);
 
@@ -46,9 +46,9 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
     <link rel="stylesheet" href="../Templates/css/paginaChat.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId  ); ?>">
     <div class="sidebar">
-        <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
 
         <ul class="nav-menu">
             <li class="nav-item">
@@ -87,7 +87,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
             <div></div>
             <div class="header-icons">
                 <div class="header-icon">
-                    <img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img">
+                    <img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img">
                 </div>
                 <div class="header-icon">
                     <i class="bi bi-bell"></i>
@@ -95,11 +95,11 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
 
                 <div class="user-profile">
                     <img src="<?php echo htmlspecialchars($fotoUsuario); ?>" alt="Avatar de <?php echo htmlspecialchars($nomeCompleto); ?>" class="user-avatar">
-                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </header>
@@ -118,7 +118,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                         </div>
 
                         <div class="consistency-badge">
-                            <img src="../Images/Página Inicial/CerebroConstancia.png" alt="Ícone de cérebro" class="brain-icon">
+                            <img src="../Images/Pagina-Inicial/CerebroConstancia.png" alt="Ícone de cérebro" class="brain-icon">
                             <div class="consistency-content">
                                 <span class="consistency-days">80</span>
                                 <span class="consistency-text">Dias de Constância</span>
@@ -172,7 +172,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                                     <?php
                                     $imagemCurso = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
                                     $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
-                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor'  );
                                     ?>
                                     <div class="col-md-6 col-xl-4">
                                         <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
@@ -227,7 +227,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                     <section class="right-section-card">
                         <h3 class="section-title mb-3"><i class="bi bi-chat-dots-fill"></i> Chat</h3>
                         <div class="chat-list-home">
-                            <?php if (empty($conversasRecentes )): ?>
+                            <?php if (empty($conversasRecentes  )): ?>
                                 <p class="text-center text-muted p-3">Nenhuma conversa recente.</p>
                             <?php else: ?>
                                 <?php foreach ($conversasRecentes as $conversa): ?>
@@ -243,7 +243,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']  );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">

@@ -40,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <header>
-        <a href="index.php">
+        <a href="../index.php">
             <figure>
-                <img src="../Images/Ícones do header/Logo ClassAi branca.png" alt="Logo ClassAi">
+                <img src="../Images/Icones-do-header/Logo ClassAi branca.png" alt="Logo ClassAi">
             </figure>
         </a>
     </header>

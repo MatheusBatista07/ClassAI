@@ -15,10 +15,10 @@ $userId = $_SESSION['usuario_id'] ?? null;
     <link rel="stylesheet" href="../Templates/css/pagina-modulo.css">
     <link rel="stylesheet" href="../Templates/css/notificacao.css">
 </head>
-<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId  ); ?>">
 
     <div class="sidebar">
-        <img src="../Images/Ícones do header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Logo ClassAI" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
@@ -38,14 +38,14 @@ $userId = $_SESSION['usuario_id'] ?? null;
         <div class="header">
             <div></div>
             <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Ícones do header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
+                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
                 <div class="header-icon notification-icon-container">
                     <i class="bi bi-bell" id="notification-bell"></i>
                     <div class="notification-dot" id="notification-dot"></div>
                 </div>
                 <div class="user-profile">
                     <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                    <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
         </div>

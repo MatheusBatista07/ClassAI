@@ -2,8 +2,8 @@
 
 namespace Model;    
 
-require_once __DIR__ . '/../Model/Connection.php'; // Adicione esta linha
-require_once __DIR__ . '/../Model/Feedback.php';   // Garanta que este também esteja lá
+require_once __DIR__ . '/../Model/Connection.php';
+require_once __DIR__ . '/../Model/Feedback.php';  
 
 
 use Model\Connection;

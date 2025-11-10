@@ -28,7 +28,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
 <body data-user-id="<?php echo $currentUserId; ?>" data-initial-contact-id="<?php echo $initialContactId; ?>" data-active-contact-id="">
 
     <div class="sidebar">
-        <img src="/ClassAI/Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="/ClassAI/Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="paginaChat.php" class="nav-link active"><i class="bi bi-chat"></i> Chat</a></li>
@@ -47,24 +47,24 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
         <div class="header">
             <div></div>
             <div class="header-icons">
-                <div class="header-icon"><img src="/ClassAI/Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
+                <div class="header-icon"><img src="/ClassAI/Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
                 <div class="user-profile">
                     <a href="/ClassAI/logout.php" title="Sair da sua conta">
                         <?php
-                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'])
+                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'] )
                             ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url'])
-                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome']) . '&background=random';
+                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome'] ) . '&background=random';
                         ?>
                         <img src="<?php echo $avatarUsuarioLogado; ?>"
                             alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
                             class="user-avatar">
-                        <img src="/ClassAI/Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                        <img src="/ClassAI/Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
                     </a>
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="/ClassAI/Images/Ícones do header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="/ClassAI/Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </div>
@@ -89,7 +89,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                         <?php foreach ($listaDeContatos as $contato):
                             $avatarUrl = !empty($contato['foto_perfil_url'])
                                 ? "/ClassAI/" . htmlspecialchars($contato['foto_perfil_url'])
-                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome']) . '&background=random';
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($contato['nome'] ) . '&background=random';
                         ?>
                             <div class="chat-item"
                                 data-contact-id="<?php echo $contato['id']; ?>"

@@ -1,38 +1,22 @@
 <?php
-// View/paginaPersonalizacao.php
-
-// Força a exibição de erros para ajudar no diagnóstico.
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Inicia a sessão para garantir que os dados das etapas anteriores estejam acessíveis.
 session_start();
 
-// Proteção: Se o usuário pulou as etapas anteriores, redireciona para o início do cadastro.
 if (!isset($_SESSION['cadastro_etapa1']) || !isset($_SESSION['cadastro_etapa2'])) {
     header('Location: paginaDeCadastro.php');
     exit;
 }
 
-// Inclui o controller que contém a lógica de negócio.
 require_once __DIR__ . '/../Controller/UserController.php';
 
-$erro = null; // Inicializa a variável de erro.
+$erro = null; 
 
-// Verifica se o formulário foi submetido via POST.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new Controller\UserController();
     
-    // ====================================================================
-    // A CORREÇÃO ESTÁ AQUI:
-    // Passamos os arrays globais $_POST e $_FILES diretamente para o controller.
-    // O controller agora é responsável por extrair 'userName', 'userDescricao', e a foto.
-    // ====================================================================
     $erro = $controller->processarEtapa3($_POST, $_FILES);
-    
-    // Se o método processarEtapa3 for bem-sucedido, ele mesmo fará o redirecionamento
-    // e encerrará o script com 'exit'. Portanto, não precisamos de um 'if ($erro === null)' aqui.
-    // O script só continuará a ser executado se o método retornar uma string de erro.
 }
 ?>
 <!DOCTYPE html>
@@ -46,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <header>
-        <a href="index.php">
+        <a href="../index.php">
             <figure>
-                <img src="../Images/Ícones do header/Logo ClassAi branca.png" alt="Logo ClassAi">
+                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Logo ClassAi">
             </figure>
         </a>
     </header>
@@ -56,13 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <main>
             <div class="conteudo_principal">
-                <!-- O formulário precisa do atributo 'enctype' para que o upload de arquivos funcione -->
                 <form action="paginaPersonalizacao.php" method="POST" class="formulario" enctype="multipart/form-data">
                     <h1>Vamos deixar com a sua cara agora!</h1>
                     <h2>Seus dados estão protegidos!</h2>
 
-                    <!-- Bloco para exibir a mensagem de erro, se houver -->
-                    <?php if ($erro ): ?>
+                    <?php if ($erro  ): ?>
                         <div style="color: red; background-color: #ffdddd; border: 1px solid red; padding: 10px; margin: 15px 0; border-radius: 5px; text-align: center; font-weight: bold;">
                             <?php echo htmlspecialchars($erro); ?>
                         </div>
@@ -71,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-layout">
                         <div class="top-row">
                             <div class="upload-container">
-                                <!-- O 'name' do input deve corresponder ao que o controller espera ('profile_photo') -->
                                 <input type="file" id="foto-perfil" name="profile_photo" accept="image/*" style="display: none;">
                                 <label for="foto-perfil" class="upload-label">
                                     <i class="bi bi-plus"></i>
@@ -79,13 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </label>
                             </div>
                             <div class="field-wrapper">
-                                <!-- O 'name' do input deve corresponder ao que o controller espera ('username') -->
                                 <input type="text" name="username" class="userName form-control" placeholder="Usuário" required>
                                 <small class="msg-erro nome-erro" style="display:none; color:red;">Por favor, digite seu nome de usuário.</small>
                             </div>
                         </div>
                         <div class="bottom-row">
-                             <!-- O 'name' do input deve corresponder ao que o controller espera ('description') -->
                             <textarea name="description" class="userDescription form-control" placeholder="Descrição"></textarea>
                         </div>
                     </div>
