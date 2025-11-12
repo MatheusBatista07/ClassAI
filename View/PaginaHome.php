@@ -1,5 +1,8 @@
 <?php
+
+use Model\CursosModel;
 require_once __DIR__ . '/../auth.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Model/UserModel.php';
 require_once __DIR__ . '/../Model/CursosModel.php';
 require_once __DIR__ . '/../Model/ChatModel.php';
@@ -8,6 +11,19 @@ $userId = $_SESSION['usuario_id'];
 
 $userModel = new \Model\UserModel();
 $usuario = $userModel->encontrarUsuarioPorId($userId);
+
+$diasDeConstancia = 0;
+if (isset($usuario['data_cadastro']) && !empty($usuario['data_cadastro'])) {
+    try {
+        $dataCadastro = new DateTime($usuario['data_cadastro']);
+        $hoje = new DateTime();
+        $diferenca = $hoje->diff($dataCadastro);
+        $diasDeConstancia = $diferenca->days + 1;
+    } catch (Exception $e) {
+        $diasDeConstancia = 1;
+        error_log("Erro ao calcular dias de constância: " . $e->getMessage());
+    }
+}
 
 $cursosModel = new CursosModel();
 $inscricoes = $cursosModel->getInscricoesByUserId($userId);
@@ -28,11 +44,13 @@ if ($caminhoFoto) {
     $fotoUsuario = 'https://via.placeholder.com/40';
 }
 
-$chatModel = new \Model\ChatModel(  );
+$chatModel = new \Model\ChatModel( );
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
-$cursosTendencia = $cursosModel->getTrendingCourses(12);
 
+$idsDosCursosDesejados = [5, 7, 6, 9, 1, 11];
+$cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -46,9 +64,9 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
     <link rel="stylesheet" href="../Templates/css/paginaChat.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId  ); ?>">
+<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
     <div class="sidebar">
-        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
 
         <ul class="nav-menu">
             <li class="nav-item">
@@ -95,11 +113,11 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
 
                 <div class="user-profile">
                     <img src="<?php echo htmlspecialchars($fotoUsuario); ?>" alt="Avatar de <?php echo htmlspecialchars($nomeCompleto); ?>" class="user-avatar">
-                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="../Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </header>
@@ -120,7 +138,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                         <div class="consistency-badge">
                             <img src="../Images/Pagina-Inicial/CerebroConstancia.png" alt="Ícone de cérebro" class="brain-icon">
                             <div class="consistency-content">
-                                <span class="consistency-days">80</span>
+                                <span class="consistency-days"><?php echo $diasDeConstancia; ?></span>
                                 <span class="consistency-text">Dias de Constância</span>
                             </div>
                         </div>
@@ -172,7 +190,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                                     <?php
                                     $imagemCurso = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
                                     $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
-                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor'  );
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
                                     ?>
                                     <div class="col-md-6 col-xl-4">
                                         <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
@@ -183,7 +201,6 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                                                     <img src="<?php echo $fotoInstrutor; ?>" alt="Avatar de <?php echo $nomeInstrutor; ?>" class="instructor-avatar">
                                                     <span class="course-instructor"><?php echo $nomeInstrutor; ?></span>
                                                 </div>
-                                                <button class="btn btn-enroll w-100">Matricular-me</button>
                                             </div>
                                         </article>
                                     </div>
@@ -227,7 +244,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                     <section class="right-section-card">
                         <h3 class="section-title mb-3"><i class="bi bi-chat-dots-fill"></i> Chat</h3>
                         <div class="chat-list-home">
-                            <?php if (empty($conversasRecentes  )): ?>
+                            <?php if (empty($conversasRecentes )): ?>
                                 <p class="text-center text-muted p-3">Nenhuma conversa recente.</p>
                             <?php else: ?>
                                 <?php foreach ($conversasRecentes as $conversa): ?>
@@ -243,7 +260,7 @@ $cursosTendencia = $cursosModel->getTrendingCourses(12);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']  );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">

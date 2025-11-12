@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
 
 :root {
     --bg-dark: #0a0015;
@@ -24,7 +24,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     min-height: 100vh;
     width: 280px;
@@ -34,7 +33,7 @@ body {
 }
 
 .sidebar .img-logo {
-    width: 140px !important;  /* muda o número até ficar do tamanho que tu quer */
+    width: 140px !important;
     height: auto !important;
     display: block;
     margin: 0 auto 20px auto;
@@ -80,13 +79,11 @@ body {
     margin: 20px 0;
 }
 
-/* Main Content */
 .main-content {
     margin-left: 280px;
     padding: 30px;
 }
 
-/*  */
 .header {
     display: flex;
     justify-content: space-between;
@@ -123,15 +120,15 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background-color: #290841; 
-    padding: 4px; 
-    border-radius: 12px; 
-    transition: background-color 0.2s ease-in-out; 
+    background-color: #290841;
+    padding: 4px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 
 .user-profile:hover {
-    background-color: #534F70; 
+    background-color: #534F70;
 }
 
 .user-avatar {
@@ -144,7 +141,7 @@ body {
 .arrow-icon {
     width: 12px;
     height: auto;
-    margin-right: 4px; 
+    margin-right: 4px;
 }
 
 .conteudo__principal{
@@ -157,50 +154,31 @@ body {
     width: 30.0rem;
 }
 
-/* Seção de Módulos com Layout Adaptativo */
 .modules h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
     color: #1a1a1a;
 }
 
-/* O container que permite a rolagem quando necessário */
 .modules-container {
-    /* Ativa a rolagem horizontal APENAS se o conteúdo transbordar */
-    overflow-x: auto; 
-    padding-bottom: 1rem; /* Espaço para a barra de rolagem não colar nos cards */
+    overflow-x: auto;
+    padding-bottom: 1rem;
 }
 
-/* A faixa interna que contém os cards. AQUI ESTÁ A MÁGICA! */
 .modules-track {
-    /* 
-      PASSO 1: Começamos com um Grid.
-      Ele tentará criar colunas de no mínimo 250px. Se houver espaço,
-      os cards vão se esticar (1fr) para preenchê-lo.
-      Isso resolve o problema de 1, 2 ou 3 cards, que se ajustarão lindamente.
-    */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
 }
 
-
-/* Estilo dos cards dos módulos com tema escuro */
 .module-card {
     color: white;
-    width: 250px; 
-    flex-shrink: 0; 
-    
-    /* Cor de fundo escura */
-   
-
-    
-    border-radius: 16px; /* Bordas mais arredondadas */
+    width: 250px;
+    flex-shrink: 0;
+    border-radius: 16px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    
-    
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -208,12 +186,10 @@ body {
     transform: translateY(-5px);
 }
 
-/* A imagem não precisa de alterações, mas garantimos que as bordas se apliquem corretamente */
 .module-image-container {
     width: 100%;
     padding-top: 56.25%;
     position: relative;
-    /* A imagem em si não tem bordas arredondadas, o card pai já cuida disso */
 }
 .module-image-container img {
     position: absolute;
@@ -224,11 +200,10 @@ body {
     object-fit: cover;
 }
 
-/* Conteúdo do card com texto branco */
 .module-content {
     color: white;
-    background-color: black; 
-    padding: 1.25rem; /* Um pouco mais de preenchimento */
+    background-color: black;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -237,33 +212,25 @@ body {
 .module-content h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1rem;
-    font-weight: 500; /* Peso da fonte um pouco mais leve */
+    font-weight: 500;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
-    /* Cor do texto do título */
-    color: #f0f0f0; 
+    color: #f0f0f0;
 }
 
 .module-content p {
-    font-size: 1.1rem; /* Fonte do parágrafo um pouco maior */
-    font-weight: bold; /* Texto em negrito como na imagem */
+    font-size: 1.1rem;
+    font-weight: bold;
     line-height: 1.4;
-    
-    /* Cor do texto da descrição */
-    color: white; 
-    
+    color: white;
     margin: 0 0 1rem 0;
     flex-grow: 1;
 }
 
 .duration {
     font-size: 0.9rem;
-    
-    /* Cor do texto da duração */
-    color: white; 
-    
+    color: white;
     margin-top: auto;
     display: flex;
     align-items: center;
@@ -273,28 +240,19 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Ajuste da cor dos ícones para o tema escuro */
 .module-content .fa-bookmark,
 .module-content .fa-clock {
     color: #f0f0f0;
 }
 
-    .modules-track {
-        /* 
-          Trocamos para Flexbox. O Flexbox, combinado com a largura fixa dos cards
-          e o 'overflow-x: auto' do pai, cria o efeito de rolagem horizontal
-          quando o número de cards ultrapassa o espaço disponível.
-        */
-        display: flex;
-        /* Removemos a configuração de colunas do grid que não é mais necessária */
-        grid-template-columns: none; 
-    }
+.modules-track {
+    display: flex;
+    grid-template-columns: none;
+}
 
-
-/* Estilo dos cards dos módulos (com um pequeno ajuste) */
 .module-card {
-    width: 250px; 
-    flex-shrink: 0; 
+    width: 250px;
+    flex-shrink: 0;
     border: 1px solid #4E008D;
     border-radius: 12px;
     overflow: hidden;
@@ -303,7 +261,6 @@ body {
     background-color: #f9f9f9;
 }
 
-/* O restante do CSS dos cards permanece o mesmo... */
 .module-image-container {
     width: 100%;
     padding-top: 56.25%;
@@ -345,7 +302,6 @@ body {
     margin-right: 0.3rem;
 }
 
-/* Estilizando a barra de rolagem (opcional) */
 .modules-container::-webkit-scrollbar { height: 8px; }
 .modules-container::-webkit-scrollbar-track { background: #350061; border-radius: 10px; }
 .modules-container::-webkit-scrollbar-thumb { background: #6C00C4; border-radius: 10px; }
@@ -371,31 +327,25 @@ gap: 2.0rem;
     font-weight: 500;
 }
 
-/* CÓDIGO CSS ADICIONAL (adicione ao final do seu arquivo) */
-
-/* Container do ícone de sino para posicionar a bolinha */
 .notification-icon-container {
     position: relative;
 }
 
-/* Indicador de nova notificação (bolinha verde) */
-
 .module-card.locked {
-    position: relative; /* Necessário para posicionar o overlay */
-    pointer-events: none; /* Impede cliques no card bloqueado */
+    position: relative;
+    pointer-events: none;
 }
 
-/* Overlay que cobre o card para criar o efeito de bloqueio */
 .module-card.locked .lock-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semitransparente */
-    backdrop-filter: blur(8px); /* Efeito de desfoque (funciona em navegadores modernos) */
-    -webkit-backdrop-filter: blur(8px); /* Suporte para Safari */
-    border-radius: 12px; /* Mantém as bordas arredondadas do card pai */
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -403,25 +353,22 @@ gap: 2.0rem;
     text-align: center;
     color: white;
     padding: 1rem;
-    z-index: 2; /* Garante que o overlay fique por cima do conteúdo */
+    z-index: 2;
 }
 
-/* Ícone de cadeado */
 .lock-overlay .lock-icon {
-    font-size: 3rem; /* Tamanho grande para o ícone */
+    font-size: 3rem;
     margin-bottom: 0.5rem;
 }
 
-/* Texto "Inscreva-se para desbloquear" */
 .lock-overlay .lock-text {
     font-size: 1rem;
     font-weight: 600;
 }
 
-/* Estilo para o botão quando o usuário está inscrito */
 .cta-button.subscribed {
-    background-color: #6C00C4; /* Cor verde para indicar sucesso */
-    cursor: default; /* Remove o cursor de ponteiro */
+    background-color: #6C00C4;
+    cursor: default;
     text-align: center;
     text-decoration: none;
 }
@@ -434,44 +381,116 @@ gap: 2.0rem;
     display: none;
   }
 
-/* _______________________________________________________ */
-/* ===========================
-   📱 Responsividade: Tablets
-   min-width: 768px até max-width: 1024px
-=========================== */
+  .module-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.module-card-link:hover {
+    transform: translateY(-5px);
+}
+
+.module-card {
+    background-color: #1E1A3A;
+    border: 1px solid #4A447C;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #FFFFFF;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.module-card .card-img-top {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.module-card .card-body {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.module-card .module-number {
+    font-size: 0.8rem;
+    color: #A9A5D0;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.module-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.module-card .card-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #A9A5D0;
+    border-top: 1px solid #4A447C;
+    padding-top: 0.75rem;
+    margin-top: auto;
+}
+
+.module-card .card-info i {
+    margin-right: 0.4rem;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #A9A5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.btn-voltar:hover {
+    color: #FFFFFF;
+}
+
+.btn-voltar i {
+    font-size: 1.2rem;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
 
-  /* ===== Sidebar ===== */
   .sidebar {
     min-height: 100vh;
     width: 200px;
     position: fixed;
     padding: 20px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 100; /* garante que fique sobre o fundo, mas abaixo do conteúdo */
+    z-index: 100;
   }
 
-  /* ===== Main Content ===== */
   .main-content {
-    margin-left: 200px; /* evita sobreposição */
+    margin-left: 200px;
     padding: 20px;
   }
 
-  /* ===== Header ===== */
   .header {
     flex-direction: row;
     justify-content: space-between;
     margin-top: 1rem;
   }
 
-  /* ===== Conteúdo Principal ===== */
   .conteudo__principal {
-    flex-direction: column; /* empilha as colunas */
+    flex-direction: column;
     align-items: center;
     gap: 2rem;
   }
 
-  .left-column, 
+  .left-column,
   .right-column {
     width: 100%;
     max-width: 700px;
@@ -481,10 +500,8 @@ gap: 2.0rem;
     margin-top: 2rem;
   }
 
-
-  /* ===== Imagens ===== */
   .hero-image {
-    display: none; /* esconde a imagem grande da direita */
+    display: none;
   }
 
   .hero-image-responsive {
@@ -499,38 +516,30 @@ gap: 2.0rem;
     border-radius: 10px;
   }
 
-  /* ===== Botão ===== */
   .cta-button {
     width: 100%;
     max-width: 700px;
     font-size: 1.5rem;
   }
 
-  /* ===== Cards ===== */
   .modules-track {
     justify-content: center;
   }
 
-  /* ===== Notificações ===== */
     .notifications-popup {
     width: 350px;
     right: 20px;
-    left: auto; /* impede que fique centralizado */
+    left: auto;
     top: 80px;
   }
 
   .header_mobile{
     display: none;
-  } 
+  }
 }
 
-/* ===========================
-   📱 Responsividade Mobile
-   only screen and (min-width: 320px) and (max-width: 767px)
-=========================== */
 @media only screen and (min-width: 320px) and (max-width: 767px) {
 
-  /* ===== Sidebar ===== */
   .sidebar {
     position: fixed;
     top: 0;
@@ -547,17 +556,14 @@ gap: 2.0rem;
     overflow-y: auto;
   }
 
-  /* Sidebar aberta (classe controlada por JS no body) */
   body.sidebar-open .sidebar {
     transform: translateX(0);
   }
 
-  /* ===== Header Desktop ===== */
   .header {
-    display: none; /* Oculta header desktop */
+    display: none;
   }
 
-  /* ===== Header Mobile ===== */
   .header_mobile {
     position: fixed;
     top: 0;
@@ -583,15 +589,13 @@ gap: 2.0rem;
     cursor: pointer;
   }
 
-  /* ===== Main Content ===== */
   .main-content {
     margin-left: 0;
-    padding-top: 80px; /* espaço pro header fixo */
+    padding-top: 80px;
     padding-bottom: 20px;
     padding-inline: 20px;
   }
 
-  /* ===== Layout principal ===== */
   .conteudo__principal {
     flex-direction: column;
     align-items: center;
@@ -604,7 +608,6 @@ gap: 2.0rem;
     max-width: 500px;
   }
 
-  /* ===== Hero Image ===== */
   .hero-image {
     display: none;
   }
@@ -621,26 +624,21 @@ gap: 2.0rem;
     border-radius: 10px;
   }
 
-  /* ===== Botão CTA ===== */
   .cta-button {
     width: 100%;
     font-size: 1.3rem;
     height: 3rem;
   }
 
-  /* ===== Módulos ===== */
   .modules-track {
     justify-content: center;
   }
 
-  /* ===== Notificações ===== */
      .notifications-popup {
     width: 350px;
     right: 20px;
-    left: auto; /* impede que fique centralizado */
+    left: auto;
     top: 80px;
     margin-top: 3.0rem;
   }
 }
-
-

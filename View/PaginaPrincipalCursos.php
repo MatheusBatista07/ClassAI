@@ -1,9 +1,18 @@
- <?php
+<?php
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../Controller/CursosController.php';
+require_once __DIR__ . '/../Model/UserModel.php';
 
-$cursoController = new CursoController();
+use Controller\CursosController;
+use Model\UserModel;
+
+$cursoController = new CursosController();
 $cursos = $cursoController->getCoursesForUser();
+
+$userId = $_SESSION['usuario_id'] ?? null;
+$userModel = new UserModel();
+$usuarioLogado = $userModel->encontrarUsuarioPorId($userId);
+$fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url']) : 'https://via.placeholder.com/40';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +28,7 @@ $cursos = $cursoController->getCoursesForUser();
 
 <body>
     <div class="sidebar">
-        <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
@@ -41,12 +50,12 @@ $cursos = $cursoController->getCoursesForUser();
                 <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
                 <div class="user-profile">
-                    <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                    <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                    <img src="<?php echo $fotoUsuario; ?>" alt="Avatar do Usuário" class="user-avatar">
+                    <img src="../Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
             <div class="header_mobile">
-                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+                <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
                 <i class="bi bi-list"></i>
             </div>
         </div>
@@ -68,15 +77,18 @@ $cursos = $cursoController->getCoursesForUser();
                     <p class="loading">Nenhum curso encontrado.</p>
                 <?php else: ?>
                     <?php foreach ($cursos as $curso): ?>
-                        <div class="course-card" data-title="<?php echo htmlspecialchars(strtolower($curso['nome_curso'])); ?>" data-prof="<?php echo htmlspecialchars(strtolower($curso['prof_curso'])); ?>">
+                        <div class="course-card" 
+                             data-title="<?php echo htmlspecialchars(strtolower($curso['nome_curso'])); ?>" 
+                             data-prof="<?php echo htmlspecialchars(strtolower($curso['prof_curso'])); ?>"
+                             data-course-id="<?php echo $curso['id_curso']; ?>">
                             <div class="course-image">
-                                <img src="/ClassAI/<?php echo htmlspecialchars($curso['capa_curso']); ?>" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>">
-
+                                <a href="pagina-curso.php?id=<?php echo $curso['id_curso']; ?>">
+                                    <img src="/ClassAI/<?php echo htmlspecialchars($curso['capa_curso']); ?>" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>">
+                                </a>
                                 <?php
                                 $dificuldade_sem_acento = preg_replace('/[^A-Za-z0-9\-]/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $curso['dificuldade']));
                                 $dificuldade_class = strtolower($dificuldade_sem_acento);
                                 ?>
-
                                 <span class="course-difficulty <?php echo $dificuldade_class; ?>">
                                     <?php echo htmlspecialchars($curso['dificuldade']); ?>
                                 </span>
@@ -88,24 +100,15 @@ $cursos = $cursoController->getCoursesForUser();
                                     <img src="<?php echo htmlspecialchars($curso['prof_foto_url']); ?>" alt="Foto de <?php echo htmlspecialchars($curso['prof_curso']); ?>">
                                     <span><?php echo htmlspecialchars($curso['prof_curso']); ?></span>
                                 </div>
+                                
                                 <?php
-                                $link = '#'; // Link para a página de detalhes do curso
-                                $textoBotao = '';
-                                $classeBotao = '';
+                                $status = $curso['status'] ?? 'Disponível';
+                                if ($status === 'Em andamento' || $status === 'Concluído'): ?>
+                                    <a href="pagina-curso.php?id=<?php echo $curso['id_curso']; ?>" class="course-button status-inprogress">Continuar Curso</a>
+                                <?php else: ?>
+                                    <button class="course-button status-available btn-enroll">Matricular-me</button>
+                                <?php endif; ?>
 
-                                switch ($curso['status']) {
-                                    case 'Em andamento':
-                                    case 'Concluído':
-                                        $textoBotao = 'Continuar Curso';
-                                        $classeBotao = 'status-inprogress';
-                                        break;
-                                    default: // 'Disponível'
-                                        $textoBotao = 'Matricular-me';
-                                        $classeBotao = 'status-available';
-                                        break;
-                                }
-                                ?>
-                                <a href="<?php echo $link; ?>" class="course-button <?php echo $classeBotao; ?>"><?php echo $textoBotao; ?></a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -115,38 +118,9 @@ $cursos = $cursoController->getCoursesForUser();
         <img class="lazinho" src="../Images/Pagina-do-Curso/lazo_inclinado.png" alt="Mascote lazo inclinado">
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const coursesList = document.getElementById('courses-list');
-            const allCourses = coursesList.querySelectorAll('.course-card');
-
-            searchInput.addEventListener('keyup', function() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-
-                allCourses.forEach(card => {
-                    const title = card.dataset.title;
-                    const prof = card.dataset.prof;
-
-                    if (title.includes(searchTerm) || prof.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-
-            const body = document.body;
-            const menuButton = document.querySelector(".header_mobile i.bi-list");
-            const sidebar = document.querySelector(".sidebar");
-
-            if (menuButton && sidebar) {
-                menuButton.addEventListener("click", () => {
-                    body.classList.toggle("sidebar-open");
-                });
-            }
-        });
-    </script>
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="../Templates/js/globalPresence.js"></script>
+    <script src="../Templates/js/PaginaPrincipalCursos.js"></script> 
 </body>
-<script src="../Templates/js/globalPresence.js"></script>
+
 </html>

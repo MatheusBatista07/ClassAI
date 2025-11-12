@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Model/ChatModel.php';
+require_once __DIR__ . '/../Model/UserModel.php';
 require_once __DIR__ . '/../Controller/ChatController.php';
 
 $currentUserId = $_SESSION['usuario_id'];
@@ -59,7 +60,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                         <img src="<?php echo $avatarUsuarioLogado; ?>"
                             alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
                             class="user-avatar">
-                        <img src="/ClassAI/Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+                        <img src="/ClassAI/Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
                     </a>
                 </div>
             </div>

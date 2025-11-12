@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <a href="../index.php">
             <figure>
-                <img src="../Images/Icones-do-header/Logo ClassAi branca.png" alt="Logo ClassAi">
+                <img src="../Images/Icones-do-header/Logo-ClassAi-branca.png" alt="Logo ClassAi">
             </figure>
         </a>
     </header>
@@ -75,5 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 <script src="../Templates/js/MostrarSenha.js"></script>
 <script src="../Templates/js/pagina-login.js"></script>
-<script src="../Templates/js/globalPresence.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="../Templates/js/globalPresence.js"></script>
 </html>

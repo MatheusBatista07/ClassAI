@@ -99,11 +99,9 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-// Dentro da classe UserModel
-
-public function getTodosUsuarios(int $currentUserId): array
-{
-    $sql = "
+    public function getTodosUsuarios(int $currentUserId): array
+    {
+        $sql = "
         SELECT 
             u.id, 
             u.nome, 
@@ -134,27 +132,33 @@ public function getTodosUsuarios(int $currentUserId): array
             timestamp_ultima_mensagem DESC
     ";
 
-    try {
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':currentUserId1', $currentUserId, PDO::PARAM_INT);
-        $stmt->bindValue(':currentUserId2', $currentUserId, PDO::PARAM_INT);
-        $stmt->bindValue(':currentUserId3', $currentUserId, PDO::PARAM_INT);
-        $stmt->bindValue(':currentUserId4', $currentUserId, PDO::PARAM_INT);
-        $stmt->bindValue(':currentUserId5', $currentUserId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (\PDOException $e) {
-        error_log("Erro ao buscar lista de contatos: " . $e->getMessage());
-        return [];
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':currentUserId1', $currentUserId, PDO::PARAM_INT);
+            $stmt->bindValue(':currentUserId2', $currentUserId, PDO::PARAM_INT);
+            $stmt->bindValue(':currentUserId3', $currentUserId, PDO::PARAM_INT);
+            $stmt->bindValue(':currentUserId4', $currentUserId, PDO::PARAM_INT);
+            $stmt->bindValue(':currentUserId5', $currentUserId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao buscar lista de contatos: " . $e->getMessage());
+            return [];
+        }
     }
-}
-
 
     public function encontrarUsuarioPorId(int $id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT id, nome, sobrenome, email, funcao, foto_perfil_url, data_cadastro, status, ultimo_acesso FROM usuarios WHERE id = ?";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao encontrar usuário por ID: " . $e->getMessage());
+            return null;
+        }
     }
 
     public function deletarUsuario(int $id): string|false
@@ -186,4 +190,42 @@ public function getTodosUsuarios(int $currentUserId): array
             return false;
         }
     }
+
+  public function matricularUsuario(int $userId, int $cursoId): bool
+{
+    $sql = "INSERT IGNORE INTO inscricoes (id_usuario_fk, id_curso_fk, status) VALUES (?, ?, 'Em andamento')";
+    try {
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$userId, $cursoId]);
+    } catch (\PDOException $e) {
+        error_log("Erro ao matricular usuário: " . $e->getMessage());
+        return false;
+    }
+}
+
+public function cancelarMatricula(int $userId, int $cursoId): bool
+{
+    $sql = "DELETE FROM inscricoes WHERE id_usuario_fk = ? AND id_curso_fk = ?";
+    try {
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$userId, $cursoId]);
+    } catch (\PDOException $e) {
+        error_log("Erro ao cancelar matrícula: " . $e->getMessage());
+        return false;
+    }
+}
+
+public function getInscricoesByUserId(int $userId): array
+{
+    $sql = "SELECT id_curso_fk, status FROM inscricoes WHERE id_usuario_fk = ?";
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    } catch (\PDOException $e) {
+        error_log("Erro ao buscar inscrições do usuário: " . $e->getMessage());
+        return [];
+    }
+}
+ 
 }

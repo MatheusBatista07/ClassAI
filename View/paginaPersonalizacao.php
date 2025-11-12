@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <a href="../index.php">
             <figure>
-                <img src="../Images/Icones-do-header/Logo ClassAI branca.png" alt="Logo ClassAi">
+                <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Logo ClassAi">
             </figure>
         </a>
     </header>

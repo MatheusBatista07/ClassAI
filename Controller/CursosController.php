@@ -1,8 +1,10 @@
 <?php
-require_once __DIR__ . '/../auth.php';
+namespace Controller;
+
+use Model\CursosModel;
 require_once __DIR__ . '/../Model/CursosModel.php';
 
-class CursoController
+class CursosController
 {
     private $courseModel;
 
@@ -14,7 +16,7 @@ class CursoController
     public function getCoursesForUser()
     {
         if (!isset($_SESSION['usuario_id'])) {
-            throw new Exception("Usuário não autenticado.");
+            throw new \Exception("Usuário não autenticado.");
         }
         $userId = $_SESSION['usuario_id'];
 

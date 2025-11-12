@@ -424,7 +424,7 @@
         </section>
         <footer>
             <div class="dir">
-                <img src="Images/Icones-do-header/Logo ClassAI branca.png" alt="Logo do ClassAI branca">
+                <img src="Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Logo do ClassAI branca">
                 <div class="redes">
                     <img class="zap" src="Images/Pagina-de-Apresentacao/whatsapp.png" alt="Logo Whatsapp">
                     <img class="face" src="Images/Pagina-de-Apresentacao/Facebook.png" alt="Logo Facebook">

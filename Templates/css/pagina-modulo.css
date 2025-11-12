@@ -1,71 +1,214 @@
-/* ============================================== */
-/* === ESTILOS ESPECÍFICOS PARA A PÁGINA DE AULA === */
-/* ============================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+
+:root {
+    --bg-dark: #0a0015;
+    --bg-sidebar: #1a0a2e;
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+    --accent-purple-light: #A9A5D0;
+    --accent-purple-dark: #4A447C;
+    --card-bg: #1E1A3A;
+    --card-hover: #2a244d;
+    --brand-purple: #6C00C4;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar {
+    min-height: 100vh;
+    width: 280px;
+    position: fixed;
+    padding: 20px;
+    background-color: var(--bg-dark);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .img-logo {
+    width: 140px;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+}
+
+.nav-link.active {
+    background-image: linear-gradient(to right, #3d056c, #22c55e);
+    color: var(--text-light);
+}
+
+.nav-link i {
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.nav-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 20px 0;
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #290841;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background-color: #290841;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.arrow-icon {
+    width: 12px;
+    height: auto;
+    margin-right: 4px;
+}
+
+.breadcrumb {
+    --bs-breadcrumb-divider-color: var(--accent-purple-light);
+    --bs-breadcrumb-item-active-color: var(--text-light);
+}
+
+.breadcrumb-item a {
+    color: var(--accent-purple-light);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--text-light);
+}
 
 .lesson-area {
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .lesson-header h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--accent-purple-dark);
+    padding-bottom: 1rem;
 }
 
 .lesson-content-grid {
     display: grid;
-    /* Define duas colunas: a primeira (vídeos) ocupa 2/3 e a segunda (materiais) 1/3 */
     grid-template-columns: 2fr 1fr;
-    gap: 3rem; /* Espaço grande entre as colunas */
+    gap: 3rem;
 }
 
-/* Estilos para as seções de vídeo e materiais */
 .video-section h2,
 .materials-section h2 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: var(--text-light);
+    color: #E0E0E0;
 }
 
-/* Grid para os placeholders de vídeo */
 .video-grid {
     display: grid;
-    /* Duas colunas de vídeo */
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
-.video-placeholder {
-    aspect-ratio: 16 / 9; /* Proporção padrão de vídeo */
-    background-color: transparent;
-    border: 2px solid var(--border-color, #4E008D);
+.video-card {
+    text-decoration: none;
+    color: var(--text-light);
+    display: block;
+}
+
+.video-thumbnail {
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent-purple-dark);
     border-radius: 12px;
+    aspect-ratio: 16 / 9;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease;
 }
 
-.video-placeholder:hover {
-    background-color: rgba(78, 0, 141, 0.2);
-    border-color: #8a3ffc;
-}
-
-.play-icon {
+.video-thumbnail i {
     font-size: 3rem;
-    color: var(--border-color, #4E008D);
-    transition: color 0.3s;
+    color: var(--accent-purple-light);
+    transition: color 0.2s ease;
 }
 
-.video-placeholder:hover .play-icon {
-    color: #8a3ffc;
+.video-card:hover .video-thumbnail {
+    background-color: var(--card-hover);
 }
 
-/* Lista para os materiais de estudo */
+.video-card:hover .video-thumbnail i {
+    color: var(--text-light);
+}
+
+.video-title {
+    font-weight: 500;
+}
+
 .materials-list {
     display: flex;
     flex-direction: column;
@@ -73,35 +216,25 @@
 }
 
 .material-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent-purple-dark);
+    border-radius: 8px;
+    padding: 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
-    background-color: transparent;
-    border: 2px solid var(--border-color, #4E008D);
-    border-radius: 8px;
     text-decoration: none;
-    color: var(--text-muted, #a0a0a0);
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    color: #E0E0E0;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .material-item:hover {
-    background-color: rgba(78, 0, 141, 0.2);
-    border-color: #8a3ffc;
-    color: var(--text-light, #ffffff);
+    background-color: var(--card-hover);
+    border-color: var(--brand-purple);
+    color: var(--text-light);
 }
 
-.material-item .download-icon {
+.material-item i {
     font-size: 1.5rem;
-}
-
-.material-item span {
-    font-weight: 500;
-}
-
-/* Media Query para responsividade em telas menores */
-@media (max-width: 992px) {
-    .lesson-content-grid {
-        grid-template-columns: 1fr; /* Transforma em uma única coluna */
-    }
+    color: var(--accent-purple-light);
 }
