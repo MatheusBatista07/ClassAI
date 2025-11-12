@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+
+:root {
+    --bg-color: #10001C; /* Roxo bem escuro */
+    --primary-color: #1B052D; /* Roxo um pouco mais claro para elementos */
+    --highlight-color: #00ff89; /* Verde neon para o logo */
+    --text-color: #ffffff;
+    --text-muted-color: #a9a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --font-family: 'Montserrat', 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* --- Cabeçalho Superior --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 60px;
+    margin-right: 40px;
+}
+
+.logo .logo-highlight {
+    color: var(--highlight-color);
+}
+
+.user-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #290841;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background-color: #290841;
+  padding: 4px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.user-profile:hover {
+  background-color: #534f70;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.arrow-icon {
+  width: 12px;
+  height: auto;
+  margin-right: 4px;
+}
+
+.lazzo_img {
+  height: 1.5rem;
+}
+
+/* --- Área de Conteúdo Principal --- */
+.content-area {
+    padding: 30px 40px;
+    max-width: 900px; /* Limita a largura do conteúdo central */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.back-link {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    position: relative;
+    margin-bottom: 30px;
+    margin-left: 25rem;
+    margin-top: 1.5rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 40px 12px 20px;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-muted-color);
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted-color);
+    width: 20px;
+}
+
+/* --- Lista de Alunos --- */
+.student-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.student-item:hover {
+    background-color: #3a256a;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.student-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.chat-icon {
+    color: var(--text-muted-color);
+    transition: color 0.2s ease;
+}
+
+.chat-icon:hover {
+    color: var(--text-color);
+}
+
+.chat-icon:hover {
+    color: var(--text-color);
+}
+
+.deletar:hover{
+    color: var(red);
+}
+
+.mascot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px; /* Ajuste o tamanho conforme necessário */
+    z-index: -1; /* Fica atrás do conteúdo, se necessário */
+}
+
+/* --- Estilos para o Modal de Exclusão --- */
+
+/* O fundo escurecido que cobre a página */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Garante que fique acima de tudo */
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+}
+
+/* O conteúdo do modal */
+.modal-content {
+    background-color: var(--primary-color); /* Reutiliza a cor roxa primária */
+    padding: 25px 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    width: 99%;
+    max-width: 450px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    font-family: var(--font-family);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Animação para o modal aparecer suavemente */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--text-muted-color);
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: var(--text-color);
+}
+
+.modal-body p {
+    font-size: 16px;
+    color: var(--text-muted-color);
+    margin-bottom: 10px;
+}
+
+.modal-body .course-name-modal {
+    font-weight: bold;
+    color: var(--text-color);
+    font-style: italic;
+    text-align: center;
+    background-color: var(--bg-color);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.modal-body .warning-text {
+    color: #ffc107; /* Amarelo para alerta */
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.modal-footer .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #4A4A68; /* Cinza/Roxo para cancelar */
+    color: var(--text-color);
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #6A6A8C;
+}
+
+.modal-footer .btn-danger {
+    background-color: #BD0606; /* Vermelho para excluir */
+    color: white;
+}
+
+.modal-footer .btn-danger:hover {
+    background-color: #E50707;
+    box-shadow: 0 0 10px rgba(229, 7, 7, 0.5);
+}
