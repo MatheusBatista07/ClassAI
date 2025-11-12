@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="../Templates/css/pagina-customizar-curso.css">
+    <link rel="stylesheet" href="../Templates/css/pagina-editar-curso.css">
 </head>
 <body>
 
@@ -87,7 +87,7 @@
     </main>
 
     <!-- Mascote no canto -->
-    <img src="../Images/Página Inicial/lazinho.png" alt="Mascote" class="mascot">
+    <img src="../Images/Pagina-Inicial/lazzinho.png" alt="Mascote" class="mascot">
 
     <!-- Script para ativar os ícones Feather -->
     <script>
