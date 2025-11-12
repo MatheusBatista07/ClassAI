@@ -1,0 +1,227 @@
+body {
+  background-color: #10001C;
+  color: #FFFFFF;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  border-bottom: 1px solid #2A0E44;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header figure {
+  margin: 0;
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-icons .bi-bell {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.user-profile {
+  background-color: #5A2A8A;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.lazzo_img {
+  height: 1.5rem;
+}
+
+header .header_mobile {
+  display: none;
+}
+
+main.container-fluid {
+  padding: 2rem 4rem;
+  position: relative;
+}
+
+.back-link {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.back-link .bi-chevron-left {
+  font-size: 1.5rem;
+}
+
+.course-form .form-group label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.course-form .form-control {
+  background-color: transparent;
+  border: 1px solid #5A2A8A;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  color: #FFFFFF;
+  font-size: 1rem;
+}
+
+.course-form .form-control::placeholder {
+  color: #8c8c8c;
+}
+
+.course-form .form-control:focus {
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: #8e44ad;
+  box-shadow: 0 0 0 0.2rem rgba(142, 68, 173, 0.25);
+}
+
+.course-form textarea.form-control {
+  resize: none;
+}
+/* 1. O container precisa ter position: relative para que o ícone se posicione em relação a ele */
+.cover-upload-area {
+    border: 2px dashed #5A2A8A;
+    border-radius: 1rem;
+    height: 210px;
+    cursor: pointer;
+    position: relative; /* ESSENCIAL */
+}
+
+/* 2. Posicionamos o ícone de forma absoluta e o centralizamos */
+.cover-upload-area .bi-plus-circle-fill {
+    font-size: 3rem; /* Ajuste o tamanho conforme desejar */
+    color: #5A2A8A;
+    
+    /* Chave para a centralização com posicionamento absoluto */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Classe para esconder o input (se ainda não tiver) */
+.d-none {
+    display: none;
+}
+
+
+
+.btn-add-profession {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.btn-add-profession .bi-plus-circle-fill {
+  color: #5A2A8A;
+}
+
+.btn-add-modules {
+  background-color: #5A2A8A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 1rem 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #10001C;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  header .logo,
+  header .header-icons {
+    display: none;
+  }
+
+  header .header_mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header_mobile .img-logo {
+    height: 35px;
+  }
+
+  .user-profile-mobile-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background-color: #290841;
+    padding: 0.3rem;
+    border-radius: 1rem;
+  }
+
+  .user-avatar-mobile {
+    height: 35px;
+    width: auto;
+  }
+
+  main.container-fluid {
+    padding: 1.5rem;
+    margin-top: 80px;
+  }
+
+  .back-link {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .mascot-image {
+    display: none;
+  }
+}
