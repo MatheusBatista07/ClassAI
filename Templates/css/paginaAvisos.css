@@ -1,0 +1,293 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+
+:root {
+    --bg-color: #10001C; /* Roxo bem escuro */
+    --primary-color: #1B052D; /* Roxo um pouco mais claro para elementos */
+    --highlight-color: #00ff89; /* Verde neon para o logo */
+    --text-color: #ffffff;
+    --text-muted-color: #a9a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --font-family: 'Montserrat', 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* --- Cabeçalho Superior --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 60px;
+    margin-right: 40px;
+}
+
+.logo .logo-highlight {
+    color: var(--highlight-color);
+}
+
+.user-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #290841;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background-color: #290841;
+  padding: 4px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.user-profile:hover {
+  background-color: #534f70;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.arrow-icon {
+  width: 12px;
+  height: auto;
+  margin-right: 4px;
+}
+
+.lazzo_img {
+  height: 1.5rem;
+}
+
+/* --- Área de Conteúdo Principal --- */
+.container {
+    padding: 0 40px;
+}
+
+.page-title {
+    margin: 30px 0;
+}
+
+.back-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: var(--primary-purple);
+    border-radius: 8px;
+}
+
+/* --- Avisos Recentes --- */
+
+.titulo {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  font-family: 'Montserrat';
+}
+
+.titulo-new {
+    position: relative;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    font-family: 'Montserrat';
+}
+
+.titulo::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.2em;
+  width: 47%;
+  height: 0.4em;
+  background-color: #7A00FF; /* roxo vibrante */
+  z-index: -1; /* fica atrás do texto */
+}
+
+.titulo-new::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.2em;
+  width: 32%;
+  height: 0.4em;
+  background-color: #7A00FF; /* roxo vibrante */
+  z-index: -1; /* fica atrás do texto */
+}
+
+.recent-notices .notice-card {
+    background-color: var(--card-background);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background-color: #1B052D;
+    border-color: #4D008C;
+    margin-top: 1.5rem;
+}
+
+.notice-card h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.notice-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.notice-card .signature {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+.notice-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notice-footer .tag {
+    font-style: italic;
+    color: #6a5a8a; /* Cor específica do texto pequeno */
+}
+
+/* --- Formulário de Novo Aviso --- */
+.notice-form .form-group {
+    margin-bottom: 20px;
+}
+
+.notice-form input,
+.notice-form textarea {
+    width: 100%;
+    background-color: transparent;
+    border: 2px dashed #4D008C;
+    border-radius: 12px;
+    padding: 15px;
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    
+}
+
+.notice-form input::placeholder,
+.notice-form textarea::placeholder {
+    color: var(--input-placeholder);
+}
+
+.notice-form input:focus,
+.notice-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-purple);
+}
+
+.submit-btn {
+    background-color: #1B052D;
+    color: var(--text-color);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.submit-btn:hover {
+    background-color: #7b1dc7;
+    border-color: var(--primary-purple);
+}
+
+/* --- Mascote --- */
+.mascot {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 150px;
+    height: auto;
+}
+
