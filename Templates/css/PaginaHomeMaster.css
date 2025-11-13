@@ -36,8 +36,8 @@ body {
 }
 
 .sidebar .img-logo {
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: auto;
     display: block;
     margin: 0 auto 20px auto;
 }
