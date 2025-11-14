@@ -20,34 +20,18 @@ body {
 }
 
 /* --- Cabeçalho Superior --- */
-.main-header {
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
+    padding-bottom: 0px;
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
 }
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.logo img {
-    height: 60px;
-    margin-right: 40px;
-}
-
-.logo .logo-highlight {
-    color: var(--highlight-color);
-}
-
 .user-nav {
     display: flex;
     align-items: center;
@@ -106,14 +90,10 @@ body {
   margin-right: 4px;
 }
 
-.lazzo_img {
-  height: 1.5rem;
-}
-
 /* --- Área de Conteúdo Principal --- */
 .content-area {
     padding: 30px 40px;
-    max-width: 900px; /* Limita a largura do conteúdo central */
+    max-width: 65.0rem; /* Limita a largura do conteúdo central */
     margin: 0 auto; /* Centraliza o conteúdo */
 }
 
@@ -122,7 +102,8 @@ body {
     align-items: center;
     align-items: center;
     gap: 15px;
-    margin-bottom: 30px;
+    padding-top: 1.5rem;
+    padding-left: 5.0rem;
 }
 
 .page-title h1 {
@@ -137,94 +118,6 @@ body {
     align-items: center;
 }
 
-.search-bar {
-    position: relative;
-    margin-bottom: 30px;
-    margin-left: 25rem;
-    margin-top: 1.5rem;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 12px 40px 12px 20px;
-    background: none;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-color);
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-.search-bar input::placeholder {
-    color: var(--text-muted-color);
-}
-
-.search-bar .search-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted-color);
-    width: 20px;
-}
-
-/* --- Lista de Alunos --- */
-.student-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.student-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    padding: 15px 25px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.student-item:hover {
-    background-color: #3a256a;
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.student-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.student-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-.chat-icon {
-    color: var(--text-muted-color);
-    transition: color 0.2s ease;
-}
-
-.chat-icon:hover {
-    color: var(--text-color);
-}
-
-.chat-icon:hover {
-    color: var(--text-color);
-}
-
-.deletar:hover{
-    color: var(red);
-}
 
 .mascot {
     position: fixed;
@@ -234,131 +127,217 @@ body {
     z-index: -1; /* Fica atrás do conteúdo, se necessário */
 }
 
-/* --- Estilos para o Modal de Exclusão --- */
+.header_mobile{
+    display: none;
+}
 
-/* O fundo escurecido que cobre a página */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+/* --- Estilos do Formulário de Customização de Curso --- */
+
+/* Layout principal do formulário em grid */
+.course-form {
+    margin-top: 40px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Coluna da direita fica 20% maior */
+    gap: 60px; /* Aumentei um pouco o espaço para respirar */
+    align-items: start; /* Alinha os itens no topo de cada coluna */
+}
+
+.form-column {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 30px; /* Espaço entre os grupos de formulário */
+}
+
+/* Estilo geral para cada grupo (label + input ) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color, #ffffff);
+}
+
+/* Estilo para inputs de texto, textarea e select */
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    background-color: rgba(16, 0, 28, 0.8); 
+    border: 1px dashed #4D008C;
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text-color, #ffffff);
+    font-family: var(--font-family, 'Montserrat', sans-serif);
+    font-size: 16px;
+    width: 100%;
+}
+
+.form-group textarea {
+    resize: vertical; /* Permite redimensionar apenas na vertical */
+}
+
+/* --- Estilos Específicos --- */
+
+/* Capa do Curso */
+.course-cover {
+    position: relative;
+    width: 30.0rem;
+    height: 15.7rem;
+    display: flex;
     align-items: center;
-    z-index: 1050; /* Garante que fique acima de tudo */
-    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+    justify-content: center;
+    background-color: #10001C;
 }
 
-/* O conteúdo do modal */
-.modal-content {
-    background-color: var(--primary-color); /* Reutiliza a cor roxa primária */
-    padding: 25px 30px;
+.course-cover img {
+    width: 100%;
+    height: 100%; /* Garante que a imagem preencha o contêiner */
     border-radius: 16px;
-    border: 1px solid var(--border-color);
-    width: 99%;
-    max-width: 450px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
-    font-family: var(--font-family);
-    animation: fadeIn 0.3s ease-out;
+    border: 2px dashed #4D008C;
+    /* A propriedade 'aspect-ratio' é removida ou ignorada quando 'height' está definida */
+    object-fit: cover; /* Mantém a proporção da imagem sem distorcer */
 }
 
-/* Animação para o modal aparecer suavemente */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+
+.edit-cover-btn {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: #6a0dad; /* Roxo para o botão */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    border: 2px solid var(--bg-color, #10001C);
+    transition: transform 0.2s ease;
 }
 
-.modal-header {
+.edit-cover-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Profissões Recomendadas */
+#professions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profession-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    /* ALTERAÇÃO 1: Transparência do background */
+    background-color: rgba(16, 0, 28, 0.8);     /* ALTERAÇÃO 2: Bordas tracejadas */
+    border: 1px dashed #4D008C;
+    border-radius: 12px;
+    padding: 10px 16px;
 }
 
-.modal-header h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--text-color);
-    margin: 0;
+.remove-profession {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
 }
 
-.close-button {
+.add-profession-btn {
     background: none;
     border: none;
-    color: var(--text-muted-color);
-    font-size: 28px;
+    color: #a9a3b8;
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.close-button:hover {
-    color: var(--text-color);
-}
-
-.modal-body p {
-    font-size: 16px;
-    color: var(--text-muted-color);
-    margin-bottom: 10px;
-}
-
-.modal-body .course-name-modal {
-    font-weight: bold;
-    color: var(--text-color);
-    font-style: italic;
-    text-align: center;
-    background-color: var(--bg-color);
-    padding: 10px;
-    border-radius: 8px;
-    margin: 20px 0;
-}
-
-.modal-body .warning-text {
-    color: #ffc107; /* Amarelo para alerta */
-    font-size: 14px;
-    text-align: center;
-}
-
-.modal-footer {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 25px;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    font-size: 16px;
+    width: 11.1rem;
 }
 
-.modal-footer .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.modal-footer .btn-secondary {
-    background-color: #4A4A68; /* Cinza/Roxo para cancelar */
-    color: var(--text-color);
-}
-
-.modal-footer .btn-secondary:hover {
-    background-color: #6A6A8C;
-}
-
-.modal-footer .btn-danger {
-    background-color: #BD0606; /* Vermelho para excluir */
+.add-profession-btn:hover {
     color: white;
 }
 
-.modal-footer .btn-danger:hover {
-    background-color: #E50707;
-    box-shadow: 0 0 10px rgba(229, 7, 7, 0.5);
+.form-actions {
+    display: flex;
+    justify-content: center; /* Centraliza os botões na página */
+    align-items: center;
+    gap: 20px; /* Espaço entre os dois botões */
+    margin-top: 40px;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+}
+
+/* Estilo base para AMBOS os botões (reutilização de código) */
+.btn-primary,
+.btn-secondary {
+    border-radius: 12px;
+    padding: 14px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Remove sublinhado do link <a> */
+    display: inline-block; /* Garante que padding e outras propriedades funcionem no <a> */
+}
+
+/* Estilo específico para o botão principal (Confirmar) */
+.btn-primary {
+    background-color: #6a0dad; /* Roxo mais vibrante para a ação principal */
+    color: white;
+    border: 1px solid #6a0dad;
+}
+
+.btn-primary:hover {
+    background-color: #832dc7;
+    box-shadow: 0 0 15px rgba(131, 45, 199, 0.7);
+}
+
+/* Estilo específico para o botão secundário (Editar Módulos) */
+.btn-secondary {
+    background-color: transparent;
+    color: #a9a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-secondary:hover {
+    background-color: #290841;
+    color: white;
+    border-color: #290841;
+}
+
+
+/* Estilo para o contêiner do novo input */
+.new-profession-input-container {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    padding: 10px 16px;
+}
+
+/* Estilo para o campo de input em si */
+.new-profession-input-container input {
+    flex-grow: 1; /* Ocupa todo o espaço disponível */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    outline: none; /* Remove a borda de foco padrão do navegador */
 }

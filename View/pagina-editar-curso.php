@@ -12,81 +12,105 @@
 <body>
 
     <!-- Cabeçalho Superior -->
-    <header class="main-header">
-        <div class="logo">
-            <img src="../Images/Ícones do header/LogoClassaiMaster.png" alt="">
-        </div>
+    <header>
+        <a href="index.php">
+            <figure>
+                <img src="../Images/Icones-do-header/logoMaster.png" alt="Logo ClassAi Master" class="logo">
+            </figure>
+        </a>
         
         <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
-                <div class="header-icon">
-                    <i class="bi bi-bell"></i>
-                </div>
-                <div class="user-profile">
-                <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
-                </div>
+            <div class="header-icon">
+                <i class="bi bi-bell"></i>
             </div>
+            <div class="user-profile">
+                <img src="" alt="Avatar do Usuário" class="user-avatar">
+                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+            </div>
+        </div>
+
+        <div class="header_mobile">
+            <img src="../Images/Icones-do-header/logoMaster.png" alt="Imagem logo ClassAII" class="img-logo">
+            
+            <div class="user-profile-mobile-group">
+                <img src="" alt="Avatar do Usuário" class="user-avatar-mobile">
+                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+            </div>
+        </div>
     </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="content-area">
-        
-        <div class="page-title">
-            <a href="#" class="back-link"><i data-feather="chevron-left"></i></a>
-            <h1>Cursos</h1>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Pesquisar">
-                <i data-feather="search" class="search-icon"></i>
+    <div class="page-title">
+        <a href="#" class="back-link"><i data-feather="chevron-left"></i></a>
+        <h1>Customizar Curso</h1>
+    </div>
+    <!-- Conteúdo Principal -->
+<main class="content-area">
+    <!-- INÍCIO DO FORMULÁRIO DE CUSTOMIZAÇÃO -->
+    <form class="course-form" method="UPDATE">
+        <div class="form-grid">
+            <!-- Coluna da Esquerda -->
+            <div class="form-column">
+                <!-- Campo Título -->
+                <div class="form-group">
+                    <label for="course-title">Título</label>
+                    <input type="text" id="course-title" placeholder="TÍTULO QUE ESTÁ NO BANCO DE DADOS">
+                </div>
+
+                <!-- Campo Descrição -->
+                <div class="form-group">
+                    <label for="course-description">Descrição</label>
+                    <textarea id="course-description" rows="4" placeholder="DESCRIÇÃO QUE ESTÁ NO BANCO DE DADOS"></textarea>
+                </div>
+
+                <!-- Campo Profissões Recomendadas -->
+                <div class="form-group">
+                    <label>Profissões Recomendadas</label>
+                    <div id="professions-list">
+                        <!-- AQUI É ONDE O USUÁIO VAI ADICIONAR AS PROFISSÕES -->
+                    </div>
+                    <button type="button" id="add-profession-btn" class="add-profession-btn">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Adicionar profissão</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Coluna da Direita -->
+            <div class="form-column">
+                <!-- Campo Capa do Curso -->
+                <div class="form-group">
+                    <label>Capa do Curso</label>
+                    <div class="course-cover">
+                        <img src="https://i.imgur.com/sT8xY3k.jpeg" alt="Capa do curso com um laptop e um carro em miniatura" id="cover-image">
+                        <label for="cover-upload" class="edit-cover-btn">
+                            <i class="bi bi-pencil"></i>
+                        </label>
+                        <input type="file" id="cover-upload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- Campo Nível de Dificuldade -->
+                <div class="form-group">
+                    <label for="course-difficulty">Nível de dificuldade</label>
+                    <select id="course-difficulty">
+                        <option>Iniciante</option>
+                        <option>Intermediário</option>
+                        <option>Avançado</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-
-        <ul class="student-list">
-            <li class="student-item">
-                <div class="student-info">
-                    <i class="bi bi-play-fill"></i>
-                    <span>Chat GPT no dia a dia: Automatize tarefas com texto</span>
-                </div>
-
-                <div>
-
-                <a href="#" class="chat-icon">
-                    <i style="padding-right: 0.3rem" class="bi bi-pencil"></i>
-                </a>
-                
-                <button class="deletar" style="background-color: transparent; border: none; " >
-                <i class="bi bi-trash" style="color: #BD0606"></i>
-                </button>
-    </div>
-            </li>
-        </ul>
-
-
-<div id="deleteModal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Confirmar Exclusão</h2>
-            <button id="closeModal" class="close-button">&times;</button>
+       <div class="form-actions">
+            <a href="pagina-de-edicao-de-modulos.php" class="btn-secondary">Editar Módulos</a>
+            <button type="submit" class="btn-primary">Confirmar Alterações</button>
         </div>
-        <div class="modal-body">
-            <p>Você tem certeza de que deseja excluir este curso?</p>
-            <!-- A linha que mostrava o nome do curso foi removida daqui -->
-            <p class="warning-text">Esta ação não poderá ser desfeita.</p>
-        </div>
-        <div class="modal-footer">
-            <button id="cancelDelete" class="btn btn-secondary">Cancelar</button>
-            <button id="confirmDelete" class="btn btn-danger">Sim, Excluir</button>
-        </div>
-    </div>
-</div>
+    </form>
+    <!-- FIM DO FORMULÁRIO DE CUSTOMIZAÇÃO -->
 
+</main>
 
-
-    </main>
-
-    <!-- Mascote no canto -->
     <img src="../Images/Pagina-Inicial/lazzinho.png" alt="Mascote" class="mascot">
 
     <!-- Script para ativar os ícones Feather -->
@@ -95,7 +119,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Templates/js/pagina-customizar-curso.js"></script>
+    <script src="../Templates/js/pagina-editar-curso.js"></script>
 
 
 </body>

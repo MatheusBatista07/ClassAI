@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassMaster - Editar Curso</title>
+    <title>ClassMaster - Cursos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="../Templates/css/pagina-customizar-curso.css">
+    <link rel="stylesheet" href="../Templates/css/pagina-lista-cursos.css">
 </head>
 <body>
 
     <!-- Cabeçalho Superior -->
-    <header class="main-header">
-        <div class="logo">
-            <img src="../Images/Ícones do header/LogoClassaiMaster.png" alt="">
-        </div>
+    <header>
+        <a href="index.php">
+            <figure>
+                <img src="../Images/Icones-do-header/logoMaster.png" alt="Logo ClassAi Master" class="logo">
+            </figure>
+        </a>
         
         <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
-                <div class="header-icon">
-                    <i class="bi bi-bell"></i>
-                </div>
-                <div class="user-profile">
-                <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="user-avatar">
-                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
-                </div>
+            <div class="header-icon">
+                <i class="bi bi-bell"></i>
             </div>
+            <div class="user-profile">
+                <img src="" alt="Avatar do Usuário" class="user-avatar">
+                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+            </div>
+        </div>
+
+        <div class="header_mobile">
+            <img src="../Images/Icones-do-header/logoMaster.png" alt="Imagem logo ClassAII" class="img-logo">
+            
+            <div class="user-profile-mobile-group">
+                <img src="" alt="Avatar do Usuário" class="user-avatar-mobile">
+                <img src="../Images/Icones-do-header/setinha perfil.png" alt="Seta" class="arrow-icon">
+            </div>
+        </div>
     </header>
 
     <!-- Conteúdo Principal -->
@@ -44,23 +54,25 @@
 
 
         <ul class="student-list">
+            
             <li class="student-item">
+                <a href="pagina-editar-curso.php" class="chat-icon" style="color: white; text-decoration: none">
                 <div class="student-info">
                     <i class="bi bi-play-fill"></i>
                     <span>Chat GPT no dia a dia: Automatize tarefas com texto</span>
                 </div>
 
                 <div>
-
-                <a href="#" class="chat-icon">
-                    <i style="padding-right: 0.3rem" class="bi bi-pencil"></i>
-                </a>
-                
+                    </a>
                 <button class="deletar" style="background-color: transparent; border: none; " >
                 <i class="bi bi-trash" style="color: #BD0606"></i>
                 </button>
-    </div>
+                </div>
+
             </li>
+            
+
+            (aqui abaixo ficam os outros cursos, caso tenham)
         </ul>
 
 
@@ -95,7 +107,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Templates/js/pagina-customizar-curso.js"></script>
+    <script src="../Templates/js/pagina-lista-cursos.js"></script>
 
 
 </body>

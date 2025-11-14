@@ -20,11 +20,12 @@ body {
 }
 
 /* --- Cabeçalho Superior --- */
-.main-header {
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
+    padding-bottom: 0px;
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -37,15 +38,6 @@ body {
     align-items: center;
     font-size: 22px;
     font-weight: bold;
-}
-
-.logo img {
-    height: 60px;
-    margin-right: 40px;
-}
-
-.logo .logo-highlight {
-    color: var(--highlight-color);
 }
 
 .user-nav {
@@ -362,3 +354,8 @@ body {
     background-color: #E50707;
     box-shadow: 0 0 10px rgba(229, 7, 7, 0.5);
 }
+
+.header_mobile{
+    display: none;
+}
+
