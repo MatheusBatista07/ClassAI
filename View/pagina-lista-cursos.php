@@ -61,18 +61,17 @@
                     <i class="bi bi-play-fill"></i>
                     <span>Chat GPT no dia a dia: Automatize tarefas com texto</span>
                 </div>
-
-                <div>
                     </a>
-                <button class="deletar" style="background-color: transparent; border: none; " >
-                <i class="bi bi-trash" style="color: #BD0606"></i>
-                </button>
-                </div>
-
+                    
+                
+                    <button class="deletar" style="background-color: transparent; border: none; " >
+                        <i class="bi bi-trash" style="color: #BD0606"></i>
+                    </button>
+                
             </li>
             
-
             (aqui abaixo ficam os outros cursos, caso tenham)
+
         </ul>
 
 

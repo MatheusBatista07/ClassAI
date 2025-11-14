@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+
+:root {
+    --bg-color: #10001C; /* Roxo bem escuro */
+    --primary-color: #1B052D; /* Roxo um pouco mais claro para elementos */
+    --highlight-color: #00ff89; /* Verde neon para o logo */
+    --text-color: #ffffff;
+    --text-muted-color: #a9a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --font-family: 'Montserrat', 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* --- Cabeçalho Superior --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    padding-bottom: 0px;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.user-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #290841;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background-color: #290841;
+  padding: 4px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.user-profile:hover {
+  background-color: #534f70;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* --- Área de Conteúdo Principal --- */
+.content-area {
+    padding: 30px 40px;
+    max-width: 100.0rem; /* Limita a largura do conteúdo central */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    gap: 15px;
+    padding-top: 1.5rem;
+    padding-left: 5.0rem;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.back-link {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.mascot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px; /* Ajuste o tamanho conforme necessário */
+    z-index: -1; /* Fica atrás do conteúdo, se necessário */
+}
+
+.header_mobile{
+    display: none;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13.0rem, 1fr));
+    gap: 30px;
+}
+
+.module-card {
+    background-color: black;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    border: 1px solid #4D008C;
+    transition: all 0.3s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+}
+
+.card-header {
+    position: relative;
+}
+
+.card-header img {
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.edit-module-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    background-color: #4D008C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    border: 2px solid var(--bg-color);
+    transition: transform 0.2s ease;
+}
+
+.edit-module-btn:hover {
+    transform: scale(1.15);
+}
+
+.card-body h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.card-body p {
+    font-size: 14px;
+    color: var(--text-muted-color);
+    margin: 0;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted-color);
+    margin-top: auto; /* Empurra o rodapé para o final do card */
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Estilos do Modal de Edição --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(16, 0, 28, 0.8); /* Cor do seu fundo com transparência */
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+
+.modal-content {
+    background-color: var(--primary-color);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 90%;
+    max-width: 800px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+.modal-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header h2 { font-size: 24px; font-weight: bold; margin: 0; }
+.close-button { background: none; border: none; color: var(--text-muted-color); font-size: 28px; cursor: pointer; }
+
+.modal-body { padding: 30px; }
+
+.form-grid-modal {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+}
+
+.form-column-modal { display: flex; flex-direction: column; gap: 25px; }
+.form-group { display: flex; flex-direction: column; gap: 10px; }
+.form-group label { font-size: 16px; font-weight: bold; }
+.form-group input {
+    background-color: rgba(27, 5, 45, 0.8);
+    border: 1px dashed #4D008C;
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-size: 16px;
+}
+
+.module-cover {
+    position: relative;
+}
+
+.module-cover img {
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 10; /* Mantém a proporção da imagem */
+    object-fit: cover;
+    /* Adiciona uma borda tracejada para consistência com os inputs */
+    border: 1px dashed #4D008C;
+}
+
+.edit-cover-btn {
+    /* 1. Posicionamento */
+    position: absolute;
+    bottom: -10px; /* Posição vertical (canto inferior) */
+    right: -10px;  /* Posição horizontal (canto direito) */
+    z-index: 10;   /* Garante que o botão fique sobre a imagem */
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color, #6a0dad); /* Cor de fundo roxa */
+    color: white;
+    border-radius: 50%; /* Deixa o botão perfeitamente redondo */
+    border: 2px solid var(--primary-color); /* Borda para destacar do fundo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.edit-cover-btn:hover {
+    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+.modal-footer { display: flex; justify-content: flex-end; margin-top: 30px; }
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover { background-color: #832dc7; }
+
