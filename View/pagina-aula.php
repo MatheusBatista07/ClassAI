@@ -7,23 +7,28 @@ use Model\CursosModel;
 use Model\UserModel;
 
 $userId = $_SESSION['usuario_id'] ?? null;
-$cursoId = $_GET['curso_id'] ?? null;
+$aulaId = $_GET['aula_id'] ?? null;
 
-if (!$cursoId || !$userId) {
-    die("Curso não especificado.");
+if (!$aulaId || !$userId) {
+    die("Acesso inválido.");
 }
 
 $cursosModel = new CursosModel();
-$curso = $cursosModel->getCourseById((int)$cursoId);
-$modulos = $cursosModel->getModulosEAulasPorCursoId((int)$cursoId);
+$aula = $cursosModel->getAulaById((int)$aulaId);
 
-if (!$curso) {
-    die("Curso não encontrado.");
+if (!$aula) {
+    die("Aula não encontrada.");
 }
 
 $userModel = new UserModel();
 $usuarioLogado = $userModel->encontrarUsuarioPorId($userId);
 $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url']) : 'https://via.placeholder.com/40';
+
+$videoId = null;
+if (!empty($aula['video_aula'] )) {
+    parse_str(parse_url($aula['video_aula'], PHP_URL_QUERY), $vars);
+    $videoId = $vars['v'] ?? null;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -31,10 +36,10 @@ $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspe
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulos de <?php echo htmlspecialchars($curso['nome_curso'] ); ?></title>
+    <title>ClassAI | <?php echo htmlspecialchars($aula['titulo_aula']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../Templates/css/pagina-modulos.css">
+    <link rel="stylesheet" href="../Templates/css/pagina-aula.css">
 </head>
 
 <body>
@@ -56,9 +61,7 @@ $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspe
 
     <div class="main-content">
         <div class="header">
-            <a href="pagina-curso.php?id=<?php echo $curso['id_curso']; ?>" class="btn-voltar">
-                <i class="bi bi-arrow-left-circle"></i> Voltar para o Curso
-            </a>
+            <div></div>
             <div class="header-icons">
                 <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
@@ -69,32 +72,35 @@ $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspe
             </div>
         </div>
 
-        <div class="course-content-area">
-            <header class="course-header">
-                <h1><?php echo htmlspecialchars($curso['nome_curso'] ); ?></h1>
-                <h2>Todos os Módulos</h2>
+        <div class="material-area">
+            <a href="pagina-modulo.php?mod_id=<?php echo $aula['id_mod_fk']; ?>" class="btn-voltar">
+                <i class="bi bi-arrow-left-circle"></i> Voltar para o Módulo
+            </a>
+
+            <header class="material-header">
+                <h1><?php echo htmlspecialchars($aula['titulo_aula'] ); ?></h1>
             </header>
 
-            <div class="modules-grid-container">
-                <?php if (empty($modulos)): ?>
-                    <p class="text-white-50">Nenhum módulo encontrado para este curso.</p>
+            <div class="video-container">
+                <?php if ($videoId): ?>
+                    <iframe 
+                        src="https://www.youtube.com/embed/<?php echo $videoId; ?>" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
                 <?php else: ?>
-                    <?php foreach ($modulos as $index => $modulo): ?>
-                        <a href="pagina-modulo.php?mod_id=<?php echo $modulo['id_mod']; ?>" class="module-card">
-                            <div class="module-image-container">
-                                <img src="/ClassAI/<?php echo htmlspecialchars($modulo['capa_mod']); ?>" alt="Capa do <?php echo htmlspecialchars($modulo['titulo_mod']); ?>">
-                            </div>
-                            <div class="module-content">
-                                <h3><i class="bi bi-journal-bookmark"></i> Módulo <?php echo $index + 1; ?></h3>
-                                <p><?php echo htmlspecialchars($modulo['titulo_mod']); ?></p>
-                                <div class="duration">
-                                    <i class="bi bi-clock"></i> <?php echo htmlspecialchars($modulo['duracao_mod']); ?>
-                                </div>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
+                    <div class="alert alert-warning">Nenhum vídeo cadastrado para esta aula.</div>
                 <?php endif; ?>
             </div>
+
+            <?php if (!empty($aula['material_aula'] )): ?>
+                <div class="material-content">
+                    <h2>Material de Apoio</h2>
+                    <p><?php echo nl2br(htmlspecialchars($aula['material_aula'])); ?></p>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </body>

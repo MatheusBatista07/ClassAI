@@ -1,0 +1,221 @@
+/* Importa as variáveis e estilos globais que já usamos */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+
+:root {
+    --bg-dark: #0a0015;
+    --bg-sidebar: #1a0a2e;
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+    --accent-purple-light: #A9A5D0;
+    --accent-purple-dark: #4A447C;
+    --card-bg: #1E1A3A;
+    --card-hover: #2a244d;
+    --brand-purple: #6C00C4;
+    --brand-green: #22c55e;
+    --feedback-correct: #22c55e;
+    --feedback-wrong: #ef4444;
+}
+
+/* Estilos base (copie de outros arquivos se preferir) */
+body { background-color: var(--bg-dark); color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+.sidebar { min-height: 100vh; width: 280px; position: fixed; padding: 20px; background-color: var(--bg-dark); border-right: 1px solid rgba(255, 255, 255, 0.1); }
+.sidebar .img-logo { width: 140px; display: block; margin: 0 auto 20px auto; }
+.nav-menu { list-style: none; padding: 0; }
+.nav-item { margin-bottom: 10px; }
+.nav-link { display: flex; align-items: center; padding: 12px 16px; color: var(--text-muted); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; }
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--text-light); }
+.nav-link.active { background-image: linear-gradient(to right, #3d056c, #22c55e); color: var(--text-light); }
+.nav-link i { margin-right: 12px; font-size: 18px; }
+.nav-divider { height: 1px; background-color: rgba(255, 255, 255, 0.1); margin: 20px 0; }
+.main-content { margin-left: 280px; padding: 30px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.header-icons { display: flex; align-items: center; gap: 20px; }
+.header-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #290841; color: var(--text-light); cursor: pointer; }
+.user-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; background-color: #290841; padding: 4px; border-radius: 12px; }
+.user-avatar { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.arrow-icon { width: 12px; height: auto; margin-right: 4px; }
+.lazzo_img { width: 25px; height: 25px; }
+
+/* Estilos específicos do Quiz */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--accent-purple-dark);
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+}
+.btn-voltar:hover { color: var(--text-light); }
+.btn-voltar i { font-size: 1.2rem; }
+
+.quiz-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--accent-purple-dark);
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+}
+
+#progress-text {
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.question-block {
+    display: none; /* Esconde todas as questões por padrão */
+}
+
+.question-block.active {
+    display: block; /* Mostra apenas a questão ativa */
+}
+
+.question-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.option {
+    background-color: var(--card-hover);
+    border: 2px solid var(--accent-purple-dark);
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option:hover {
+    background-color: var(--accent-purple-dark);
+    border-color: var(--brand-purple);
+}
+
+.option.selected {
+    background-color: var(--brand-purple);
+    border-color: var(--text-light);
+}
+
+/* Estilos para feedback visual após a resposta */
+.option.correct {
+    background-color: var(--feedback-correct);
+    border-color: var(--feedback-correct);
+    color: #000;
+}
+
+.option.wrong {
+    background-color: var(--feedback-wrong);
+    border-color: var(--feedback-wrong);
+    color: #fff;
+}
+
+.options-container.disabled .option:not(.selected) {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    border-top: 1px solid var(--accent-purple-dark);
+    padding-top: 2rem;
+}
+
+.btn-nav {
+    background-color: var(--brand-purple);
+    color: var(--text-light);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-nav:hover {
+    background-color: #8a2be2;
+}
+
+.btn-nav:disabled {
+    background-color: var(--accent-purple-dark);
+    cursor: not-allowed;
+}
+
+.btn-nav.finish {
+    background-color: var(--brand-green);
+}
+.btn-nav.finish:hover {
+    background-color: #1aa049;
+}
+
+#result-container {
+    text-align: center;
+}
+
+#result-container h3 {
+    font-size: 2rem;
+    color: var(--brand-green);
+    margin-bottom: 1rem;
+}
+
+#feedback-list {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.feedback-item {
+    background-color: var(--card-hover);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 5px solid;
+}
+
+.feedback-item.correct {
+    border-left-color: var(--feedback-correct);
+}
+
+.feedback-item.wrong {
+    border-left-color: var(--feedback-wrong);
+}
+
+.feedback-item p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.feedback-item span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}

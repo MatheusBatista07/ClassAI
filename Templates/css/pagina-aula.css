@@ -2,14 +2,10 @@
 
 :root {
     --bg-dark: #0a0015;
-    --bg-sidebar: #1a0a2e;
     --text-light: #ffffff;
     --text-muted: #a0a0a0;
     --accent-purple-light: #A9A5D0;
     --accent-purple-dark: #4A447C;
-    --card-bg: #1E1A3A;
-    --card-hover: #2a244d;
-    --brand-purple: #6C00C4;
 }
 
 body {
@@ -126,103 +122,9 @@ body {
     margin-right: 4px;
 }
 
-.lesson-area {
-    max-width: 1200px;
+.material-area {
+    max-width: 1000px;
     margin: 0 auto;
-}
-
-.lesson-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--accent-purple-dark);
-    padding-bottom: 1rem;
-}
-
-.lesson-content-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-}
-
-.video-section h2,
-.materials-section h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #E0E0E0;
-}
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.video-card {
-    text-decoration: none;
-    color: var(--text-light);
-    display: block;
-}
-
-.video-thumbnail {
-    background-color: var(--card-bg);
-    border: 1px solid var(--accent-purple-dark);
-    border-radius: 12px;
-    aspect-ratio: 16 / 9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    transition: background-color 0.2s ease;
-}
-
-.video-thumbnail i {
-    font-size: 3rem;
-    color: var(--accent-purple-light);
-    transition: color 0.2s ease;
-}
-
-.video-card:hover .video-thumbnail {
-    background-color: var(--card-hover);
-}
-
-.video-card:hover .video-thumbnail i {
-    color: var(--text-light);
-}
-
-.video-title {
-    font-weight: 500;
-}
-
-.materials-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.material-item {
-    background-color: var(--card-bg);
-    border: 1px solid var(--accent-purple-dark);
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: #E0E0E0;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.material-item:hover {
-    background-color: var(--card-hover);
-    border-color: var(--brand-purple);
-    color: var(--text-light);
-}
-
-.material-item i {
-    font-size: 1.5rem;
-    color: var(--accent-purple-light);
 }
 
 .btn-voltar {
@@ -242,4 +144,45 @@ body {
 
 .btn-voltar i {
     font-size: 1.2rem;
+}
+
+.material-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Proporção 16:9 */
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--accent-purple-dark);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.material-content {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--accent-purple-dark);
+}
+
+.material-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.material-content p {
+    line-height: 1.7;
+    color: #E0E0E0;
 }

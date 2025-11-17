@@ -67,16 +67,12 @@ $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspe
         </div>
 
         <div class="lesson-area">
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="PaginaPrincipalCursos.php">Cursos</a></li>
-                    <li class="breadcrumb-item"><a href="pagina-curso.php?id=<?php echo $modulo['id_curso_fk']; ?>">Módulos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?php echo htmlspecialchars($modulo['titulo_mod'] ); ?></li>
-                </ol>
-            </nav>
+            <a href="pagina-curso.php?id=<?php echo $modulo['id_curso_fk']; ?>" class="btn-voltar">
+                <i class="bi bi-arrow-left-circle"></i> Voltar para Módulos
+            </a>
 
             <header class="lesson-header">
-                <h1><?php echo htmlspecialchars($modulo['titulo_mod']); ?></h1>
+                <h1><?php echo htmlspecialchars($modulo['titulo_mod'] ); ?></h1>
             </header>
 
             <div class="lesson-content-grid">
