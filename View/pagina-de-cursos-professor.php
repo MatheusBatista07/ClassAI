@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassAi | Novo Curso</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Templates/css/pagina-de-cursos-professor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
@@ -18,7 +19,7 @@
                 <img src="../Images/Página suporte/logoMaster.png" alt="Logo ClassAi Master" class="logo">
             </figure>
         </a>
-        
+
         <div class="header-icons">
             <div class="header-icon">
                 <img src="../Images/Ícones do header/lazzo.png" alt="Imagem lazzo" class="lazzo_img">
@@ -34,7 +35,7 @@
 
         <div class="header_mobile">
             <img src="../Images/Página suporte/logoMaster.png" alt="Imagem logo ClassAII" class="img-logo">
-            
+
             <div class="user-profile-mobile-group">
                 <img src="../Images/Página de Apresentação/Lazo.png" alt="Avatar do Usuário" class="user-avatar-mobile">
                 <img src="../Images/Ícones do header/setinha perfil.png" alt="Seta" class="arrow-icon">
@@ -61,7 +62,8 @@
 
                     <div class="form-group mt-4">
                         <label for="course-description">Descrição</label>
-                        <textarea id="course-description" class="form-control" rows="5" placeholder="Digite aqui..."></textarea>
+                        <textarea id="course-description" class="form-control" rows="5"
+                            placeholder="Digite aqui..."></textarea>
                     </div>
                 </div>
 
@@ -69,9 +71,10 @@
                     <div class="form-group">
                         <label>Capa do Curso</label>
                         <label for="course-cover" class="cover-upload-area">
-                        <i class="bi bi-plus-circle-fill"></i>
+                            <i class="bi bi-plus-circle-fill"></i>
+                            <img id="preview-cover" class="preview-cover d-none" alt="Preview da capa do curso">
                         </label>
-                        <input type="file" id="course-cover" class="d-none">
+                        <input type="file" id="course-cover" class="d-none" accept="image/*">
                     </div>
                 </div>
             </div>
@@ -81,9 +84,6 @@
                     <div class="form-group">
                         <label for="course-professions">Profissões Recomendadas</label>
                         <input type="text" id="course-professions" class="form-control" placeholder="Digite aqui...">
-                        <button type="button" class="btn-add-profession">
-                            <i class="bi bi-plus-circle-fill"></i> Adicionar profissão
-                        </button>
                     </div>
                 </div>
 
@@ -103,8 +103,8 @@
                 </div>
             </div>
         </form>
-        
     </main>
-
 </body>
+<script src="../Templates/js/pagina-de-cursos-professor.js"></script>
+
 </html>
