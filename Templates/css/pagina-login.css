@@ -3,10 +3,12 @@ body {
     background-image: url(../../Images/Login/background.png);
 }
 
-.container{
+.container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    width: 100%;             /* Ocupa toda a largura */
+    flex-grow: 1;            /* Ocupa todo o espaço vertical disponível */
 }
 
 .conteudo_principal{
@@ -141,4 +143,92 @@ input::placeholder{
 
 .cadastre_se{
     cursor: pointer;
+}
+
+.entrar_tablet, .nao_tem_conta_tablet{
+    display: none;
+}
+
+
+   @media (min-width: 768px) and (max-width: 1024px) {
+
+    /*
+     * CORREÇÃO 1: Esconda o mascote Lazzo.
+     * Em telas de tablet, ele compete por espaço e causa o problema.
+     * A melhor experiência é focar 100% no formulário.
+    */
+   
+
+    /*
+     * CORREÇÃO 2: Ajuste o card principal.
+     * Damos a ele uma largura máxima, mas permitimos que seja flexível.
+    */
+
+    .container {
+    width: 80%;             /* Ocupa toda a largura */
+}
+
+    .conteudo_principal {
+        width: 500%; /* Ocupa 90% da tela, criando pequenas margens laterais automáticas */
+        max-width: 550px; /* Define uma largura máxima para não ficar muito largo */
+        flex-direction: column; /* Garante que o conteúdo interno fique empilhado */
+        margin-top: 2rem;
+    }
+
+    /*
+     * CORREÇÃO 3: Ajuste o formulário e os inputs para preencher o card.
+    */
+    .formulario {
+        width: 90%; /* Ocupa toda a largura do card */
+        padding-top: 2.0rem;
+    }
+
+    .inputs {
+        width: 100%; /* Ocupa toda a largura do formulário */
+    }
+
+    .lazzo{
+        width: 100%;
+    }
+
+    .lazzoImg{
+        width: 17.0rem;
+    }
+
+    .entrar_tablet, .nao_tem_conta_tablet{
+    display: block;
+}
+
+.nao_tem_conta_tablet{
+    font-size: 0.83rem;
+}
+
+.entrar_tablet{
+        margin-top: 0.8rem;
+    background-color: #3D056C;
+    border: none;
+    color: white;
+    text-align: center;
+    width: 5.0rem;
+    height: 1.8rem;
+    font-size: 1.0rem;
+    font-weight: 600;
+    cursor: pointer;
+    clip-path: polygon(
+    0 0,        /* canto superior esquerdo */
+    100% 0,     /* canto superior direito */
+    100% 100%,  /* desce reto até o canto inferior direito */
+    7% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
+    0 80%       /* sobe até 0 da largura e 65% da altura */
+  );
+}
+
+.entrar, .nao_tem_conta{
+    display: none;
+}
+}
+
+
+@media (min-with: 320px) and (max-width: 767px) {
+
 }

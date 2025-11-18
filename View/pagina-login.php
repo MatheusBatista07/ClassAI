@@ -9,7 +9,7 @@
 <body>
     
     <header>
-        <a href="">
+        <a href="" class="logo">
             <figure>
                 <img src="../Images/Ícones do header/Logo ClassAi branca.png" alt="Logo ClassAi">
             </figure>
@@ -36,10 +36,17 @@
         </form>
 
         <div class="lazzo">
-            <figure>
+             
+            <figure style="display: flex; justify-content: space-between">
+                <div class="buttons">
+                <button class="entrar_tablet">Entrar</button>
+                <p class="nao_tem_conta_tablet" style="color: #C37BFF">Não tem conta? <a class="cadastre_se_tablet" href="" style="color: #C37BFF">Cadastre-se</a></p>
+            </div>
+            
                 <img class="lazzoImg" src="../Images/Login/LazzoTexto.png" alt="Lazzo">
             </figure>
         </div>
+
         </div>
     </main>
 
