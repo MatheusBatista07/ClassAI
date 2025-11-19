@@ -1,6 +1,9 @@
 <?php
 
 use Model\CursosModel;
+use Model\UserModel;
+use Model\ChatModel;
+
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Model/UserModel.php';
@@ -9,7 +12,7 @@ require_once __DIR__ . '/../Model/ChatModel.php';
 
 $userId = $_SESSION['usuario_id'];
 
-$userModel = new \Model\UserModel();
+$userModel = new UserModel();
 $usuario = $userModel->encontrarUsuarioPorId($userId);
 
 $diasDeConstancia = 0;
@@ -28,23 +31,21 @@ if (isset($usuario['data_cadastro']) && !empty($usuario['data_cadastro'])) {
 $cursosModel = new CursosModel();
 $inscricoes = $cursosModel->getInscricoesByUserId($userId);
 
-$cursosEmAndamento = array_filter($inscricoes, fn($status) => $status === 'Em andamento');
+$cursosEmAndamentoStatus = array_filter($inscricoes, fn($status) => $status === 'Em andamento');
 $cursosConcluidos = array_filter($inscricoes, fn($status) => $status === 'Concluído');
-$numCursosEmAndamento = count($cursosEmAndamento);
+$numCursosEmAndamento = count($cursosEmAndamentoStatus);
 $numCursosConcluidos = count($cursosConcluidos);
+
+$cursosEmAndamento = $cursosModel->getCursosEmAndamentoPorUsuario($userId);
 
 $nomeCompleto = trim(($usuario['nome'] ?? '') . ' ' . ($usuario['sobrenome'] ?? ''));
 $primeiroNome = $usuario['nome'] ?? 'Usuário';
 $funcaoUsuario = $usuario['funcao'] ?? 'aluno';
 
 $caminhoFoto = $usuario['foto_perfil_url'] ?? null;
-if ($caminhoFoto) {
-    $fotoUsuario = '/ClassAI/' . $caminhoFoto;
-} else {
-    $fotoUsuario = 'https://via.placeholder.com/40';
-}
+$fotoUsuario = $caminhoFoto ? '/ClassAI/' . $caminhoFoto : 'https://via.placeholder.com/40';
 
-$chatModel = new \Model\ChatModel( );
+$chatModel = new ChatModel( );
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
 
 $idsDosCursosDesejados = [5, 7, 6, 9, 1, 11];
@@ -188,13 +189,13 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                             <?php else: ?>
                                 <?php foreach ($cursosTendencia as $curso): ?>
                                     <?php
-                                    $imagemCurso = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
+                                    $imagemCursoTendencia = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
                                     $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
-                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor'   );
                                     ?>
                                     <div class="col-md-6 col-xl-4">
                                         <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
-                                            <img src="<?php echo $imagemCurso; ?>" class="card-img-top" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>">
+                                            <img src="<?php echo $imagemCursoTendencia; ?>" class="card-img-top" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>">
                                             <div class="card-body">
                                                 <h4 class="course-title"><?php echo htmlspecialchars($curso['nome_curso']); ?></h4>
                                                 <div class="course-instructor-info">
@@ -213,38 +214,41 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                 <div class="col-lg-4">
                     <section class="right-section-card mb-4">
                         <h3 class="section-title mb-3"><i class="bi bi-journals"></i> Cursos em Andamento</h3>
-                        <ul class="list-unstyled course-list-hover">
-                            <li>
-                                <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/Lz2d6fM.png" alt="Capa do curso IA para Pequenos Empreendedores" class="course-item-image">
-                                    <span>IA para Pequenos Empreendedores</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/uI9A9eM.png" alt="Capa do curso IA para Profissionais de RH" class="course-item-image">
-                                    <span>IA para Profissionais de RH</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/VvBvYyq.png" alt="Capa do curso IA para Vendedores" class="course-item-image">
-                                    <span>IA para Vendedores e Atendimento ao Cliente</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="course-list-item">
-                                    <img src="https://i.imgur.com/johG9Yt.png" alt="Capa do curso IA para Designers" class="course-item-image">
-                                    <span>IA para Designers: Crie Artes e Protótipos com Ferramentas de IA</span>
-                                </a>
-                            </li>
-                        </ul>
+                        
+                        <!-- INÍCIO DA ALTERAÇÃO -->
+                        <div class="course-list-container">
+                            <?php if (empty($cursosEmAndamento)): ?>
+                                <p class="text-center text-muted p-3">Você não está inscrito em nenhum curso no momento.</p>
+                            <?php else: ?>
+                                <ul class="list-unstyled">
+                                    <?php foreach ($cursosEmAndamento as $curso): ?>
+                                        <?php
+                                        $imagemCursoAndamento = $curso['capa_curso'] ? '/ClassAI/' . htmlspecialchars($curso['capa_curso']) : 'https://via.placeholder.com/64x64';
+                                        $progresso = (int )($curso['progresso'] ?? 0);
+                                        ?>
+                                        <li>
+                                            <a href="pagina-curso.php?id=<?php echo $curso['id_curso']; ?>" class="course-list-item-progress">
+                                                <img src="<?php echo $imagemCursoAndamento; ?>" alt="Capa do curso <?php echo htmlspecialchars($curso['nome_curso']); ?>" class="course-item-image">
+                                                <div class="course-item-info">
+                                                    <span class="course-item-title"><?php echo htmlspecialchars($curso['nome_curso']); ?></span>
+                                                    <div class="progress" role="progressbar" aria-label="Progresso do curso" aria-valuenow="<?php echo $progresso; ?>" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: <?php echo $progresso; ?>%"></div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+                        <!-- FIM DA ALTERAÇÃO -->
+
                     </section>
 
                     <section class="right-section-card">
                         <h3 class="section-title mb-3"><i class="bi bi-chat-dots-fill"></i> Chat</h3>
                         <div class="chat-list-home">
-                            <?php if (empty($conversasRecentes )): ?>
+                            <?php if (empty($conversasRecentes)): ?>
                                 <p class="text-center text-muted p-3">Nenhuma conversa recente.</p>
                             <?php else: ?>
                                 <?php foreach ($conversasRecentes as $conversa): ?>
@@ -260,7 +264,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']  );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">

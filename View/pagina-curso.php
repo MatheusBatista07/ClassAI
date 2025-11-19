@@ -30,7 +30,7 @@ $estaInscrito = isset($inscricoes[$cursoId]);
 $modulos = $cursosModel->getModulosEAulasPorCursoId((int)$cursoId);
 
 $imagemCurso = $curso['capa_curso'] ? '/ClassAI/' . htmlspecialchars($curso['capa_curso']) : 'https://via.placeholder.com/800x450';
-$imagemProfessor = $curso['prof_foto_url'] ? htmlspecialchars($curso['prof_foto_url'] ) : 'https://via.placeholder.com/24';
+$imagemProfessor = $curso['prof_foto_url'] ? '/ClassAI/' . htmlspecialchars($curso['prof_foto_url'] ) : 'https://via.placeholder.com/24';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -94,18 +94,18 @@ $imagemProfessor = $curso['prof_foto_url'] ? htmlspecialchars($curso['prof_foto_
                 <section class="description" style="font-weight: 200;">
                     <p><?php echo nl2br(htmlspecialchars($curso['descricao_curso'])); ?></p>
                 </section>
-                
+
                 <section class="modules">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 style="color: white; font-weight: 700; margin-bottom: 0;">Módulos</h2>
                         <a href="pagina-modulos.php?curso_id=<?php echo $curso['id_curso']; ?>" class="btn btn-outline-light btn-sm">Ver todos</a>
                     </div>
-                    
+
                     <div class="row g-4">
-                        <?php if (empty($modulos)): ?>
+                        <?php if (empty($modulos)) : ?>
                             <p class="text-white-50">Nenhum módulo encontrado para este curso.</p>
-                        <?php else: ?>
-                            <?php foreach (array_slice($modulos, 0, 3) as $index => $modulo): ?>
+                        <?php else : ?>
+                            <?php foreach (array_slice($modulos, 0, 3) as $index => $modulo) : ?>
                                 <div class="col-md-6 col-lg-4">
                                     <a href="pagina-modulo.php?mod_id=<?php echo $modulo['id_mod']; ?>" class="module-card-link">
                                         <div class="module-card">
@@ -129,26 +129,54 @@ $imagemProfessor = $curso['prof_foto_url'] ? htmlspecialchars($curso['prof_foto_
             </div>
             <div class="right-column">
                 <div class="hero-image"><img src="<?php echo $imagemCurso; ?>" alt="Capa do curso"></div>
-                
-                <?php if ($estaInscrito): ?>
-                    <button class="cta-button btn-danger btn-enroll enrolled">Cancelar Inscrição</button>
-                <?php else: ?>
-                    <button class="cta-button btn-primary btn-enroll">Inscreva-se</button>
+
+                <?php if ($estaInscrito) : ?>
+                    <form id="form-cancelar" method="POST" action="">
+                        <input type="hidden" name="curso_id" value="<?php echo $cursoId; ?>">
+                        <button type="button" id="btn-cancelar-inscricao" class="cta-button btn-danger">Cancelar Inscrição</button>
+                    </form>
+                <?php else : ?>
+                    <form method="POST" action="../Controller/processarInscricao.php">
+                        <input type="hidden" name="curso_id" value="<?php echo $cursoId; ?>">
+                        <button type="submit" class="cta-button btn-primary">Inscreva-se</button>
+                    </form>
                 <?php endif; ?>
 
-                <?php if (!empty($curso['publico_alvo'])): ?>
+                <?php if (!empty($curso['publico_alvo'])) : ?>
                     <div class="target-audience">
                         <h3>Para quem é...</h3>
                         <ul>
-                            <?php 
+                            <?php
                             $publicoAlvo = explode(';', $curso['publico_alvo']);
-                            foreach ($publicoAlvo as $item): ?>
+                            foreach ($publicoAlvo as $item) : ?>
                                 <li><?php echo htmlspecialchars(trim($item)); ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 <?php endif; ?>
-                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCancelamento" tabindex="-1" aria-labelledby="modalCancelamentoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: #1a0a2e; color: white; border: 1px solid #4E008D;">
+                <div class="modal-header" style="border-bottom: 1px solid #4E008D;">
+                    <h5 class="modal-title" id="modalCancelamentoLabel">Confirmar Cancelamento</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Você tem certeza de que deseja cancelar sua inscrição neste curso? Esta ação não pode ser desfeita.</p>
+                    <div class="mb-3">
+                        <label for="motivoCancelamento" class="form-label">Gostaríamos de saber o motivo (opcional):</label>
+                        <textarea class="form-control" id="motivoCancelamento" rows="3" placeholder="Ex: O conteúdo não era o que eu esperava, falta de tempo, etc." style="background-color: #2c1a4d; color: white; border-color: #4E008D;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #4E008D;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ficar no Curso</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarCancelamento">Sim, cancelar inscrição</button>
+                </div>
             </div>
         </div>
     </div>
@@ -159,5 +187,4 @@ $imagemProfessor = $curso['prof_foto_url'] ? htmlspecialchars($curso['prof_foto_
     <script src="../Templates/js/globalPresence.js"></script>
 
 </body>
-
 </html>

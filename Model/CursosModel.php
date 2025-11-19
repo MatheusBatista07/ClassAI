@@ -184,4 +184,33 @@ class CursosModel
 
         return $modulo;
     }
+
+    public function getCursosEmAndamentoPorUsuario(int $userId)
+{
+    $sql = "
+        SELECT 
+            c.id_curso,
+            c.nome_curso,
+            c.capa_curso,
+            i.progresso
+        FROM 
+            inscricoes i
+        JOIN 
+            cursos c ON i.id_curso_fk = c.id_curso
+        WHERE 
+            i.id_usuario_fk = ? 
+            AND i.status = 'Em andamento'
+        ORDER BY 
+            i.data_inscricao DESC
+    ";
+
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Erro ao buscar cursos em andamento: " . $e->getMessage());
+        return [];
+    }
+}
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'  );
 
 :root {
     --bg-dark: #0a0015;
@@ -671,4 +671,81 @@ li:last-child .chat-item {
 
 .chat-item[data-contact-status="online"] .status-indicator {
     background-color: #22C55E;
+}
+
+/* INÍCIO DAS NOVAS CLASSES */
+
+.course-list-item-progress {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.course-list-item-progress:hover {
+    background-color: var(--purple-dark);
+}
+
+.course-list-item-progress .course-item-image {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.course-list-item-progress .course-item-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.course-list-item-progress .course-item-title {
+    display: block;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.course-list-item-progress .progress {
+    height: 8px;
+    background-color: var(--purple-dark);
+    border-radius: 4px;
+}
+
+.course-list-item-progress .progress-bar {
+    background-color: var(--green-accent);
+    border-radius: 4px;
+}
+
+.course-list-container {
+    max-height: 300px; 
+    overflow-y: auto; 
+    padding-right: 5px; 
+}
+
+.course-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.course-list-container::-webkit-scrollbar-track {
+    background: var(--purple-dark);
+    border-radius: 10px;
+}
+
+.course-list-container::-webkit-scrollbar-thumb {
+    background: var(--purple-light);
+    border-radius: 10px;
+}
+
+.course-list-container::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple);
 }

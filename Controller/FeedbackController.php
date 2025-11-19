@@ -3,22 +3,24 @@
 namespace Controller;
 
 use Model\Feedback;
+use Model\CursosModel;
 use Exception;
 
 class FeedbackController
 {
-
     private $feedbackModel;
+    private $cursosModel;
 
     public function __construct()
     {
         $this->feedbackModel = new Feedback();
+        $this->cursosModel = new CursosModel();
     }
 
     public function submitMessage($message, $nome, $email)
     {
         try {
-            if (empty($message) or empty($nome) or empty($email)) {
+            if (empty($message) || empty($nome) || empty($email)) {
                 throw new Exception("Todos os campos são obrigatórios.");
             }
 
@@ -26,15 +28,32 @@ class FeedbackController
                 throw new Exception("O formato do e-mail é inválido.");
             }
 
-            var_dump($success = $this->feedbackModel->saveFeedBack($message, $nome, $email));
+            return $this->feedbackModel->saveFeedBack($message, $nome, $email);
 
-            return $success;
         } catch (Exception $error) {
-            error_log("Erro em ao enviar mensagem " . $error->getMessage());
+            error_log("Erro ao enviar mensagem: " . $error->getMessage());
             return false;
         }
     }
 
-}
+    public function handleCancelamento(int $userId, int $cursoId, string $motivo = '')
+    {
+        try {
+            if (!empty(trim($motivo))) {
+                $this->feedbackModel->salvarFeedbackCancelamento($userId, $cursoId, $motivo);
+            }
 
-?>
+            $sucessoCancelamento = $this->cursosModel->cancelarMatricula($userId, $cursoId);
+
+            if (!$sucessoCancelamento) {
+                throw new Exception("Falha ao cancelar a matrícula no Model.");
+            }
+
+            return true;
+
+        } catch (Exception $e) {
+            error_log("Erro no handleCancelamento: " . $e->getMessage());
+            return false;
+        }
+    }
+}
