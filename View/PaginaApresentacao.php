@@ -8,7 +8,6 @@ use Controller\FeedbackController;
 $feedbackController = new FeedbackController();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Coleta e sanitiza os dados do formulário 
 
     $message = $_POST["mensagem"] ?? '';
     $email = $_POST["email"] ?? '';
@@ -66,11 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
     <section class="comentarios">
-
-        <!-- Fileira 1 (para a esquerda) -->
         <div class="slider">
             <div class="slider-track esquerda">
-                <!-- Conteúdo duplicado manualmente -->
                 <div class="card">
                     <div class="foto_txt">
                         <img src="../Images/Página de Apresentação/Maria_Conceição.png" alt="Imagem de Maria Conceição">
@@ -196,11 +192,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </div>
-
-        <!-- Fileira 2 (para a direita) -->
         <div class="slider">
             <div class="slider-track direita">
-                <!-- Conteúdo duplicado manualmente -->
                 <div class="card">
                     <div class="foto_txt">
                         <img src="../Images/Página de Apresentação/Eduardo_santana.png" alt="Imagem de Maria Conceição">
@@ -417,7 +410,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <section class="faleConosco">
         <div class="txtfc">
-            <!-- <h1>Alguma dúvida? <span style="color: #09FF00">Fale conosco!</span></h1> -->
             <h1 class="algdu">Alguma dúvida?</h1>
             <h1 class="fc">Fale Conosco!</h1>
             <p>Estamos aqui para te ajudar em todas as áreas. O seu futuro está no ClassAI!</p>
