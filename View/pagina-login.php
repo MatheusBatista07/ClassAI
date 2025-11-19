@@ -15,41 +15,38 @@
             </figure>
         </a>
     </header>
-<div class="container">
+
+    <div class="container">
         <main>
-        <div class="conteudo_principal">
-        <form action="" class="formulario" style="display: block; justify-content: center; align-items: center"">
-            <h1 style="color: white">Bem vindo de volta!</h1>
-            <h2 style="color: white">O que vamos aprender hoje?</h2>
-            
-            <div class="inputs">
-            <input type="text" name="userEmail" class="userEmail" placeholder="E-mail" required>
-            
-            <input type="text" name="userPassword" class="userPassword" placeholder="Senha" required>
-            <p class="esqueceuSenha" style="color: #C37BFF">Esqueceu a senha?</p>
+            <div class="conteudo_principal">
+                <form action="" class="formulario">
+                    <h1>Bem vindo de volta!</h1>
+                    <h2>O que vamos aprender hoje?</h2>
+                    
+                    <div class="inputs">
+                        <input type="text" name="userEmail" class="userEmail" placeholder="E-mail" required>
+                        <input type="password" name="userPassword" class="userPassword" placeholder="Senha" required>
+                        <p class="esqueceuSenha">Esqueceu a senha?</p>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="entrar">Entrar</button>
+                        <p class="nao_tem_conta">Não tem conta? <a class="cadastre_se" href="">Cadastre-se</a></p>
+                    </div>
+                    
+                </form>
+
+                <div class="lazzo">
+                    <div class="buttons_tablet">
+                        <button class="entrar">Entrar</button>
+                        <p class="nao_tem_conta">Não tem conta? <a class="cadastre_se" href="">Cadastre-se</a></p>
+                    </div>
+                    <figure>
+                        <img class="lazzoImg" src="../Images/Login/LazzoTexto.png" alt="Lazzo">
+                    </figure>
+                </div>
             </div>
-
-            <div class="buttons">
-                <button class="entrar">Entrar</button>
-            </div>
-            <p class="nao_tem_conta" style="color: #C37BFF">Não tem conta? <a class="cadastre_se" href="" style="color: #C37BFF">Cadastre-se</a></p>
-        </form>
-
-        <div class="lazzo">
-             
-            <figure style="display: flex; justify-content: space-between">
-                <div class="buttons">
-                <button class="entrar_tablet">Entrar</button>
-                <p class="nao_tem_conta_tablet" style="color: #C37BFF">Não tem conta? <a class="cadastre_se_tablet" href="" style="color: #C37BFF">Cadastre-se</a></p>
-            </div>
-            
-                <img class="lazzoImg" src="../Images/Login/LazzoTexto.png" alt="Lazzo">
-            </figure>
-        </div>
-
-        </div>
-    </main>
-
+        </main>
     </div>  
 
     <script src="pagina-login.js"></script>

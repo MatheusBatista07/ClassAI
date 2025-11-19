@@ -1,234 +1,215 @@
+/* ==========================================================================
+   CSS FINAL E CORRIGIDO - PÁGINA DE LOGIN
+   ========================================================================== */
+
+/* --- Estilos Globais --- */
 body {
     background-color: #270047;
     background-image: url(../../Images/Login/background.png);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    margin: 0;
 }
 
+/* --- Estrutura Principal --- */
 .container {
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
-    width: 100%;             /* Ocupa toda a largura */
-    flex-grow: 1;            /* Ocupa todo o espaço vertical disponível */
-}
-
-.conteudo_principal{
-    margin-top: 2.0rem;
-     background-color: rgba(20, 0, 37, 0.7);
-    border-radius: 3.0rem;
-    display: flex;
-    width: 55.0rem;
     justify-content: center;
     align-items: center;
+    min-height: calc(100vh - 80px); /* Calcula a altura da tela menos o header */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-h1{
-    margin: 0.0rem;
+header {
+    padding: 20px;
+}
+
+header .logo img {
+    height: 40px;
+}
+
+/* --- Card Principal (Desktop) --- */
+.conteudo_principal {
+    background-color: rgba(20, 0, 37, 0.7);
+    border-radius: 3rem;
+    display: flex;
+    width: 55rem;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* --- Formulário (Estilos Base) --- */
+.formulario {
+    flex: 1;
     text-align: center;
 }
 
-h2{
+h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+h2 {
     font-weight: 100;
-    margin-top: 0.0rem;
-    margin-bottom: 2.0rem;
-    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 18px;
 }
 
 .inputs {
     display: flex;
     flex-direction: column;
-    width: 25.0rem;
-    border-radius: 3.0rem;
+    width: 25rem;
+    max-width: 100%;
+    margin: 0 auto; /* Centraliza a div dos inputs */
 }
 
-input{
-    height: 2.0rem;
+input {
+    height: 2.5rem;
     background-color: #E8CEFD;
     border: none;
     cursor: text;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
-  padding-left: 1.0rem;
-}
-
-input::placeholder{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%, 0 80%);
+    padding-left: 1rem;
+    font-size: 1rem;
     color: #3D056C;
-    font-size: 1.0rem;
+    box-sizing: border-box;
 }
 
-.userEmail{
+input::placeholder {
+    color: #3D056C;
+}
+
+.userEmail {
     margin-bottom: 1.2rem;
 }
 
-
-.buttons{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.5rem;
-
+.esqueceuSenha {
+    text-align: right;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    color: #C37BFF;
+    font-size: 14px;
 }
 
-.continuarCom{
-    width: 15.0rem;
-    height: 29.55px;
-    display: flex;
-    text-align: left;
-    align-items: center;
-    justify-content: center;
-    color: #3D056C;
-    background-color: white;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1.1rem;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    3% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
-
+.buttons {
+    margin-top: 1rem;
 }
 
-.logo{
-    width: 1.2rem;
-    padding-right: 0.5rem;
-}
-
-.entrar{
-    margin-top: 0.8rem;
+.entrar {
     background-color: #3D056C;
     border: none;
     color: white;
-    text-align: center;
-    width: 5.0rem;
-    height: 1.8rem;
-    font-size: 1.0rem;
+    width: 6rem;
+    height: 2.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    7% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 7% 100%, 0 80%);
 }
 
-.lazzo{
-    width: 25.5rem;
-}
-
-.lazzoImg{
-    width: 25.5rem;
-}
-
-.esqueceuSenha{
-    text-align: right;
-    margin-top: 0.3rem;
-    margin-bottom: 0.0rem;
-    cursor: pointer;
-}
-
-.nao_tem_conta{
-    text-align: center;
+.nao_tem_conta {
+    margin-top: 1rem;
     font-weight: 100;
+    color: #C37BFF;
+    font-size: 14px;
 }
 
-.cadastre_se{
+.cadastre_se {
     cursor: pointer;
+    text-decoration: underline;
+    color: #C37BFF;
 }
 
-.entrar_tablet, .nao_tem_conta_tablet{
+/* --- Mascote Lazzo (Desktop) --- */
+.lazzo {
+    flex: 1;
+}
+
+.lazzoImg {
+    width: 100%;
+    max-width: 25.5rem;
+}
+
+.buttons_tablet{
     display: none;
 }
 
+/* ==========================================================================
+   REGRAS DE RESPONSIVIDADE
+   ========================================================================== */
 
-   @media (min-width: 768px) and (max-width: 1024px) {
-
-    /*
-     * CORREÇÃO 1: Esconda o mascote Lazzo.
-     * Em telas de tablet, ele compete por espaço e causa o problema.
-     * A melhor experiência é focar 100% no formulário.
-    */
-   
-
-    /*
-     * CORREÇÃO 2: Ajuste o card principal.
-     * Damos a ele uma largura máxima, mas permitimos que seja flexível.
-    */
-
-    .container {
-    width: 80%;             /* Ocupa toda a largura */
-}
-
+/* --- Tablet (768px a 1024px) --- */
+@media (max-width: 1024px) {
     .conteudo_principal {
-        width: 500%; /* Ocupa 90% da tela, criando pequenas margens laterais automáticas */
-        max-width: 550px; /* Define uma largura máxima para não ficar muito largo */
-        flex-direction: column; /* Garante que o conteúdo interno fique empilhado */
+        flex-direction: column; /* Empilha formulário e Lazzo */
+        width: 100%;
+        max-width: 100%; /* Largura máxima para o card no tablet */
+        padding: 2rem;
+    }
+
+    .lazzo {
         margin-top: 2rem;
     }
 
-    /*
-     * CORREÇÃO 3: Ajuste o formulário e os inputs para preencher o card.
-    */
-    .formulario {
-        width: 90%; /* Ocupa toda a largura do card */
-        padding-top: 2.0rem;
+    .lazzoImg {
+        max-width: 300px;
     }
 
     .inputs {
-        width: 100%; /* Ocupa toda a largura do formulário */
-    }
-
-    .lazzo{
         width: 100%;
     }
 
-    .lazzoImg{
-        width: 17.0rem;
+    .formulario{
+        width: 100%;
     }
 
-    .entrar_tablet, .nao_tem_conta_tablet{
-    display: block;
+    .buttons{
+        display: none;
+    }
+    
+    .lazzo{
+        display: flex;
+    }
+
+    .buttons_tablet{
+        display: block;
+    }
+
+    .lazzoImg{
+        width: 15.0rem;
+    }
 }
 
-.nao_tem_conta_tablet{
-    font-size: 0.83rem;
-}
+/* --- Mobile (até 767px) --- */
+@media (max-width: 767px) {
+    header {
+        text-align: center;
+    }
 
-.entrar_tablet{
-        margin-top: 0.8rem;
-    background-color: #3D056C;
-    border: none;
-    color: white;
-    text-align: center;
-    width: 5.0rem;
-    height: 1.8rem;
-    font-size: 1.0rem;
-    font-weight: 600;
-    cursor: pointer;
-    clip-path: polygon(
-    0 0,        /* canto superior esquerdo */
-    100% 0,     /* canto superior direito */
-    100% 100%,  /* desce reto até o canto inferior direito */
-    7% 100%,    /* faz a diagonal até 5% da largura e 100% da altura */
-    0 80%       /* sobe até 0 da largura e 65% da altura */
-  );
-}
+    .container {
+        padding: 15px; /* Espaçamento lateral para o card */
+    }
 
-.entrar, .nao_tem_conta{
-    display: none;
-}
-}
+    .conteudo_principal {
+        padding: 30px 20px;
+        max-width: 100%; /* Permite que o card ocupe o container */
+        border-radius: 2.0rem;
+    }
 
+    h1 { font-size: 24px; }
+    h2 { font-size: 16px; }
 
-@media (min-with: 320px) and (max-width: 767px) {
+    .lazzo{
+        flex-direction: column;
+    }
 
+    .lazzoImg {
+        width: 10.0rem;
+    }
+    
 }
