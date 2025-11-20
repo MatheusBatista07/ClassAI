@@ -56,4 +56,23 @@ class FeedbackController
             return false;
         }
     }
+
+    public function handleFormSubmission()
+    {
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header('Location: index.php');
+            exit;
+        }
+
+        $message = $_POST["mensagem"] ?? '';
+        $email = $_POST["email"] ?? '';
+        $nome = $_POST["nome"] ?? '';
+
+        if ($this->submitMessage($message, $nome, $email)) {
+            echo "<script>alert('Mensagem enviada com sucesso'); window.location.href = 'index.php';</script>";
+        } else {
+            echo "<script>alert('Falha ao enviar mensagem. Verifique os campos.'); window.history.back();</script>";
+        }
+        exit;
+    }
 }
