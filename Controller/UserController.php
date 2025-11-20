@@ -132,41 +132,55 @@ public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
         }
     }
 
-    public function processarLogin($email, $senha)
-    {
-        if (empty($email) || empty($senha)) {
-            return "E-mail e senha são obrigatórios.";
-        }
-        $usuario = $this->usuarioModel->encontrarUsuarioPorEmail($email);
-        if ($usuario) {
-            if (password_verify($senha, $usuario['senha'])) {
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
 
-                if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] != $usuario['id']) {
-                    $this->usuarioModel->atualizarStatus($_SESSION['usuario_id'], 'offline');
-                }
-
-                session_regenerate_id(true);
-
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['usuario_nome'] = $usuario['nome'];
-                $_SESSION['usuario_sobrenome'] = $usuario['sobrenome'];
-                $_SESSION['usuario_foto_url'] = $usuario['foto_perfil_url'];
-                $_SESSION['usuario_funcao'] = $usuario['funcao'];
-
-                $this->usuarioModel->atualizarStatus($usuario['id'], 'online');
-
-                header('Location: ../View/PaginaHome.php');
-                exit;
-            } else {
-                return "Senha incorreta. Por favor, tente novamente.";
-            }
-        } else {
-            return "Nenhum usuário encontrado com este e-mail.";
-        }
+public function processarLogin($email, $senha)
+{
+    if (empty($email) || empty($senha)) {
+        return "E-mail e senha são obrigatórios.";
     }
+    $usuario = $this->usuarioModel->encontrarUsuarioPorEmail($email);
+    if ($usuario) {
+        if (password_verify($senha, $usuario['senha'])) {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] != $usuario['id']) {
+                $this->usuarioModel->atualizarStatus($_SESSION['usuario_id'], 'offline');
+            }
+
+            session_regenerate_id(true);
+
+            $_SESSION['usuario_id'] = $usuario['id'];
+            $_SESSION['usuario_nome'] = $usuario['nome'];
+            $_SESSION['usuario_sobrenome'] = $usuario['sobrenome'];
+            $_SESSION['usuario_foto_url'] = $usuario['foto_perfil_url'];
+            $_SESSION['usuario_funcao'] = $usuario['funcao'];
+
+            $this->usuarioModel->atualizarStatus($usuario['id'], 'online');
+
+            if (isset($_POST['remember_me'])) {
+                $token = bin2hex(random_bytes(32));
+                $token_hash = hash('sha256', $token);
+                
+                $expiry_date = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60)); // 30 dias
+
+                $this->usuarioModel->atualizarRememberToken($usuario['id'], $token_hash, $expiry_date);
+
+                $cookie_value = $usuario['id'] . ':' . $token;
+                setcookie('remember_me', $cookie_value, time() + (30 * 24 * 60 * 60), "/");
+            }
+
+            header('Location: ../View/PaginaHome.php');
+            exit;
+        } else {
+            return "Senha incorreta. Por favor, tente novamente.";
+        }
+    } else {
+        return "Nenhum usuário encontrado com este e-mail.";
+    }
+}
+
 
 
     public function processarDelecao(int $userId): bool

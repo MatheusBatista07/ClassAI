@@ -258,4 +258,39 @@ public function atualizarSenhaPeloId(int $userId, string $novaSenha): bool
         return false;
     }
 }
+
+
+public function atualizarRememberToken(int $userId, string $token_hash, string $expiry_date): bool
+{
+    $sql = "UPDATE usuarios SET remember_token_hash = ?, remember_token_expires_at = ? WHERE id = ?";
+    try {
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$token_hash, $expiry_date, $userId]);
+    } catch (\PDOException $e) {
+        error_log("Erro ao atualizar remember token: " . $e->getMessage());
+        return false;
+    }
+}
+
+public function atualizarPerfilUsuario($userId, $nome, $sobrenome)
+{
+    if (empty($userId) || empty($nome) || empty($sobrenome)) {
+        return false;
+    }
+
+    try {
+        $sql = "UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':sobrenome', $sobrenome);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        error_log("Erro ao atualizar perfil: " . $e->getMessage());
+        return false;
+    }
+}
+
 }

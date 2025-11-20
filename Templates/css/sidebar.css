@@ -1,0 +1,64 @@
+/* Templates/css/sidebar.css */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 260px; /* Largura da sidebar */
+    background-color: #1A002B;
+    border-right: 1px solid #3D056C;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    margin-bottom: 40px;
+    padding-left: 10px;
+}
+
+.sidebar-logo {
+    width: 120px;
+}
+
+.sidebar-nav ul, .sidebar-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav {
+    flex-grow: 1; /* Empurra o footer para baixo */
+}
+
+.sidebar-nav li a, .sidebar-footer li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin: 5px 0;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #C37BFF;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav li a:hover, .sidebar-footer li a:hover {
+    background-color: #3D056C;
+    color: white;
+}
+
+/* Estilo do item ativo */
+.sidebar-nav li.active a {
+    background-color: #00C853; /* Verde brilhante */
+    color: white;
+    box-shadow: 0 0 15px rgba(0, 200, 83, 0.6);
+}
+
+.sidebar-nav li a i, .sidebar-footer li a i {
+    font-size: 1.2rem;
+    margin-right: 15px;
+}

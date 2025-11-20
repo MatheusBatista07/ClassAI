@@ -1,0 +1,140 @@
+.container-perfil {
+    padding: 0; 
+}
+
+.perfil-main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.perfil-card {
+    background-color: #1A002B;
+    border: 1px solid #3D056C;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-body {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-grupo label {
+    font-size: 0.9rem;
+    color: #C37BFF;
+    margin-bottom: 5px;
+}
+
+.info-grupo span {
+    font-size: 1.1rem;
+    color: white;
+}
+
+.foto-container .foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #C37BFF;
+}
+
+.funcao-tag {
+    background-color: #3D056C;
+    color: #E8CEFD;
+    padding: 5px 10px;
+    border-radius: 5px;
+    align-self: flex-start;
+    font-size: 1rem !important;
+}
+
+.perfil-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    border-top: 1px solid #3D056C;
+    padding-top: 30px;
+}
+
+.perfil-actions a,
+.perfil-actions button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s ease;
+    border: none;
+}
+
+.btn-editar {
+    background-color: #C37BFF;
+    color: #140025;
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background-color: #E8CEFD;
+}
+
+.edit-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.form-control-perfil {
+    width: 100%;
+    padding: 10px;
+    background-color: #1A002B;
+    border: 1px solid #3D056C;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.form-control-perfil:focus {
+    outline: none;
+    border-color: #C37BFF;
+    box-shadow: 0 0 5px #C37BFF;
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    border: 1px solid #C37BFF;
+    color: #C37BFF;
+    cursor: pointer;
+}
+
+.btn-cancelar:hover {
+    background-color: #3D056C;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: center;
+    font-weight: bold;
+}
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}

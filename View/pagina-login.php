@@ -6,7 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new Controller\UserController();
     $email = $_POST['userEmail'] ?? '';
     $senha = $_POST['userPassword'] ?? '';
+    
     $erro = $controller->processarLogin($email, $senha);
+    
     if ($erro === null) {
         header('Location: PaginaHome.php');
         exit;
@@ -21,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassAi | Login</title>
     <link rel="stylesheet" href="../Templates/css/pagina-login.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -42,21 +44,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1 style="color: white">Bem vindo de volta!</h1>
                     <h2 style="color: white">O que vamos aprender hoje?</h2>
 
-                    <?php if ($erro  ): ?>
+                    <?php if ($erro ): ?>
                         <div class="error-box-php">
                             <?php echo htmlspecialchars($erro); ?>
                         </div>
                     <?php endif; ?>
 
                     <div class="inputs">
-                        <input type="email" name="userEmail" class="userEmail form-control" placeholder="E-mail" required>
+                        <!-- ===== LINHA ALTERADA ===== -->
+                        <input type="email" name="userEmail" class="userEmail form-control" placeholder="E-mail" required autocomplete="username">
+                        
                         <label class="password-label">
-                            <input type="password" name="userPassword" id="userPassword" class="userPassword form-control" placeholder="Senha" required>
+                            <!-- ===== LINHA ALTERADA ===== -->
+                            <input type="password" name="userPassword" id="userPassword" class="userPassword form-control" placeholder="Senha" required autocomplete="current-password">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                         </label>
 
-                        <!-- LINHA CORRIGIDA -->
-                        <a href="pagina-esqueci-senha.php" class="esqueceuSenha" style="color: #C37BFF; text-decoration: none; display: block; text-align: right; margin-top: 5px;">Esqueceu a senha?</a>
+                        <div class="remember-forgot-container">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember_me" id="rememberMeCheck" value="1">
+                                <label class="form-check-label" for="rememberMeCheck">
+                                    Lembrar de mim
+                                </label>
+                            </div>
+                            <a href="pagina-esqueci-senha.php" class="esqueceuSenha">Esqueceu a senha?</a>
+                        </div>
                     </div>
 
                     <div class="buttons">
