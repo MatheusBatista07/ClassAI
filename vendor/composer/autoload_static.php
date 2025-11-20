@@ -21,6 +21,7 @@ class ComposerStaticInit47e5bc76d1290bc28a88770e6e874308
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'ParagonIE\\Sodium\\' => 17,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' =>
         array (
@@ -63,6 +64,10 @@ class ComposerStaticInit47e5bc76d1290bc28a88770e6e874308
         'ParagonIE\\Sodium\\' =>
         array (
             0 => __DIR__ . '/..' . '/paragonie/sodium_compat/namespaced',
+        ),
+        'PHPMailer\\PHPMailer\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Model\\' =>
         array (

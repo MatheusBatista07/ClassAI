@@ -228,4 +228,17 @@ public function getInscricoesByUserId(int $userId): array
     }
 }
  
+     public function atualizarSenha(string $email, string $novaSenha): bool
+    {
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+        $sql = "UPDATE usuarios SET senha = ? WHERE email = ?";
+        
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$senhaHash, $email]);
+        } catch (\PDOException $e) {
+            error_log("Erro ao atualizar senha: " . $e->getMessage());
+            return false;
+        }
+    }
 }

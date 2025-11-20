@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1 style="color: white">Bem vindo de volta!</h1>
                     <h2 style="color: white">O que vamos aprender hoje?</h2>
 
-                    <?php if ($erro ): ?>
-                        <div class="error-box-php" style="color: red; background-color: #ffdddd; border: 1px solid red; padding: 10px; margin: 15px 0; border-radius: 5px; text-align: center; font-weight: bold;">
+                    <?php if ($erro  ): ?>
+                        <div class="error-box-php">
                             <?php echo htmlspecialchars($erro); ?>
                         </div>
                     <?php endif; ?>
@@ -55,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                         </label>
 
-                        <p class="esqueceuSenha" style="color: #C37BFF">Esqueceu a senha?</p>
+                        <!-- LINHA CORRIGIDA -->
+                        <a href="pagina-esqueci-senha.php" class="esqueceuSenha" style="color: #C37BFF; text-decoration: none; display: block; text-align: right; margin-top: 5px;">Esqueceu a senha?</a>
                     </div>
 
                     <div class="buttons">

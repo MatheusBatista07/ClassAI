@@ -1,0 +1,199 @@
+body {
+    background-color: #270047;
+    background-image: url(../../Images/Login/background.png);
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudo_principal{
+    margin-top: 2.0rem;
+    background-color: rgba(20, 0, 37, 0.7);
+    border-radius: 3.0rem;
+    display: flex;
+    width: 55.0rem;
+    justify-content: center;
+    min-height: 500px; 
+    padding: 2rem 0;
+    /* Alterado para alinhar ao topo */
+    align-items: flex-start;
+    padding-top: 4rem;
+}
+
+h1{
+    margin: 0.0rem;
+    text-align: center;
+}
+
+h2{
+    font-weight: 100;
+    margin-top: 0.0rem;
+    margin-bottom: 2.0rem;
+    text-align: center;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 25.0rem;
+    border-radius: 3.0rem;
+    justify-content: center; 
+    min-height: 100px; 
+}
+
+input{
+    height: 2.0rem;
+    background-color: #E8CEFD;
+    border: none;
+    cursor: text;
+    clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    3% 100%,   
+    0 80%       
+  );
+  padding-left: 1.0rem;
+}
+
+input::placeholder{
+    color: #3D056C;
+    font-size: 1.0rem;
+}
+
+.userEmail{
+    margin-bottom: 1.2rem;
+}
+
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+
+}
+
+.continuarCom{
+    width: 15.0rem;
+    height: 29.55px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    color: #3D056C;
+    background-color: white;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.1rem;
+    clip-path: polygon(
+    0 0, 
+    100% 0, 
+    100% 100%, 
+    3% 100%, 
+    0 80% 
+  );
+
+}
+
+.logo{
+    width: 1.2rem;
+    padding-right: 0.5rem;
+}
+
+.entrar{
+    margin-top: 0.8rem;
+    background-color: #3D056C;
+    border: none;
+    color: white;
+    text-align: center;
+    width: auto;
+    padding: 0 1.5rem;
+    height: 1.8rem;
+    font-size: 1.0rem;
+    font-weight: 600;
+    cursor: pointer;
+    clip-path: polygon(
+    0 0, 
+    100% 0, 
+    100% 100%, 
+    7% 100%, 
+    0 80% 
+  );
+}
+
+.lazzo{
+    width: 25.5rem;
+}
+
+.lazzoImg{
+    width: 25.5rem;
+}
+
+.esqueceuSenha{
+    text-align: right;
+    margin-top: 0.3rem;
+    margin-bottom: 0.7rem;
+    cursor: pointer;
+}
+
+.nao_tem_conta{
+    text-align: center;
+    font-weight: 100;
+}
+
+.cadastre_se{
+    cursor: pointer;
+}
+.password-label {
+    position: relative;
+    display: flex;
+    align-items: center; 
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.password-label .form-control {
+    width: 100%;
+    height: 2.5rem;
+    background-color: #E8CEFD;
+    border: none;
+    padding-left: 1.0rem;
+    padding-right: 45px; 
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%, 0 80%);
+}
+
+.password-label i {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: #3D056C;
+}
+
+/* ===== CÓDIGO ADICIONADO ===== */
+.error-box-php, .success-box-php {
+    color: #FFFFFF;
+    padding: 12px;
+    margin: 0 0 15px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.error-box-php {
+    background-color: #5c1a1a;
+    border-color: #ff4d4d;
+}
+
+.success-box-php {
+    background-color: #1a5c3a;
+    border-color: #4dff9d;
+}
