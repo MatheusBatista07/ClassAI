@@ -34,7 +34,7 @@ $fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspe
             <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
             <li class="nav-item"><a href="PaginaPrincipalCursos.php" class="nav-link active"><i class="bi bi-book"></i> Cursos</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
+            <li class="nav-item"><a href="pagina-amigos.php" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
         </ul>
         <div class="nav-divider"></div>
         <ul class="nav-menu">

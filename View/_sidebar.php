@@ -11,25 +11,30 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 
     <ul class="nav-menu">
         <li class="nav-item">
-            <!-- Adiciona 'active' se a página atual for PaginaHome.php -->
             <a href="PaginaHome.php" class="nav-link <?php echo ($paginaAtual == 'PaginaHome.php') ? 'active' : ''; ?>">
                 <i class="bi bi-house-door"></i> Principal
             </a>
         </li>
         <li class="nav-item">
-            <!-- Adiciona 'active' se a página atual for paginaChat.php -->
             <a href="paginaChat.php" class="nav-link <?php echo ($paginaAtual == 'paginaChat.php') ? 'active' : ''; ?>">
                 <i class="bi bi-chat"></i> Chat
             </a>
         </li>
         <li class="nav-item">
-            <!-- Adiciona 'active' se a página atual for PaginaPrincipalCursos.php -->
             <a href="PaginaPrincipalCursos.php" class="nav-link <?php echo ($paginaAtual == 'PaginaPrincipalCursos.php') ? 'active' : ''; ?>">
                 <i class="bi bi-book"></i> Cursos
             </a>
         </li>
         <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
+        
+        <!-- ===== LINHA ALTERADA ===== -->
+        <li class="nav-item">
+            <a href="pagina-amigos.php" class="nav-link <?php echo ($paginaAtual == 'pagina-amigos.php') ? 'active' : ''; ?>">
+                <i class="bi bi-people"></i> Amigos
+            </a>
+        </li>
+        <!-- ========================== -->
+
     </ul>
 
     <div class="nav-divider"></div>

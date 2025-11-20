@@ -293,4 +293,64 @@ public function atualizarPerfilUsuario($userId, $nome, $sobrenome)
     }
 }
 
+public function seguirUsuario($seguidorId, $seguindoId) {
+    if ($seguidorId == $seguindoId) return false;
+    $sql = "INSERT INTO conexoes (seguidor_id, seguindo_id) VALUES (:seguidor_id, :seguindo_id)";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
+    $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
+    try {
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+public function deixarDeSeguirUsuario($seguidorId, $seguindoId) {
+    $sql = "DELETE FROM conexoes WHERE seguidor_id = :seguidor_id AND seguindo_id = :seguindo_id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
+    $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+public function getSeguindo($userId) {
+    $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
+            FROM usuarios u
+            INNER JOIN conexoes c ON u.id = c.seguindo_id
+            WHERE c.seguidor_id = :userId";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getSeguidores($userId) {
+    $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
+            FROM usuarios u
+            INNER JOIN conexoes c ON u.id = c.seguidor_id
+            WHERE c.seguindo_id = :userId";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function buscarNovosUsuarios($userId, $termoBusca, $limit = 10) {
+    $sql = "SELECT id, nome, sobrenome, foto_perfil_url 
+            FROM usuarios 
+            WHERE id != :userId 
+              AND (nome LIKE :termo OR sobrenome LIKE :termo)
+              AND id NOT IN (SELECT seguindo_id FROM conexoes WHERE seguidor_id = :userId)
+            LIMIT :limit";
+    $stmt = $this->db->prepare($sql);
+    $termoLike = "%$termoBusca%";
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindParam(':termo', $termoLike);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 }

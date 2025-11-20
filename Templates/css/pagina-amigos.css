@@ -1,0 +1,148 @@
+.container-amigos {
+    padding: 0;
+}
+
+.amigos-main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.amigos-card {
+    background-color: #1A002B;
+    border: 1px solid #3D056C;
+    border-radius: 15px;
+    padding: 20px 30px;
+    width: 100%;
+}
+
+.amigos-nav {
+    display: flex;
+    border-bottom: 1px solid #3D056C;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    background: none;
+    border: none;
+    color: #C37BFF;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-link:hover {
+    color: white;
+}
+
+.tab-link.active {
+    color: white;
+    border-bottom-color: #C37BFF;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #2c0b4a;
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-grow: 1;
+    gap: 15px;
+}
+
+.user-link:hover span {
+    color: #E8CEFD;
+}
+
+.user-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-item span {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.btn-amigos {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.btn-unfollow {
+    background-color: transparent;
+    border: 1px solid #C37BFF;
+    color: #C37BFF;
+}
+.btn-unfollow:hover {
+    background-color: #581c87;
+}
+
+.btn-follow {
+    background-color: #C37BFF;
+    color: #140025;
+}
+.btn-follow:hover {
+    background-color: #E8CEFD;
+}
+
+.btn-following {
+    background-color: #3D056C;
+    color: #E8CEFD;
+    cursor: not-allowed;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 12px;
+    background-color: #140025;
+    border: 1px solid #3D056C;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #C37BFF;
+}
+
+.empty-tab-message {
+    text-align: center;
+    color: #8e6aab;
+    padding: 40px 20px;
+    font-size: 1.1rem;
+}

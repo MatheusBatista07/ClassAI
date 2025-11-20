@@ -7,12 +7,11 @@ if (isset($_SESSION['usuario_foto_url']) && !empty($_SESSION['usuario_foto_url']
 }
 ?>
 
-<!-- Links de CSS para o Header. ESSENCIAL! -->
-<link rel="stylesheet" href="/ClassAI/Templates/css/header.css">
+<!-- <link rel="stylesheet" href="/ClassAI/Templates/css/header.css"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 <div class="header">
-    <div></div> <!-- Div vazia para empurrar os ícones para a direita com flexbox -->
+    <div></div> 
     <div class="header-icons">
         <div class="header-icon"><img src="/ClassAI/Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
         <div class="header-icon"><i class="bi bi-bell"></i></div>

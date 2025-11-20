@@ -2,11 +2,41 @@
     padding: 0; 
 }
 
+.perfil-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
 .perfil-main-title {
     font-size: 2.5rem;
     font-weight: bold;
     color: white;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #C37BFF;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 1px solid #3D056C;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #3D056C;
+    color: white;
+}
+
+.btn-voltar i {
+    font-size: 1.2rem;
 }
 
 .perfil-card {
@@ -56,6 +86,37 @@
     border-radius: 5px;
     align-self: flex-start;
     font-size: 1rem !important;
+}
+
+.perfil-stats {
+    display: flex;
+    gap: 25px;
+    padding: 15px 0;
+    border-top: 1px solid #3D056C;
+    border-bottom: 1px solid #3D056C;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer; 
+    transition: opacity 0.2s ease;
+}
+
+.stat-item:hover {
+    opacity: 0.8;
+}
+
+.stat-item strong {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.stat-item span {
+    font-size: 1rem;
+    color: #C37BFF;
 }
 
 .perfil-actions {
@@ -137,4 +198,30 @@
     color: #842029;
     background-color: #f8d7da;
     border-color: #f5c2c7;
+}
+
+.btn-amigos {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-unfollow {
+    background-color: transparent;
+    border: 1px solid #C37BFF;
+    color: #C37BFF;
+}
+.btn-unfollow:hover {
+    background-color: #581c87;
+}
+
+.btn-follow {
+    background-color: #C37BFF;
+    color: #140025;
+}
+.btn-follow:hover {
+    background-color: #E8CEFD;
 }
