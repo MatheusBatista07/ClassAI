@@ -50,12 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="email" name="userEmail" class="userEmail form-control" placeholder="E-mail" required>
 
                         <label class="password-label">
-                            <input type="password" name="userPassword" id="userPassword" class="userPassword form-control" placeholder="Senha" required>
+                            <input type="password" name="userPassword" id="userPassword" class="userPassword form-control" placeholder="Senha"  minlength="6" required>
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                         </label>
 
                         <label class="password-label">
-                            <input type="password" name="userPasswordConfirm" id="userPasswordConfirm" class="userPasswordConfirm form-control" placeholder="Confirmar senha" required>
+                            <input type="password" name="userPasswordConfirm" id="userPasswordConfirm" class="userPasswordConfirm form-control"  minlength="6" placeholder="Confirmar senha" required>
                             <i class="bi bi-eye-slash" id="togglePasswordConfirm"></i>
                         </label>
                         

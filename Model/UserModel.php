@@ -82,7 +82,7 @@ class UserModel
             $dados['nome_usuario'] ?? null,
             $dados['foto_perfil_url'] ?? null,
             $dados['descricao'] ?? null,
-            (int)$termosAceitos
+            (int) $termosAceitos
         ];
 
         if ($stmt->execute($params)) {
@@ -147,19 +147,21 @@ class UserModel
         }
     }
 
-    public function encontrarUsuarioPorId(int $id)
-    {
-        $sql = "SELECT id, nome, sobrenome, email, funcao, foto_perfil_url, data_cadastro, status, ultimo_acesso FROM usuarios WHERE id = ?";
 
-        try {
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            error_log("Erro ao encontrar usuário por ID: " . $e->getMessage());
-            return null;
-        }
+public function encontrarUsuarioPorId(int $id)
+{
+    $sql = "SELECT id, nome, sobrenome, email, senha, funcao, foto_perfil_url, data_cadastro, status, ultimo_acesso FROM usuarios WHERE id = ?";
+
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Erro ao encontrar usuário por ID: " . $e->getMessage());
+        return null;
     }
+}
+
 
     public function deletarUsuario(int $id): string|false
     {
@@ -191,48 +193,48 @@ class UserModel
         }
     }
 
-  public function matricularUsuario(int $userId, int $cursoId): bool
-{
-    $sql = "INSERT IGNORE INTO inscricoes (id_usuario_fk, id_curso_fk, status) VALUES (?, ?, 'Em andamento')";
-    try {
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$userId, $cursoId]);
-    } catch (\PDOException $e) {
-        error_log("Erro ao matricular usuário: " . $e->getMessage());
-        return false;
+    public function matricularUsuario(int $userId, int $cursoId): bool
+    {
+        $sql = "INSERT IGNORE INTO inscricoes (id_usuario_fk, id_curso_fk, status) VALUES (?, ?, 'Em andamento')";
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$userId, $cursoId]);
+        } catch (\PDOException $e) {
+            error_log("Erro ao matricular usuário: " . $e->getMessage());
+            return false;
+        }
     }
-}
 
-public function cancelarMatricula(int $userId, int $cursoId): bool
-{
-    $sql = "DELETE FROM inscricoes WHERE id_usuario_fk = ? AND id_curso_fk = ?";
-    try {
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$userId, $cursoId]);
-    } catch (\PDOException $e) {
-        error_log("Erro ao cancelar matrícula: " . $e->getMessage());
-        return false;
+    public function cancelarMatricula(int $userId, int $cursoId): bool
+    {
+        $sql = "DELETE FROM inscricoes WHERE id_usuario_fk = ? AND id_curso_fk = ?";
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$userId, $cursoId]);
+        } catch (\PDOException $e) {
+            error_log("Erro ao cancelar matrícula: " . $e->getMessage());
+            return false;
+        }
     }
-}
 
-public function getInscricoesByUserId(int $userId): array
-{
-    $sql = "SELECT id_curso_fk, status FROM inscricoes WHERE id_usuario_fk = ?";
-    try {
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$userId]);
-        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-    } catch (\PDOException $e) {
-        error_log("Erro ao buscar inscrições do usuário: " . $e->getMessage());
-        return [];
+    public function getInscricoesByUserId(int $userId): array
+    {
+        $sql = "SELECT id_curso_fk, status FROM inscricoes WHERE id_usuario_fk = ?";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$userId]);
+            return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+        } catch (\PDOException $e) {
+            error_log("Erro ao buscar inscrições do usuário: " . $e->getMessage());
+            return [];
+        }
     }
-}
- 
-     public function atualizarSenha(string $email, string $novaSenha): bool
+
+    public function atualizarSenha(string $email, string $novaSenha): bool
     {
         $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
         $sql = "UPDATE usuarios SET senha = ? WHERE email = ?";
-        
+
         try {
             $stmt = $this->db->prepare($sql);
             return $stmt->execute([$senhaHash, $email]);
@@ -241,4 +243,19 @@ public function getInscricoesByUserId(int $userId): array
             return false;
         }
     }
+
+public function atualizarSenhaPeloId(int $userId, string $novaSenha): bool
+{
+    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+    
+    $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
+    
+    try {
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$senhaHash, $userId]);
+    } catch (\PDOException $e) {
+        error_log("Erro ao atualizar senha pelo ID: " . $e->getMessage());
+        return false;
+    }
+}
 }

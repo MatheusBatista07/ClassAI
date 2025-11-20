@@ -1,0 +1,95 @@
+/* Estilos para a página de configurações */
+
+/* Card principal de cada seção */
+.settings-card {
+    background-color: var(--purple-dark, #190D2B);
+    border: 1px solid var(--card-border, #4A3A69);
+    border-radius: 16px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+}
+
+.settings-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary, #FFFFFF);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--card-border, #4A3A69);
+}
+
+/* Estilos para os formulários */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--text-secondary, #C0B8D4);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    background-color: var(--purple-medium, #24143D);
+    border: 1px solid var(--card-border, #4A3A69);
+    color: var(--text-primary, #FFFFFF);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    background-color: var(--purple-medium, #24143D);
+    color: var(--text-primary, #FFFFFF);
+    border-color: var(--accent-purple, #6b3fa0);
+    box-shadow: 0 0 0 3px rgba(107, 63, 160, 0.3);
+}
+
+/* Botão primário customizado */
+.btn-primary {
+    background-color: var(--accent-purple, #6b3fa0);
+    border-color: var(--accent-purple, #6b3fa0);
+    font-weight: 600;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #8A2BE2;
+    border-color: #8A2BE2;
+}
+
+/* Item de preferência (ex: tema) */
+.preference-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-secondary-custom {
+    background-color: var(--purple-light, #3D2561);
+    color: var(--text-primary, #FFFFFF);
+    border: none;
+}
+
+/* Zona de Perigo */
+.danger-zone {
+    border-color: #dc3545;
+    border-width: 2px;
+}
+
+.danger-zone .settings-card-title {
+    color: #dc3545;
+    border-bottom-color: rgba(220, 53, 69, 0.3);
+}
+
+.danger-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.danger-item p {
+    color: var(--text-secondary, #C0B8D4);
+    margin: 0;
+    max-width: 400px;
+}

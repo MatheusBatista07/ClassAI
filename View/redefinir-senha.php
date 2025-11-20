@@ -14,6 +14,9 @@ if ($error) {
         case 'token_invalido':
             $mensagem_erro = 'Link de redefinição inválido ou expirado. Por favor, solicite um novo.';
             break;
+        case 'senha_curta':
+            $mensagem_erro = 'A senha deve ter no mínimo 6 caracteres.';
+            break;
         default:
             $mensagem_erro = 'Ocorreu um erro inesperado. Tente novamente mais tarde.';
             break;
@@ -59,11 +62,11 @@ if ($error) {
 
                     <div class="inputs">
                         <label class="password-label">
-                            <input type="password" name="nova_senha" id="nova_senha" class="userPassword form-control" placeholder="Nova Senha" required>
+                            <input type="password" name="nova_senha" id="nova_senha" class="userPassword form-control" placeholder="Nova Senha" required minlength="6" title="A senha deve ter no mínimo 6 caracteres.">
                             <i class="bi bi-eye-slash" id="togglePassword1"></i>
                         </label>
                         <label class="password-label">
-                            <input type="password" name="confirmar_senha" id="confirmar_senha" class="userPassword form-control" placeholder="Confirme a Nova Senha" required>
+                            <input type="password" name="confirmar_senha" id="confirmar_senha" class="userPassword form-control" placeholder="Confirme a Nova Senha" required minlength="6">
                             <i class="bi bi-eye-slash" id="togglePassword2"></i>
                         </label>
                     </div>

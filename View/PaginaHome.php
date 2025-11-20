@@ -1,18 +1,23 @@
 <?php
 
 use Model\CursosModel;
-use Model\UserModel;
 use Model\ChatModel;
 
+// O auth.php já inicia a sessão, então não precisamos de session_start() aqui.
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../Model/UserModel.php';
+// O UserModel já é chamado dentro do _header.php, mas podemos manter aqui por clareza se outras partes da página o usarem.
+require_once __DIR__ . '/../Model/UserModel.php'; 
 require_once __DIR__ . '/../Model/CursosModel.php';
 require_once __DIR__ . '/../Model/ChatModel.php';
 
+// A variável $userId já é definida no _header.php, mas como a usamos aqui, garantimos que ela exista.
 $userId = $_SESSION['usuario_id'];
 
-$userModel = new UserModel();
+// --- LÓGICA ESPECÍFICA DA PÁGINA HOME ---
+// (A busca de dados do usuário para o cabeçalho foi movida para _header.php)
+
+$userModel = new \Model\UserModel();
 $usuario = $userModel->encontrarUsuarioPorId($userId);
 
 $diasDeConstancia = 0;
@@ -42,10 +47,7 @@ $nomeCompleto = trim(($usuario['nome'] ?? '') . ' ' . ($usuario['sobrenome'] ?? 
 $primeiroNome = $usuario['nome'] ?? 'Usuário';
 $funcaoUsuario = $usuario['funcao'] ?? 'aluno';
 
-$caminhoFoto = $usuario['foto_perfil_url'] ?? null;
-$fotoUsuario = $caminhoFoto ? '/ClassAI/' . $caminhoFoto : 'https://via.placeholder.com/40';
-
-$chatModel = new ChatModel( );
+$chatModel = new ChatModel();
 $conversasRecentes = $chatModel->getRecentConversations($userId, 4);
 
 $idsDosCursosDesejados = [5, 7, 6, 9, 1, 11];
@@ -102,26 +104,13 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
     </div>
 
     <div class="main-content">
-        <header class="header">
-            <div></div>
-            <div class="header-icons">
-                <div class="header-icon">
-                    <img src="../Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img">
-                </div>
-                <div class="header-icon">
-                    <i class="bi bi-bell"></i>
-                </div>
-
-                <div class="user-profile">
-                    <img src="<?php echo htmlspecialchars($fotoUsuario); ?>" alt="Avatar de <?php echo htmlspecialchars($nomeCompleto); ?>" class="user-avatar">
-                    <img src="../Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
-                </div>
-            </div>
-            <div class="header_mobile">
-                <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
-                <i class="bi bi-list"></i>
-            </div>
-        </header>
+        
+        <?php
+        // =================================================================
+        // AQUI ESTÁ A MÁGICA: INCLUI O CABEÇALHO, O POPUP E O JAVASCRIPT
+        require_once __DIR__ . '/_header.php';
+        // =================================================================
+        ?>
 
         <main class="container-fluid">
             <h1 class="main-title mb-4">Olá, <?php echo htmlspecialchars($primeiroNome); ?>!</h1>
@@ -191,7 +180,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                     <?php
                                     $imagemCursoTendencia = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
                                     $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
-                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor'   );
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
                                     ?>
                                     <div class="col-md-6 col-xl-4">
                                         <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
@@ -215,7 +204,6 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                     <section class="right-section-card mb-4">
                         <h3 class="section-title mb-3"><i class="bi bi-journals"></i> Cursos em Andamento</h3>
                         
-                        <!-- INÍCIO DA ALTERAÇÃO -->
                         <div class="course-list-container">
                             <?php if (empty($cursosEmAndamento)): ?>
                                 <p class="text-center text-muted p-3">Você não está inscrito em nenhum curso no momento.</p>
@@ -241,7 +229,6 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                 </ul>
                             <?php endif; ?>
                         </div>
-                        <!-- FIM DA ALTERAÇÃO -->
 
                     </section>
 
@@ -264,7 +251,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']  );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">

@@ -15,24 +15,29 @@ class UserController
         $this->usuarioModel = new UserModel();
     }
 
-    public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
-    {
-        if (empty($email) || empty($senha)) {
-            return "E-mail e senha são obrigatórios.";
-        }
-        if ($senha !== $confirmaSenha) {
-            return "As senhas não conferem.";
-        }
-        if (!$termos) {
-            return "Você precisa aceitar os Termos de Uso e a Política de Privacidade.";
-        }
-        if ($this->usuarioModel->emailJaExiste($email)) {
-            return "Este e-mail já está em uso.";
-        }
-
-        $_SESSION['cadastro_etapa1'] = ['email' => $email, 'senha' => $senha, 'termos_aceitos' => $termos];
-        return null;
+public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
+{
+    if (empty($email) || empty($senha)) {
+        return "E-mail e senha são obrigatórios.";
     }
+    if ($senha !== $confirmaSenha) {
+        return "As senhas não conferem.";
+    }
+
+    if (strlen($senha) < 6) {
+        return "A senha deve ter no mínimo 6 caracteres.";
+    }
+
+    if (!$termos) {
+        return "Você precisa aceitar os Termos de Uso e a Política de Privacidade.";
+    }
+    if ($this->usuarioModel->emailJaExiste($email)) {
+        return "Este e-mail já está em uso.";
+    }
+
+    $_SESSION['cadastro_etapa1'] = ['email' => $email, 'senha' => $senha, 'termos_aceitos' => $termos];
+    return null;
+}
 
     public function processarEtapa2($nome, $sobrenome, $formacao, $cpf)
     {

@@ -5,10 +5,7 @@ require_once __DIR__ . '/../Model/UserModel.php';
 
 use Model\UserModel;
 
-// ==================================================
-// LINHA CRUCIAL ADICIONADA: CONFIGURA O FUSO HORÁRIO
 date_default_timezone_set('America/Sao_Paulo');
-// ==================================================
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../View/pagina-login.php');
@@ -29,6 +26,11 @@ if ($nova_senha !== $confirmar_senha) {
     exit;
 }
 
+if (strlen($nova_senha) < 6) {
+    header('Location: ../View/redefinir-senha.php?token=' . urlencode($token) . '&error=senha_curta');
+    exit;
+}
+
 try {
     $pdo = Model\Connection::getInstance();
 
@@ -46,7 +48,7 @@ try {
     $now = new DateTime();
     $diff = $now->getTimestamp() - $token_created_at->getTimestamp();
 
-    if ($diff > 3600) { // 3600 segundos = 1 hora
+    if ($diff > 3600) {
         header('Location: ../View/redefinir-senha.php?token=' . urlencode($token) . '&error=token_invalido');
         exit;
     }
