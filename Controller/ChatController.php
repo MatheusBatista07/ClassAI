@@ -9,64 +9,62 @@ use Pusher\PusherException;
 
 class ChatController {
 
-    private $pusher;
-    private $chatModel;
+     private Pusher $pusher;
+    private ChatModel $chatModel;
 
-    public function __construct() {
-        require_once __DIR__ . '/../Config/Configuration.php';
-        $this->chatModel = new ChatModel();
+  public function __construct(ChatModel $chatModel, Pusher $pusher) {
+        $this->chatModel = $chatModel;
+        $this->pusher = $pusher;
+    }
+    
+    public function sendMessage() {
+        // Como o método lida com saídas HTTP diretas (header, echo),
+        // ele é mais adequado para testes de integração/funcionais.
+        // Nos testes unitários, vamos focar nos métodos que retornam dados.
+        date_default_timezone_set('America/Sao_Paulo');
 
-        try {
-            $this->pusher = new Pusher(
-                PUSHER_APP_KEY,
-                PUSHER_APP_SECRET,
-                PUSHER_APP_ID,
-                ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]
-            );
-        } catch (PusherException $e) {
-            die("Erro ao conectar com o Pusher: " . $e->getMessage());
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
+            return;
+        }
+        $senderId = (int)$data['senderId'];
+        $receiverId = (int)$data['receiverId'];
+        $messageText = htmlspecialchars($data['message']);
+        
+        $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
+        
+        if ($success) {
+            $channelName = 'private-chat-user-' . $receiverId;
+            $eventName = 'new-message';
+            $payload = [
+                'senderId' => $senderId,
+                'receiverId' => $receiverId,
+                'message' => $messageText,
+                'timestamp' => date('Y-m-d H:i:s')
+            ];
+            
+            $socketId = $data['socket_id'] ?? null;
+            
+            try {
+                $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
+            } catch (PusherException $e) {
+                // Em um cenário real, logar o erro sem quebrar a aplicação
+                error_log("Pusher trigger falhou: " . $e->getMessage());
+            }
+            
+            echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
+        } else {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
         }
     }
     
-public function sendMessage() {
-    date_default_timezone_set('America/Sao_Paulo');
-
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
-        header("HTTP/1.1 400 Bad Request");
-        echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
-        return;
-    }
-    $senderId = (int)$data['senderId'];
-    $receiverId = (int)$data['receiverId'];
-    $messageText = htmlspecialchars($data['message']);
-    
-    $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
-    
-    if ($success) {
-        $channelName = 'private-chat-user-' . $receiverId;
-        $eventName = 'new-message';
-        $payload = [
-            'senderId' => $senderId,
-            'receiverId' => $receiverId,
-            'message' => $messageText,
-            'timestamp' => date('Y-m-d H:i:s')
-        ];
-        
-        $socketId = $data['socket_id'] ?? null;
-        $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
-        
-        echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
-    } else {
-        header("HTTP/1.1 500 Internal Server Error");
-        echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
-    }
-}
-
-
-    
-    public function getMessages($userId, $contactId) {
-        $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);
+    public function getMessages(int $userId, int $contactId) {
+        // Este método também usa 'echo', o que dificulta o teste unitário do retorno.
+        // A melhor prática seria retornar o array e deixar outra camada lidar com o JSON.
+        $messages = $this->chatModel->fetchMessages($userId, $contactId);
         header('Content-Type: application/json');
         echo json_encode($messages);
     }

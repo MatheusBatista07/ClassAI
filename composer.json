@@ -6,8 +6,18 @@
             "Ivy\\Classai\\": "src/",
             "Controller\\": "Controller/",
             "Model\\": "Model/"
-        }
+        },
+
+        "classmap": [
+            "Controller/"
+        ],
+
+        "files": [
+            "Config/configuration.php"
+        ]
     },
+
+    
     "authors": [
         {
             "name": "ReynanSantts, Raphael Esposito, Matheus Batista, Lucas Chaves, ivyevellinti"
@@ -15,6 +25,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "pusher/pusher-php-server": "^7.2"
+         "php": ">= 8.0",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "12"
     }
 }

@@ -8,11 +8,11 @@ require_once __DIR__ . '/../Model/UserModel.php';
 
 class UserController
 {
-    private $usuarioModel;
+    private UserModel $usuarioModel;
 
-    public function __construct()
+    public function __construct(UserModel $userModel)
     {
-        $this->usuarioModel = new UserModel();
+        $this->usuarioModel = $userModel;
     }
 
     public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
