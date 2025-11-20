@@ -1,16 +1,38 @@
+
 document.addEventListener('DOMContentLoaded', () => {
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const openBtn = document.getElementById('open-chatbot-btn');
+    const closeBtn = document.getElementById('chatbot-close-btn');
+    
+    if (openBtn && chatbotContainer) {
+        openBtn.addEventListener('click', () => {
+            chatbotContainer.style.display = 'flex';
+            openBtn.style.display = 'none';    
+        });
+    }
+
+    if (closeBtn && chatbotContainer) {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            chatbotContainer.style.display = 'none'; 
+            if (openBtn) {
+                openBtn.style.display = 'block';     
+            }
+        });
+    }
     const chatBody = document.getElementById('chat-body');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
     const welcomeMessage = document.querySelector('.welcome-message');
 
- 
     sendButton.addEventListener('click', sendMessage);
     chatInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') sendMessage();
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
+            sendMessage();
+        }
     });
 
-    
     async function sendMessage() {
         const userMessage = chatInput.value.trim();
         if (userMessage === '') return;
@@ -19,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             welcomeMessage.style.display = 'none';
         }
 
-        // Usa a função appendMessage correta
         appendMessage(userMessage, 'user-message');
         chatInput.value = '';
         chatInput.disabled = true;
@@ -63,10 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
         messageElement.classList.add('message', className);
 
         if (className === 'lazo-message') {
-    
             messageElement.innerHTML = marked.parse(text); 
         } else {
-           
             messageElement.innerText = text;
         }
 

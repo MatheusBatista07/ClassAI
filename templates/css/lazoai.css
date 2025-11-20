@@ -230,3 +230,30 @@ body {
 .message.lazo-message strong {
     color: #e0e0e0; 
 }
+
+.chatbot-open-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-purple);
+    background-color: var(--container-bg);
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 999;
+    transition: transform 0.2s ease;
+}
+
+.chatbot-open-button:hover {
+    transform: scale(1.1);
+}
+
+.chatbot-open-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
