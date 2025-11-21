@@ -26,7 +26,7 @@ require_once __DIR__ . '/Config/Configuration.php';
 
 $action = $_GET['action'] ?? '';
 
-$acoesProtegidas = ['sendMessage', 'getMessages', 'askLazo', 'pusherAuth', 'getFollowList'];
+$acoesProtegidas = ['sendMessage', 'getMessages', 'askLazo', 'pusherAuth', 'getFollowList', 'mark_as_read'];
 if (in_array($action, $acoesProtegidas) && !isset($_SESSION['usuario_id'])) {
     http_response_code(403 );
     echo json_encode(['status' => 'error', 'message' => 'Acesso negado.']);
@@ -38,6 +38,7 @@ try {
         case 'getMessages':
         case 'sendMessage':
         case 'pusherAuth':
+            require_once __DIR__ . '/Controller/ChatController.php';
             $controller = new \Controller\ChatController();
             if ($action === 'getMessages') $controller->getMessages($_SESSION['usuario_id'], $_GET['contactId'] ?? 0);
             if ($action === 'sendMessage') $controller->sendMessage();
@@ -46,6 +47,7 @@ try {
 
         case 'askLazo':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                require_once __DIR__ . '/Controller/LazoController.php';
                 $lazoController = new \Controller\LazoController(); 
                 $lazoController->askLazo();
             } else {
@@ -79,6 +81,28 @@ try {
             }
 
             echo json_encode(['status' => 'success', 'list' => $list]);
+            break;
+
+        case 'mark_as_read':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                require_once __DIR__ . '/Model/ChatModel.php';
+                $chatModel = new \Model\ChatModel();
+                $data = json_decode(file_get_contents('php://input'), true);
+                $contactId = $data['contactId'] ?? null;
+
+                if ($contactId) {
+                    $success = $chatModel->markMessagesAsRead($_SESSION['usuario_id'], (int)$contactId);
+                    if ($success) {
+                        echo json_encode(['status' => 'success']);
+                    } else {
+                        http_response_code(500 );
+                        echo json_encode(['status' => 'error', 'message' => 'Falha ao marcar mensagens como lidas.']);
+                    }
+                } else {
+                    http_response_code(400 );
+                    echo json_encode(['status' => 'error', 'message' => 'ID do contato ausente.']);
+                }
+            }
             break;
 
         default:

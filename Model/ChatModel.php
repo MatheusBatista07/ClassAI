@@ -86,4 +86,18 @@ public function getRecentConversations(int $userId, int $limit = 4): array
     }
 }
 
+public function markMessagesAsRead(int $userId, int $contactId): bool
+{
+    $sql = "UPDATE mensagens 
+            SET status_leitura = 'lida' 
+            WHERE id_destinatario = ? AND id_remetente = ? AND status_leitura = 'nao_lida'";
+    try {
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$userId, $contactId]);
+    } catch (\PDOException $e) {
+        error_log("Erro ao marcar mensagens como lidas: " . $e->getMessage());
+        return false;
+    }
+}
+
 }

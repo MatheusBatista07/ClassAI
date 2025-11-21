@@ -30,6 +30,16 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
 <link rel="stylesheet" href="/ClassAI/Templates/css/LazoAI.css">
 <link rel="stylesheet" href="/ClassAI/Templates/css/notifications.css">
 
+<?php
+// =====================================================================
+// ALTERAÇÃO APLICADA AQUI
+// Carrega o CSS específico do chat apenas quando estiver na página de chat.
+// =====================================================================
+if (basename($_SERVER['PHP_SELF'] ) == 'paginaChat.php') {
+    echo '<link rel="stylesheet" href="/ClassAI/Templates/css/paginaChat.css">';
+}
+?>
+
 <!-- HTML do Header -->
 <div class="header">
     <div></div>
@@ -44,7 +54,7 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
                 <i class="bi bi-bell"></i>
                 <span class="notification-badge" id="notificationBadge" style="display: none;"></span>
             </div>
-            <?php require_once __DIR__ . '/_popupNotificacao.php'; // <<< SUA ÓTIMA SUGESTÃO APLICADA AQUI ?>
+            <?php require_once __DIR__ . '/_popupNotificacao.php'; ?>
         </div>
 
         <div class="user-profile" id="user-profile-icon">

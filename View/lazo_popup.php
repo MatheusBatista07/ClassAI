@@ -1,22 +1,22 @@
 <div id="lazo-popup-overlay" class="lazo-popup-overlay">
-    <div class="chat-container" id="chatbot-container">
-        <header class="chat-header">
-            <div class="header-content">
-                <a href="#" id="lazo-close-button" class="close-button">&times;</a>
+    <div class="lazo-chat-container" id="chatbot-container">
+        <header class="lazo-chat-header">
+            <div class="lazo-header-content">
+                <a href="#" id="lazo-close-button" class="lazo-close-button">&times;</a>
                 <h1>Lazo AI</h1>
             </div>
-            <img src="..\Images\Pagina-de-Apresentacao\Lazo.png" alt="Mascote Lazo AI" class="mascot">
+            <img src="..\Images\Pagina-de-Apresentacao\Lazo.png" alt="Mascote Lazo AI" class="lazo-mascot">
         </header>
-        <main id="chat-body" class="chat-body">
-            <div class="welcome-message">
+        <main id="chat-body" class="lazo-chat-body">
+            <div class="lazo-welcome-message">
                 <h2>Faça uma pergunta à Lazo</h2>
                 <p>A IA irá te ajudar no processo de aprendizagem</p>
             </div>
         </main>
-        <footer class="chat-footer">
-            <div class="input-wrapper">
+        <footer class="lazo-chat-footer">
+            <div class="lazo-input-wrapper">
                 <input type="text" id="chat-input" placeholder="Digite sua pergunta">
-                <button id="send-button" class="send-button">
+                <button id="send-button" class="lazo-send-button">
                     <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
                 </button>
             </div>
@@ -45,17 +45,7 @@
     display: flex;
 }
 
-:root {
-    --background-color: #120c1ccf;
-    --container-bg: #1a1129;
-    --input-bg: #4b326f;
-    --primary-purple: #a062ff;
-    --border-glow: #6cff87; 
-    --text-color: #f0f0f0;
-    --text-secondary: #b3b3b3;
-}
-
-.chat-container {
+.lazo-chat-container {
     pointer-events: auto;
     width: 380px;
     max-width: 95vw;
@@ -71,25 +61,19 @@
 }
 
 @keyframes slideInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @media (max-width: 600px) {
-    .chat-container {
+    .lazo-chat-container {
         width: 95vw;
         height: 80vh;
         max-height: 90vh;
     }
 }
 
-.chat-header {
+.lazo-chat-header {
     padding: 20px 25px;
     position: relative;
     flex-shrink: 0;
@@ -99,13 +83,13 @@
     align-items: center;
 }
 
-.header-content {
+.lazo-header-content {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.close-button {
+.lazo-close-button {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -122,20 +106,20 @@
     text-decoration: none; 
 }
 
-.close-button:hover {
-    background-color: var(--border-glow);
+.lazo-close-button:hover {
+    background-color: #6cff87;
     color: #160f29;
-    border-color: var(--border-glow);
+    border-color: #6cff87;
     transform: rotate(90deg);
 }
 
-.chat-header h1 {
+.lazo-chat-header h1 {
     font-size: 22px;
     font-weight: 600;
-    color: var(--text-color);
+    color: #f0f0f0;
 }
 
-.mascot {
+.lazo-mascot {
     position: static;
     width: 60px;
     height: 60px;
@@ -147,7 +131,7 @@
     50% { transform: translateY(-8px); }
 }
 
-.chat-body {
+.lazo-chat-body {
     flex: 1;
     padding: 10px 15px 10px 25px;
     overflow-y: auto;
@@ -155,21 +139,12 @@
     flex-direction: column;
 }
 
-.chat-body::-webkit-scrollbar {
-    width: 6px;
-}
-.chat-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-.chat-body::-webkit-scrollbar-thumb {
-    background-color: #4A3A69;
-    border-radius: 6px;
-}
-.chat-body::-webkit-scrollbar-thumb:hover {
-    background-color: #6c5b92;
-}
+.lazo-chat-body::-webkit-scrollbar { width: 6px; }
+.lazo-chat-body::-webkit-scrollbar-track { background: transparent; }
+.lazo-chat-body::-webkit-scrollbar-thumb { background-color: #4A3A69; border-radius: 6px; }
+.lazo-chat-body::-webkit-scrollbar-thumb:hover { background-color: #6c5b92; }
 
-.welcome-message {
+.lazo-welcome-message {
     margin: auto;
     text-align: center;
     color: #c0b8d4;
@@ -177,13 +152,13 @@
     opacity: 0.7;
 }
 
-.welcome-message h2 {
+.lazo-welcome-message h2 {
     color: #FFFFFF;
     font-size: 20px;
     margin-bottom: 5px;
 }
 
-.message {
+.lazo-message {
     max-width: 85%;
     padding: 14px 20px;
     border-radius: 22px;
@@ -198,28 +173,28 @@
 
 @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
 
-.user-message {
-    background-color: var(--primary-purple);
+.lazo-user-message {
+    background-color: #a062ff;
     color: white;
     align-self: flex-end;
     border-bottom-right-radius: 8px;
 }
 
-.lazo-message {
+.lazo-ai-message {
     background-color: #2c1d44;
     color: #c0b8d4;
     align-self: flex-start;
     border-bottom-left-radius: 8px;
 }
 
-.typing-indicator {
+.lazo-typing-indicator {
     display: flex;
     align-items: center;
     align-self: flex-start;
     padding: 18px 20px;
 }
 
-.typing-indicator span {
+.lazo-typing-indicator span {
     height: 9px;
     width: 9px;
     margin: 0 3px;
@@ -229,21 +204,21 @@
     animation: bounce-typing 1.4s infinite ease-in-out both;
 }
 
-.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+.lazo-typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.lazo-typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
 
 @keyframes bounce-typing {
     0%, 80%, 100% { transform: scale(0.5); opacity: 0.5; }
     40% { transform: scale(1.0); opacity: 1; }
 }
 
-.chat-footer {
+.lazo-chat-footer {
     padding: 15px 25px 20px 25px;
     flex-shrink: 0;
     border-top: 1px solid #2a1d42;
 }
 
-.input-wrapper {
+.lazo-input-wrapper {
     display: flex;
     align-items: center;
     background-color: #160f29;
@@ -253,11 +228,11 @@
     transition: border-color 0.2s ease;
 }
 
-.input-wrapper:focus-within {
-    border-color: var(--primary-purple);
+.lazo-input-wrapper:focus-within {
+    border-color: #a062ff;
 }
 
-#chat-input {
+.lazo-input-wrapper #chat-input {
     flex: 1;
     border: none;
     background: transparent;
@@ -267,11 +242,11 @@
     outline: none;
 }
 
-#chat-input::placeholder {
-    color: var(--text-secondary);
+.lazo-input-wrapper #chat-input::placeholder {
+    color: #b3b3b3;
 }
 
-.send-button {
+.lazo-send-button {
     width: 44px;
     height: 44px;
     border-radius: 14px;
@@ -284,32 +259,32 @@
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.send-button:hover {
+.lazo-send-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(160, 98, 255, 0.5);
 }
 
-.send-button:active {
+.lazo-send-button:active {
     transform: scale(0.95);
     transition: transform 0.1s;
 }
 
-.message.lazo-message ul,
-.message.lazo-message ol {
+.lazo-message ul,
+.lazo-message ol {
     padding-left: 25px; 
     margin-top: 10px;   
     margin-bottom: 10px;
 }
 
-.message.lazo-message p {
+.lazo-message p {
     margin-bottom: 0.5em; 
 }
 
-.message.lazo-message p:last-child {
+.lazo-message p:last-child {
     margin-bottom: 0;
 }
 
-.message.lazo-message strong {
+.lazo-message strong {
     color: #e0e0e0; 
 }
 </style>

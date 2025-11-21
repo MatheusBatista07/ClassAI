@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatBody = document.getElementById('chat-body');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
-    const welcomeMessage = document.querySelector('.welcome-message');
+    const welcomeMessage = document.querySelector('.lazo-welcome-message');
 
     if (!chatBody || !chatInput || !sendButton) {
         console.error("LazoAI.js: Elementos essenciais do chat não foram encontrados. O script não pode continuar.");
@@ -16,13 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function appendMessage(text, className) {
         console.log(`LazoAI.js: Adicionando mensagem "${text}" com a classe ${className}`);
         const messageElement = document.createElement('div');
-        messageElement.classList.add('message', className);
+        
+        messageElement.classList.add('lazo-message', className);
 
-        if (className === 'lazo-message') {
-            // Usa a biblioteca 'marked' para converter Markdown (negrito, listas, etc.) em HTML
+        if (className === 'lazo-ai-message') {
             messageElement.innerHTML = marked.parse(text);
         } else {
-            // Para a mensagem do usuário, apenas insere o texto para segurança
             messageElement.innerText = text;
         }
 
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function showTypingIndicator() {
         const indicator = document.createElement('div');
-        indicator.classList.add('message', 'lazo-message', 'typing-indicator');
+        indicator.classList.add('lazo-message', 'lazo-ai-message', 'lazo-typing-indicator');
         indicator.innerHTML = '<span></span><span></span><span></span>';
         chatBody.appendChild(indicator);
         chatBody.scrollTop = chatBody.scrollHeight;
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             welcomeMessage.style.display = 'none';
         }
 
-        appendMessage(userMessage, 'user-message');
+        appendMessage(userMessage, 'lazo-user-message');
         chatInput.value = '';
         chatInput.disabled = true;
         sendButton.disabled = true;
@@ -63,9 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log(`LazoAI.js: Enviando requisição para a API com a pergunta: "${userMessage}"`);
             
-            // =================================================================
-            // CORREÇÃO PRINCIPAL: A URL do fetch agora aponta para o api.php
-            // =================================================================
             const response = await fetch('/ClassAI/api.php?action=askLazo', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -85,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("LazoAI.js: Dados da resposta (JSON):", data);
            
             if (data.error) {
-                appendMessage(data.error, 'lazo-message');
+                appendMessage(data.error, 'lazo-ai-message');
             } else {
-                appendMessage(data.reply, 'lazo-message');
+                appendMessage(data.reply, 'lazo-ai-message');
             }
 
         } catch (error) {
@@ -95,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typingIndicator.parentNode) {
                 chatBody.removeChild(typingIndicator);
             }
-            appendMessage('Oops! Não consegui me conectar. Verifique o console (F12) para mais detalhes.', 'lazo-message');
+            appendMessage('Oops! Não consegui me conectar. Verifique o console (F12) para mais detalhes.', 'lazo-ai-message');
         } finally {
             chatInput.disabled = false;
             sendButton.disabled = false;

@@ -4,7 +4,8 @@ namespace Controller;
 
 use Model\ChatModel;
 use Model\UserModel;
-use Model\NotificationModel; // 1. Importamos o novo Model
+use Model\NotificationModel;
+use Model\AmigosModel;
 use Pusher\Pusher;
 use Pusher\PusherException;
 
@@ -14,15 +15,21 @@ class ChatController
     private $chatModel;
     private $userModel;
     private $notificationModel;
+    private $amigosModel;
 
-    // 2. Construtor refatorado para injeção de dependência (melhor para testes e organização)
-    public function __construct(ChatModel $chatModel = null, UserModel $userModel = null, NotificationModel $notificationModel = null, Pusher $pusher = null)
-    {
+    public function __construct(
+        ChatModel $chatModel = null,
+        UserModel $userModel = null,
+        NotificationModel $notificationModel = null,
+        AmigosModel $amigosModel = null,
+        Pusher $pusher = null
+    ) {
         require_once __DIR__ . '/../Config/Configuration.php';
-        
+
         $this->chatModel = $chatModel ?? new ChatModel();
         $this->userModel = $userModel ?? new UserModel();
         $this->notificationModel = $notificationModel ?? new NotificationModel();
+        $this->amigosModel = $amigosModel ?? new AmigosModel();
 
         if ($pusher) {
             $this->pusher = $pusher;
@@ -31,30 +38,26 @@ class ChatController
                 $this->pusher = new Pusher(PUSHER_APP_KEY, PUSHER_APP_SECRET, PUSHER_APP_ID, ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]);
             } catch (PusherException $e) {
                 error_log("Erro ao conectar com o Pusher: " . $e->getMessage());
-                // Lidar com o erro de conexão, se necessário
             }
         }
     }
-    
+
     public function sendMessage()
     {
         date_default_timezone_set('America/Sao_Paulo');
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
-            http_response_code(400 );
+            http_response_code(400);
             echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
             return;
         }
 
-        $senderId = (int)$data['senderId'];
-        $receiverId = (int)$data['receiverId'];
+        $senderId = (int) $data['senderId'];
+        $receiverId = (int) $data['receiverId'];
         $messageText = htmlspecialchars($data['message']);
-        
-        $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
-        
-        if ($success) {
-            // Dispara o evento para o chat em tempo real
+
+        if ($this->chatModel->saveMessage($senderId, $receiverId, $messageText)) {
             $chatChannel = 'private-chat-user-' . $receiverId;
             $chatPayload = [
                 'senderId' => $senderId,
@@ -63,46 +66,41 @@ class ChatController
                 'timestamp' => date('Y-m-d H:i:s')
             ];
             $socketId = $data['socket_id'] ?? null;
-            $this->pusher->trigger($chatChannel, 'new-message', $chatPayload, ['socket_id' => $socketId]);
+            if ($this->pusher) {
+                $this->pusher->trigger($chatChannel, 'new-message', $chatPayload, ['socket_id' => $socketId]);
+            }
 
-            // =====================================================================
-            // 3. LÓGICA DE NOTIFICAÇÃO ADICIONADA AQUI
-            // =====================================================================
             $senderInfo = $this->userModel->encontrarUsuarioPorId($senderId);
             $senderName = $senderInfo ? $senderInfo['nome'] : 'Alguém';
-            
+
             $notificationMessage = "Você tem uma nova mensagem de {$senderName}.";
-            $notificationLink = "../View/pagina-chat.php?contactId={$senderId}";
+            $notificationLink = "paginaChat.php?contactId={$senderId}";
 
             $this->notificationModel->criarNotificacao($receiverId, 'nova_mensagem', $notificationMessage, $senderId, $notificationLink);
 
-            // Dispara o evento para a notificação em tempo real
             $notificationChannel = 'notifications-user-' . $receiverId;
-            $notificationPayload = [
-                'message' => $notificationMessage,
-                'link' => $notificationLink
-            ];
-            $this->pusher->trigger($notificationChannel, 'new-notification', $notificationPayload);
-            // =====================================================================
+            $notificationPayload = ['message' => $notificationMessage, 'link' => $notificationLink];
+            if ($this->pusher) {
+                $this->pusher->trigger($notificationChannel, 'new-notification', $notificationPayload);
+            }
 
             echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
         } else {
-            http_response_code(500 );
+            http_response_code(500);
             echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
         }
     }
-    
+
     public function getMessages($userId, $contactId)
     {
-        $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);
+        $messages = $this->chatModel->fetchMessages((int) $userId, (int) $contactId);
         header('Content-Type: application/json');
         echo json_encode($messages);
     }
 
     public function getContactList(int $currentUserId): array
     {
-        // O construtor agora cuida disso
-        return $this->userModel->getTodosUsuarios($currentUserId);
+        return $this->amigosModel->getAmigosParaChat($currentUserId);
     }
 
     public function pusherAuth()
@@ -110,20 +108,18 @@ class ChatController
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         if (!isset($_SESSION['usuario_id'])) {
             header('HTTP/1.1 403 Forbidden');
-            echo 'Acesso negado.';
-            exit;
+            exit('Acesso negado.');
         }
 
         $socketId = $_POST['socket_id'] ?? '';
         $channelName = $_POST['channel_name'] ?? '';
-        
+
         if (empty($socketId) || empty($channelName)) {
             header('HTTP/1.1 400 Bad Request');
-            echo 'socket_id e channel_name são obrigatórios.';
-            exit;
+            exit('socket_id e channel_name são obrigatórios.');
         }
 
         $userId = $_SESSION['usuario_id'];
@@ -133,14 +129,45 @@ class ChatController
         ];
 
         try {
-            $auth = $this->pusher->authorizePresenceChannel($channelName, $socketId, $userId, $userInfo);
-            header('Content-Type: application/json');
-            echo $auth;
+            if ($this->pusher) {
+                $auth = $this->pusher->authorizePresenceChannel($channelName, $socketId, $userId, $userInfo);
+                header('Content-Type: application/json');
+                echo $auth;
+            }
         } catch (\Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             error_log('Pusher Auth Error: ' . $e->getMessage());
             echo 'Erro ao autenticar no Pusher.';
         }
         exit();
+    }
+}
+
+$action = $_GET['action'] ?? null;
+
+if ($action) {
+    require_once __DIR__ . '/../auth.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
+    require_once __DIR__ . '/../Model/ChatModel.php';
+    require_once __DIR__ . '/../Model/UserModel.php';
+    require_once __DIR__ . '/../Model/NotificationModel.php';
+    require_once __DIR__ . '/../Model/AmigosModel.php';
+
+    $controller = new \Controller\ChatController();
+
+    switch ($action) {
+        case 'getMessages':
+            $userId = $_GET['userId'] ?? null;
+            $contactId = $_GET['contactId'] ?? null;
+            if ($userId && $contactId) {
+                $controller->getMessages($userId, $contactId);
+            }
+            break;
+
+        case 'sendMessage':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->sendMessage();
+            }
+            break;
     }
 }
