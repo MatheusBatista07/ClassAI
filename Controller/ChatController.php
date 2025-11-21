@@ -9,18 +9,30 @@ use Pusher\PusherException;
 
 class ChatController {
 
-     private Pusher $pusher;
+    private Pusher $pusher;
     private ChatModel $chatModel;
 
-  public function __construct(ChatModel $chatModel, Pusher $pusher) {
-        $this->chatModel = $chatModel;
-        $this->pusher = $pusher;
+    public function __construct(ChatModel $chatModel = null, Pusher $pusher = null) {
+        $this->chatModel = $chatModel ?? new ChatModel();
+
+        if ($pusher) {
+            $this->pusher = $pusher;
+        } else {
+            require_once __DIR__ . '/../Config/Configuration.php';
+            try {
+                $this->pusher = new Pusher(
+                    PUSHER_APP_KEY,
+                    PUSHER_APP_SECRET,
+                    PUSHER_APP_ID,
+                    ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]
+                );
+            } catch (PusherException $e) {
+                error_log("Pusher instantiation failed: " . $e->getMessage());
+            }
+        }
     }
     
     public function sendMessage() {
-        // Como o método lida com saídas HTTP diretas (header, echo),
-        // ele é mais adequado para testes de integração/funcionais.
-        // Nos testes unitários, vamos focar nos métodos que retornam dados.
         date_default_timezone_set('America/Sao_Paulo');
 
         $data = json_decode(file_get_contents('php://input'), true);
@@ -50,8 +62,7 @@ class ChatController {
             try {
                 $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
             } catch (PusherException $e) {
-                // Em um cenário real, logar o erro sem quebrar a aplicação
-                error_log("Pusher trigger falhou: " . $e->getMessage());
+                error_log("Pusher trigger failed: " . $e->getMessage());
             }
             
             echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
@@ -62,8 +73,6 @@ class ChatController {
     }
     
     public function getMessages(int $userId, int $contactId) {
-        // Este método também usa 'echo', o que dificulta o teste unitário do retorno.
-        // A melhor prática seria retornar o array e deixar outra camada lidar com o JSON.
         $messages = $this->chatModel->fetchMessages($userId, $contactId);
         header('Content-Type: application/json');
         echo json_encode($messages);
@@ -101,7 +110,7 @@ class ChatController {
         ];
 
         try {
-            $auth = $this->pusher->presence_auth($channelName, $socketId, $presenceData['id'], $presenceData);
+            $auth = $this->pusher->authorizePresenceChannel($channelName, $socketId, $presenceData['id'], $presenceData);
             echo $auth;
         } catch (\Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');

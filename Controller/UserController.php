@@ -4,15 +4,13 @@ namespace Controller;
 
 use Model\UserModel;
 
-require_once __DIR__ . '/../Model/UserModel.php';
-
 class UserController
 {
     private UserModel $usuarioModel;
 
-    public function __construct(UserModel $userModel)
+    public function __construct(UserModel $userModel = null)
     {
-        $this->usuarioModel = $userModel;
+        $this->usuarioModel = $userModel ?? new UserModel();
     }
 
     public function processarEtapa1($email, $senha, $confirmaSenha, $termos)
@@ -162,7 +160,6 @@ class UserController
             return "Nenhum usuário encontrado com este e-mail.";
         }
     }
-
 
     public function processarDelecao(int $userId): bool
     {
