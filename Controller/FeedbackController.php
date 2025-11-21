@@ -8,13 +8,13 @@ use Exception;
 
 class FeedbackController
 {
-    private $feedbackModel;
-    private $cursosModel;
+    private Feedback $feedbackModel;
+    private CursosModel $cursosModel;
 
-    public function __construct()
+    public function __construct(Feedback $feedbackModel = null, CursosModel $cursosModel = null)
     {
-        $this->feedbackModel = new Feedback();
-        $this->cursosModel = new CursosModel();
+        $this->feedbackModel = $feedbackModel;
+        $this->cursosModel = $cursosModel;
     }
 
     public function submitMessage($message, $nome, $email)
@@ -31,6 +31,7 @@ class FeedbackController
             return $this->feedbackModel->saveFeedBack($message, $nome, $email);
 
         } catch (Exception $error) {
+
             error_log("Erro ao enviar mensagem: " . $error->getMessage());
             return false;
         }
@@ -43,6 +44,7 @@ class FeedbackController
                 $this->feedbackModel->salvarFeedbackCancelamento($userId, $cursoId, $motivo);
             }
 
+            // Tenta cancelar a matrícula
             $sucessoCancelamento = $this->cursosModel->cancelarMatricula($userId, $cursoId);
 
             if (!$sucessoCancelamento) {
