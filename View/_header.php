@@ -21,10 +21,8 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
 ?>
 
 <!-- Div oculta com dados do usuário para o JS -->
-<div id="global-user-data" 
-     data-user-id="<?php echo htmlspecialchars($id_usuario_logado); ?>"
-     data-pusher-key="<?php echo PUSHER_APP_KEY; ?>"
-     data-pusher-cluster="<?php echo PUSHER_APP_CLUSTER; ?>">
+<div id="global-user-data" data-user-id="<?php echo htmlspecialchars($id_usuario_logado); ?>"
+    data-pusher-key="<?php echo PUSHER_APP_KEY; ?>" data-pusher-cluster="<?php echo PUSHER_APP_CLUSTER; ?>">
 </div>
 
 <!-- CSS -->
@@ -34,12 +32,12 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
 
 <!-- HTML do Header -->
 <div class="header">
-    <div></div> 
+    <div></div>
     <div class="header-icons">
         <div class="header-icon" id="lazo-popup-button">
             <img src="/ClassAI/Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img">
         </div>
-        
+
         <!-- Container do sino de notificação -->
         <div class="notification-container">
             <div class="header-icon notification-bell" id="notificationBell">
@@ -48,7 +46,7 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
             </div>
             <?php require_once __DIR__ . '/_popupNotificacao.php'; // <<< SUA ÓTIMA SUGESTÃO APLICADA AQUI ?>
         </div>
-        
+
         <div class="user-profile" id="user-profile-icon">
             <img src="<?php echo $fotoUsuario; ?>" alt="Avatar do Usuário" class="user-avatar">
             <img src="/ClassAI/Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
@@ -56,10 +54,10 @@ if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_pe
     </div>
 </div>
 
-<?php 
+<?php
 // Inclui os outros popups
-require_once __DIR__ . '/_popupPerfil.php'; 
-require_once __DIR__ . '/lazo_popup.php'; 
+require_once __DIR__ . '/_popupPerfil.php';
+require_once __DIR__ . '/lazo_popup.php';
 ?>
 
 <!-- Scripts Globais -->
@@ -67,4 +65,5 @@ require_once __DIR__ . '/lazo_popup.php';
 <script src="/ClassAI/Templates/js/LazoAI.js"></script>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="/ClassAI/Templates/js/globalPresence_v2.js"></script>
-<script src="/ClassAI/Templates/js/notification_handler.js"></script> 
+<script src="/ClassAI/Templates/js/header_popups.js"></script>
+<script src="/ClassAI/Templates/js/notification_handler.js"></script>

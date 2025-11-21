@@ -7,7 +7,6 @@ $userModel = new \Model\UserModel();
 $amigosModel = new \Model\AmigosModel();
 
 $meuId = $_SESSION['usuario_id'];
-
 $perfilId = $_GET['id'] ?? $meuId;
 $isMeuPerfil = ($perfilId == $meuId);
 
@@ -46,7 +45,7 @@ if (!$isMeuPerfil) {
 
         <main class="container-perfil">
             <div class="perfil-header-container">
-                <h1 class="perfil-main-title"><?php echo $isMeuPerfil ? 'Meu Perfil' : 'Perfil de ' . htmlspecialchars($usuario['nome'] ); ?></h1>
+                <h1 class="perfil-main-title"><?php echo $isMeuPerfil ? 'Meu Perfil' : 'Perfil de ' . htmlspecialchars($usuario['nome']  ); ?></h1>
                 <?php if (!$isMeuPerfil): ?>
                     <a href="javascript:history.back()" id="btn-voltar-perfil" class="btn-voltar">
                         <i class="bi bi-arrow-left"></i> Voltar
@@ -62,7 +61,9 @@ if (!$isMeuPerfil) {
                         <label>Foto de Perfil</label>
                         <div class="foto-container" data-contact-id="<?php echo $perfilId; ?>">
                             <img src="<?php echo '/ClassAI/' . htmlspecialchars($usuario['foto_perfil_url'] ?? 'Images/perfil_padrao.png'); ?>" alt="Foto de Perfil" class="foto-perfil">
-                            <div id="status-indicator-<?php echo $perfilId; ?>" class="status-indicator-profile"></div>
+                            <?php if (!$isMeuPerfil): ?>
+                                <div id="status-indicator-<?php echo $perfilId; ?>" class="status-indicator-profile"></div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
