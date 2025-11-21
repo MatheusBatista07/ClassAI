@@ -1,0 +1,119 @@
+/* Container principal */
+.notification-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Ícone do sino */
+.notification-bell {
+    cursor: pointer;
+    position: relative;
+}
+
+/* Badge (bolinha vermelha) */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid #120c18; /* << AJUSTE: Cor de fundo do seu header roxo */
+    display: none;
+}
+
+/* Painel de notificações */
+.notification-panel {
+    display: none;
+    position: absolute;
+    top: 140%;
+    right: 0;
+    width: 360px;
+    max-height: 450px;
+    background-color: #2a2135; /* << AJUSTE: Roxo escuro para o fundo */
+    color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border: 1px solid #4a3a5a; /* << AJUSTE: Borda roxa */
+}
+
+.notification-panel.active {
+    display: block;
+}
+
+/* Cabeçalho do painel */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #3a2d4a; /* << AJUSTE: Roxo um pouco mais claro para o header */
+    border-bottom: 1px solid #4a3a5a;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Botão "Marcar todas como lidas" */
+.panel-header button {
+    background-color: #5a4870; /* << AJUSTE: Fundo de botão roxo */
+    color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.panel-header button:hover {
+    background-color: #6b5885; /* << AJUSTE: Efeito hover */
+    text-decoration: none;
+}
+
+/* Corpo do painel */
+.panel-body {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+/* Item de notificação */
+.notification-item {
+    padding: 15px;
+    border-bottom: 1px solid #4a3a5a;
+    transition: background-color 0.2s ease-in-out;
+}
+.notification-item:last-child { border-bottom: none; }
+
+.notification-item a {
+    text-decoration: none;
+    color: #e0e0e0;
+    display: block;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Item não lido */
+.notification-item.unread {
+    background-color: #3f3250; /* << AJUSTE: Fundo destacado roxo */
+    font-weight: 500;
+}
+
+.notification-item:hover {
+    background-color: #4a3a5a; /* << AJUSTE: Efeito hover roxo */
+}
+
+/* Mensagem de placeholder */
+.notification-placeholder {
+    padding: 50px 20px;
+    text-align: center;
+    color: #a090b0; /* << AJUSTE: Cor do texto placeholder */
+}
