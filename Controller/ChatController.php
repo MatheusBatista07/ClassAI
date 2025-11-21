@@ -21,49 +21,53 @@ class ChatController {
                 PUSHER_APP_KEY,
                 PUSHER_APP_SECRET,
                 PUSHER_APP_ID,
-                ['cluster' => PUSHER_APP_CLUSTER, 'useTLS' => true]
+                // =====================================================================
+                // CORREÇÃO: Forçando o cluster correto 'us2'
+                // =====================================================================
+                ['cluster' => 'us2', 'useTLS' => true]
             );
         } catch (PusherException $e) {
-            die("Erro ao conectar com o Pusher: " . $e->getMessage());
+            // Em um ambiente de produção, você logaria o erro em vez de usar 'die'.
+            error_log("Erro ao conectar com o Pusher: " . $e->getMessage());
+            http_response_code(500 );
+            die(json_encode(['status' => 'error', 'message' => 'Não foi possível conectar ao serviço de tempo real.']));
         }
     }
     
-public function sendMessage() {
-    date_default_timezone_set('America/Sao_Paulo');
+    public function sendMessage() {
+        date_default_timezone_set('America/Sao_Paulo');
 
-    $data = json_decode(file_get_contents('php://input'), true);
-    if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
-        header("HTTP/1.1 400 Bad Request");
-        echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
-        return;
-    }
-    $senderId = (int)$data['senderId'];
-    $receiverId = (int)$data['receiverId'];
-    $messageText = htmlspecialchars($data['message']);
-    
-    $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
-    
-    if ($success) {
-        $channelName = 'private-chat-user-' . $receiverId;
-        $eventName = 'new-message';
-        $payload = [
-            'senderId' => $senderId,
-            'receiverId' => $receiverId,
-            'message' => $messageText,
-            'timestamp' => date('Y-m-d H:i:s')
-        ];
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!isset($data['senderId'], $data['receiverId'], $data['message'])) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(['status' => 'error', 'message' => 'Dados incompletos.']);
+            return;
+        }
+        $senderId = (int)$data['senderId'];
+        $receiverId = (int)$data['receiverId'];
+        $messageText = htmlspecialchars($data['message']);
         
-        $socketId = $data['socket_id'] ?? null;
-        $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
+        $success = $this->chatModel->saveMessage($senderId, $receiverId, $messageText);
         
-        echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
-    } else {
-        header("HTTP/1.1 500 Internal Server Error");
-        echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
+        if ($success) {
+            $channelName = 'private-chat-user-' . $receiverId;
+            $eventName = 'new-message';
+            $payload = [
+                'senderId' => $senderId,
+                'receiverId' => $receiverId,
+                'message' => $messageText,
+                'timestamp' => date('Y-m-d H:i:s')
+            ];
+            
+            $socketId = $data['socket_id'] ?? null;
+            $this->pusher->trigger($channelName, $eventName, $payload, ['socket_id' => $socketId]);
+            
+            echo json_encode(['status' => 'success', 'message' => 'Mensagem enviada.']);
+        } else {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo json_encode(['status' => 'error', 'message' => 'Falha ao salvar a mensagem no banco de dados.']);
+        }
     }
-}
-
-
     
     public function getMessages($userId, $contactId) {
         $messages = $this->chatModel->fetchMessages((int)$userId, (int)$contactId);
@@ -74,7 +78,7 @@ public function sendMessage() {
     public function getContactList(int $currentUserId): array
     {
         $userModel = new UserModel();
-        return $userModel->getTodosUsuarios($currentUserId);
+        return $userModel->getContatosAmigos($currentUserId);
     }
 
     public function pusherAuth()
@@ -82,6 +86,7 @@ public function sendMessage() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        
         if (!isset($_SESSION['usuario_id'])) {
             header('HTTP/1.1 403 Forbidden');
             echo 'Acesso negado.';
@@ -97,18 +102,24 @@ public function sendMessage() {
             exit;
         }
 
-        $presenceData = [
-            'id' => $_SESSION['usuario_id'],
-            'name' => $_SESSION['usuario_nome'] ?? 'Usuário Anônimo'
+        $userId = $_SESSION['usuario_id'];
+        $userInfo = [
+            'nome' => $_SESSION['usuario_nome'] ?? 'Anônimo',
+            'foto_url' => $_SESSION['usuario_foto_url'] ?? null
         ];
 
         try {
-            $auth = $this->pusher->presence_auth($channelName, $socketId, $presenceData['id'], $presenceData);
+            $auth = $this->pusher->authorizePresenceChannel($channelName, $socketId, $userId, $userInfo);
+            
+            header('Content-Type: application/json');
             echo $auth;
+            exit();
+
         } catch (\Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
             error_log('Pusher Auth Error: ' . $e->getMessage());
             echo 'Erro ao autenticar no Pusher.';
+            exit();
         }
     }
 }

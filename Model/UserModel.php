@@ -352,5 +352,29 @@ public function buscarNovosUsuarios($userId, $termoBusca, $limit = 10) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function getContatosAmigos(int $userId): array
+{
+    $sql = "
+        SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url
+        FROM usuarios u
+        JOIN (
+            SELECT seguindo_id AS amigo_id FROM conexoes WHERE seguidor_id = :userId
+            UNION
+            SELECT seguidor_id AS amigo_id FROM conexoes WHERE seguindo_id = :userId
+        ) AS amigos ON u.id = amigos.amigo_id
+        WHERE u.id != :userId
+        ORDER BY u.nome, u.sobrenome;
+    ";
+
+    try {
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':userId', $userId, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Erro ao buscar contatos amigos: " . $e->getMessage());
+        return [];
+    }
+}
 
 }

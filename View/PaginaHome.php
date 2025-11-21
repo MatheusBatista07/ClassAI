@@ -1,21 +1,14 @@
 <?php
-
 use Model\CursosModel;
 use Model\ChatModel;
 
-// O auth.php já inicia a sessão, então não precisamos de session_start() aqui.
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../vendor/autoload.php';
-// O UserModel já é chamado dentro do _header.php, mas podemos manter aqui por clareza se outras partes da página o usarem.
 require_once __DIR__ . '/../Model/UserModel.php'; 
 require_once __DIR__ . '/../Model/CursosModel.php';
 require_once __DIR__ . '/../Model/ChatModel.php';
 
-// A variável $userId já é definida no _header.php, mas como a usamos aqui, garantimos que ela exista.
 $userId = $_SESSION['usuario_id'];
-
-// --- LÓGICA ESPECÍFICA DA PÁGINA HOME ---
-// (A busca de dados do usuário para o cabeçalho foi movida para _header.php)
 
 $userModel = new \Model\UserModel();
 $usuario = $userModel->encontrarUsuarioPorId($userId);
@@ -63,54 +56,17 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
     <title>ClassAI - Página Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../Templates/css/PaginaHome.css">
-    <link rel="stylesheet" href="../Templates/css/paginaChat.css">
+    <link rel="stylesheet" href="/ClassAI/Templates/css/PaginaHome.css">
+    <link rel="stylesheet" href="/ClassAI/Templates/css/paginaChat.css">
 </head>
 
-<body data-user-id="<?php echo htmlspecialchars($userId ); ?>">
-    <div class="sidebar">
-        <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
-
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="PaginaHome.php" class="nav-link active"><i class="bi bi-house-door"></i> Principal</a>
-            </li>
-            <li class="nav-item">
-                <a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a>
-            </li>
-            <li class="nav-item">
-                <a href="PaginaPrincipalCursos.php" class="nav-link"><i class="bi bi-book"></i> Cursos</a>
-            </li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
-            <li class="nav-item"><a href="pagina-amigos.php" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
-        </ul>
-
-        <div class="nav-divider"></div>
-
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-question-circle"></i>
-                    Ajuda e FAQ
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Modo escuro
-                    <i class="bi bi-moon-stars ms-auto"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
+<body data-user-id="<?php echo htmlspecialchars($userId  ); ?>">
+    
+    <?php require_once __DIR__ . '/_sidebar.php'; // Sidebar universal ?>
 
     <div class="main-content">
         
-        <?php
-        // =================================================================
-        // AQUI ESTÁ A MÁGICA: INCLUI O CABEÇALHO, O POPUP E O JAVASCRIPT
-        require_once __DIR__ . '/_header.php';
-        // =================================================================
-        ?>
+        <?php require_once __DIR__ . '/_header.php'; // Header universal ?>
 
         <main class="container-fluid">
             <h1 class="main-title mb-4">Olá, <?php echo htmlspecialchars($primeiroNome); ?>!</h1>
@@ -126,7 +82,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                         </div>
 
                         <div class="consistency-badge">
-                            <img src="../Images/Pagina-Inicial/CerebroConstancia.png" alt="Ícone de cérebro" class="brain-icon">
+                            <img src="/ClassAI/Images/Pagina-Inicial/CerebroConstancia.png" alt="Ícone de cérebro" class="brain-icon">
                             <div class="consistency-content">
                                 <span class="consistency-days"><?php echo $diasDeConstancia; ?></span>
                                 <span class="consistency-text">Dias de Constância</span>
@@ -179,8 +135,8 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                 <?php foreach ($cursosTendencia as $curso): ?>
                                     <?php
                                     $imagemCursoTendencia = $curso['capa_curso'] ? '/ClassAI/' . $curso['capa_curso'] : 'https://via.placeholder.com/300x170';
-                                    $fotoInstrutor = $curso['prof_foto_url'] ?? 'https://via.placeholder.com/24';
-                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor' );
+                                    $fotoInstrutor = $curso['prof_foto_url'] ? '/ClassAI/' . $curso['prof_foto_url'] : 'https://via.placeholder.com/24';
+                                    $nomeInstrutor = htmlspecialchars($curso['prof_curso'] ?? 'Instrutor'  );
                                     ?>
                                     <div class="col-md-6 col-xl-4">
                                         <article class="course-card" data-course-id="<?php echo $curso['id_curso']; ?>">
@@ -188,7 +144,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                             <div class="card-body">
                                                 <h4 class="course-title"><?php echo htmlspecialchars($curso['nome_curso']); ?></h4>
                                                 <div class="course-instructor-info">
-                                                    <img src="<?php echo $fotoInstrutor; ?>" alt="Avatar de <?php echo $nomeInstrutor; ?>" class="instructor-avatar">
+                                                    <img src="<?php echo htmlspecialchars($fotoInstrutor); ?>" alt="Avatar de <?php echo $nomeInstrutor; ?>" class="instructor-avatar">
                                                     <span class="course-instructor"><?php echo $nomeInstrutor; ?></span>
                                                 </div>
                                             </div>
@@ -212,7 +168,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                     <?php foreach ($cursosEmAndamento as $curso): ?>
                                         <?php
                                         $imagemCursoAndamento = $curso['capa_curso'] ? '/ClassAI/' . htmlspecialchars($curso['capa_curso']) : 'https://via.placeholder.com/64x64';
-                                        $progresso = (int )($curso['progresso'] ?? 0);
+                                        $progresso = (int  )($curso['progresso'] ?? 0);
                                         ?>
                                         <li>
                                             <a href="pagina-curso.php?id=<?php echo $curso['id_curso']; ?>" class="course-list-item-progress">
@@ -251,7 +207,7 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
                                     $timestamp = new DateTime($conversa['timestamp']);
                                     $horaFormatada = $timestamp->format('H:i');
                                     $fotoContato = $conversa['foto_perfil_url'] ? '/ClassAI/' . $conversa['foto_perfil_url'] : 'https://via.placeholder.com/40';
-                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome'] );
+                                    $nomeContato = htmlspecialchars($conversa['nome'] . ' ' . $conversa['sobrenome']  );
                                     ?>
                                     <a href="paginaChat.php?contactId=<?php echo $conversa['contact_id']; ?>" class="chat-list-link">
                                         <div class="chat-item" data-contact-id="<?php echo $conversa['contact_id']; ?>" data-contact-status="offline">
@@ -279,9 +235,10 @@ $cursosTendencia = $cursosModel->getCoursesByIds($idsDosCursosDesejados);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="../Templates/js/globalPresence.js"></script>
-    <script src="../Templates/js/PaginaHome.js"></script>
+    <script src="/ClassAI/Templates/js/PaginaHome.js"></script>
+    
+    <!-- SCRIPTS GLOBAIS REMOVIDOS DAQUI -->
+
 </body>
 
 </html>

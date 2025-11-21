@@ -85,5 +85,8 @@ $seguindoIds = array_column($seguindo, 'id');
     </div>
 
     <script src="/ClassAI/Templates/js/pagina-amigos.js"></script>
+    
+    <!-- SCRIPTS GLOBAIS REMOVIDOS DAQUI -->
+
 </body>
 </html>

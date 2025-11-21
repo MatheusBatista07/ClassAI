@@ -225,3 +225,125 @@
 .btn-follow:hover {
     background-color: #E8CEFD;
 }
+
+.foto-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.foto-container .foto-perfil {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #C37BFF;
+}
+
+.status-indicator-profile {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background-color: #6c757d;
+    border-radius: 50%;
+    border: 2px solid #1A002B;
+    transition: background-color 0.3s ease;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #1A002B;
+    border: 1px solid #3D056C;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #3D056C;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #C37BFF;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.modal-user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.modal-user-item:hover {
+    background-color: #24143D;
+}
+
+.modal-user-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.modal-user-item span {
+    color: white;
+    font-weight: 500;
+}
+
+.modal-loading {
+    color: #C37BFF;
+    text-align: center;
+    padding: 20px;
+}

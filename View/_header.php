@@ -1,15 +1,37 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+// Arquivo: View/_header.php
 
-$fotoUsuario = '/ClassAI/Images/perfil_padrao.png';
-if (isset($_SESSION['usuario_foto_url']) && !empty($_SESSION['usuario_foto_url'])) {
-    $fotoUsuario = '/ClassAI/' . htmlspecialchars($_SESSION['usuario_foto_url']);
+// Garante que a sessão está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclui o UserModel para buscar os dados do usuário
+require_once __DIR__ . '/../Model/UserModel.php';
+
+// Busca os dados do usuário logado para usar no header e no popup
+$usuario_logado = null;
+$id_usuario_logado = $_SESSION['usuario_id'] ?? null;
+if ($id_usuario_logado) {
+    $userModel = new \Model\UserModel();
+    $usuario_logado = $userModel->encontrarUsuarioPorId($id_usuario_logado);
+}
+
+// Define a foto de perfil padrão ou a do usuário
+$fotoUsuario = '/ClassAI/Images/perfil_padrao.png'; // Padrão
+if (isset($usuario_logado['foto_perfil_url']) && !empty($usuario_logado['foto_perfil_url'])) {
+    $fotoUsuario = '/ClassAI/' . htmlspecialchars($usuario_logado['foto_perfil_url']);
 }
 ?>
 
+<!-- Div oculta com o ID do usuário para o globalPresence.js -->
+<div id="global-user-data" data-user-id="<?php echo htmlspecialchars($id_usuario_logado); ?>"></div>
+
+<!-- CSS dos popups e do header -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="/ClassAI/Templates/css/LazoAI.css">
 
+<!-- HTML do Header -->
 <div class="header">
     <div></div> 
     <div class="header-icons">
@@ -27,10 +49,12 @@ if (isset($_SESSION['usuario_foto_url']) && !empty($_SESSION['usuario_foto_url']
 </div>
 
 <?php 
+// Inclui os popups
 require_once __DIR__ . '/_popupPerfil.php'; 
 require_once __DIR__ . '/lazo_popup.php'; 
 ?>
 
+<!-- JavaScript para controlar os popups -->
 <script>
 document.addEventListener('DOMContentLoaded', function( ) {
     const profileIcon = document.getElementById('user-profile-icon');
@@ -72,5 +96,9 @@ document.addEventListener('DOMContentLoaded', function( ) {
     }
 });
 </script>
+
+<!-- Scripts Globais -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="/ClassAI/Templates/js/LazoAI.js"></script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="/ClassAI/Templates/js/globalPresence_v2.js"></script>

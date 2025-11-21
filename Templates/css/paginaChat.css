@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'  );
 
 :root {
     --bg-dark: #0a0015;
@@ -9,6 +9,8 @@
     --accent-purple: #6b3fa0;
     --accent-gradient-start: #4a148c;
     --accent-gradient-end: #7b1fa2;
+    --header-height: 70px; /* Altura do header + margem inferior */
+    --main-padding: 30px; /* Padding do main-content */
 }
 
 * {
@@ -89,7 +91,7 @@ body {
 
 .main-content {
     margin-left: 280px;
-    padding: 30px;
+    padding: var(--main-padding);
 }
 
 .header {
@@ -97,6 +99,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+    height: 30px; /* Altura base do header */
 }
 
 .header-icons {
@@ -150,86 +153,6 @@ body {
     margin-right: 4px;
 }
 
-.certificates-header {
-    margin-bottom: 30px;
-}
-
-.certificates-header h1 {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.certificate-card {
-    background: linear-gradient(135deg, var(--accent-gradient-start), var(--accent-gradient-end));
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.certificate-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(107, 63, 160, 0.3);
-}
-
-.certificate-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex: 1;
-}
-
-.certificate-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    object-fit: cover;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 8px;
-}
-
-.certificate-info {
-    flex: 1;
-}
-
-.certificate-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-light);
-}
-
-.certificate-subtitle {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.certificate-action {
-    padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 8px;
-    color: var(--text-light);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.certificate-action:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: var(--text-light);
-}
-
 .lazzo_img {
     height: 1.5rem;
 }
@@ -238,12 +161,38 @@ body {
     display: none ;
 }
 
+/* ===== INÍCIO DAS CORREÇÕES PARA O CHAT ===== */
+
+.chat-wrapper {
+    display: flex;
+    /* Calcula a altura restante da tela */
+    height: calc(100vh - var(--header-height) - (var(--main-padding) * 2));
+}
+
 .chat-container {
-    background-color: var(--bg-sidebar );
+    background-color: var(--bg-sidebar);
     border-radius: 16px;
     padding: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+#conversation-view.chat-container {
+    height: 100%; /* Garante que a view da conversa ocupe o wrapper */
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto; /* Permite rolagem se a lista for grande */
+    flex-grow: 1; /* Faz a lista ocupar o espaço vertical disponível */
+}
+
+/* ===== FIM DAS CORREÇÕES PARA O CHAT ===== */
+
 
 .chat-header {
     display: flex;
@@ -252,6 +201,7 @@ body {
     margin-bottom: 24px;
     flex-wrap: wrap;
     gap: 20px;
+    flex-shrink: 0;
 }
 
 .chat-header .h4 {
@@ -293,12 +243,6 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
-}
-
-.chat-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 .chat-item {
@@ -361,10 +305,6 @@ body {
     color: #dc3545; 
 }
 
-.chat-wrapper {
-    width: 100%;
-}
-
 .conversation-header {
     display: flex;
     align-items: center;
@@ -390,7 +330,7 @@ body {
 }
 
 .message-list {
-    height: 60vh;
+    flex-grow: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -448,6 +388,7 @@ body {
     margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
 
 .message-input-area .form-control {
@@ -480,12 +421,6 @@ body {
 .btn-send:hover {
     background-color: #8e54ce;
     color: white;
-}
-
-#conversation-view.chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
 }
 
 .chat-avatar-container {
@@ -601,6 +536,10 @@ body {
         margin-left: 0;
         margin-top: 80px;
         padding: 20px;
+    }
+    
+    .chat-wrapper {
+        height: calc(100vh - 80px - 40px); /* Ajuste para mobile */
     }
 
     .card {

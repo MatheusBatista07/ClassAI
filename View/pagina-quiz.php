@@ -1,27 +1,22 @@
 <?php
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../Model/QuizModel.php';
-require_once __DIR__ . '/../Model/CursosModel.php'; // Para buscar o nome da aula
-require_once __DIR__ . '/../Model/UserModel.php';
+require_once __DIR__ . '/../Model/CursosModel.php';
 
 use Model\QuizModel;
 use Model\CursosModel;
-use Model\UserModel;
 
 // Validação inicial
 $userId = $_SESSION['usuario_id'] ?? null;
 $aulaId = filter_input(INPUT_GET, 'aula_id', FILTER_VALIDATE_INT);
 
 if (!$userId || !$aulaId) {
-    die("Acesso inválido.");
+    header('Location: PaginaHome.php');
+    exit;
 }
 
 // Busca dos dados
-$userModel = new UserModel();
-$usuarioLogado = $userModel->encontrarUsuarioPorId($userId);
-$fotoUsuario = !empty($usuarioLogado['foto_perfil_url']) ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url']) : 'https://via.placeholder.com/40';
-
-$cursosModel = new CursosModel( );
+$cursosModel = new CursosModel();
 $aula = $cursosModel->getAulaById($aulaId);
 
 $quizModel = new QuizModel();
@@ -39,43 +34,21 @@ if (!$aula || empty($questoes)) {
     <title>Quiz: <?php echo htmlspecialchars($aula['titulo_aula']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../Templates/css/pagina-quiz.css">
+    <link rel="stylesheet" href="/ClassAI/Templates/css/pagina-quiz.css">
 </head>
 <body>
-    <div class="sidebar">
-        <img src="../Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Logo ClassAI" class="img-logo">
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
-            <li class="nav-item"><a href="paginaChat.php" class="nav-link"><i class="bi bi-chat"></i> Chat</a></li>
-            <li class="nav-item"><a href="PaginaPrincipalCursos.php" class="nav-link active"><i class="bi bi-book"></i> Cursos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-award"></i> Certificados</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i> Amigos</a></li>
-        </ul>
-        <div class="nav-divider"></div>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-question-circle"></i> Ajuda e FAQ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Modo escuro <i class="bi bi-moon-stars ms-auto"></i></a></li>
-        </ul>
-    </div>
+
+    <?php require_once __DIR__ . '/_sidebar.php'; // AGORA USANDO A SIDEBAR UNIVERSAL ?>
 
     <div class="main-content">
-        <div class="header">
-            <div></div>
-            <div class="header-icons">
-                <div class="header-icon"><img src="../Images/Icones-do-header/lazzo.png" alt="Ícone Lazzo" class="lazzo_img"></div>
-                <div class="header-icon"><i class="bi bi-bell"></i></div>
-                <div class="user-profile">
-                    <img src="<?php echo $fotoUsuario; ?>" alt="Avatar do Usuário" class="user-avatar">
-                    <img src="../Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
-                </div>
-            </div>
-        </div>
+        
+        <?php require_once __DIR__ . '/_header.php'; // AGORA USANDO O HEADER UNIVERSAL ?>
 
         <div class="quiz-container">
             <a href="pagina-material.php?aula_id=<?php echo $aulaId; ?>" class="btn-voltar"><i class="bi bi-arrow-left"></i> Voltar para o Material</a>
             
             <div class="quiz-header">
-                <h2>Quiz: <?php echo htmlspecialchars($aula['titulo_aula'] ); ?></h2>
+                <h2>Quiz: <?php echo htmlspecialchars($aula['titulo_aula']  ); ?></h2>
                 <div class="progress-container">
                     <div class="progress-bar" id="progress-bar"></div>
                     <span id="progress-text">Questão 1 de <?php echo count($questoes); ?></span>
@@ -112,6 +85,9 @@ if (!$aula || empty($questoes)) {
         </div>
     </div>
 
-    <script src="../Templates/js/pagina-quiz.js"></script>
+    <script src="/ClassAI/Templates/js/pagina-quiz.js"></script>
+    
+    <!-- SCRIPTS GLOBAIS REMOVIDOS DAQUI -->
+
 </body>
 </html>

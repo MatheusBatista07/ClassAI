@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../Model/UserModel.php';
+require_once __DIR__ . '/../Model/AmigosModel.php';
 
 $userModel = new \Model\UserModel();
+$amigosModel = new \Model\AmigosModel();
+
 $meuId = $_SESSION['usuario_id'];
 
 $perfilId = $_GET['id'] ?? $meuId;
@@ -15,16 +18,13 @@ if (!$usuario) {
     exit;
 }
 
-$seguindo = $userModel->getSeguindo($perfilId);
-$seguidores = $userModel->getSeguidores($perfilId);
-$numSeguindo = count($seguindo);
-$numSeguidores = count($seguidores);
+$contagens = $amigosModel->getFollowCounts($perfilId);
+$numSeguindo = $contagens['following'];
+$numSeguidores = $contagens['followers'];
 
 $euSigoEstePerfil = false;
 if (!$isMeuPerfil) {
-    $minhaListaDeSeguindo = $userModel->getSeguindo($meuId);
-    $seguindoIds = array_column($minhaListaDeSeguindo, 'id');
-    $euSigoEstePerfil = in_array($perfilId, $seguindoIds);
+    $euSigoEstePerfil = $amigosModel->isFollowing($meuId, $perfilId);
 }
 ?>
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ if (!$isMeuPerfil) {
             <div class="perfil-header-container">
                 <h1 class="perfil-main-title"><?php echo $isMeuPerfil ? 'Meu Perfil' : 'Perfil de ' . htmlspecialchars($usuario['nome'] ); ?></h1>
                 <?php if (!$isMeuPerfil): ?>
-                    <a href="#" id="btn-voltar-perfil" class="btn-voltar">
+                    <a href="javascript:history.back()" id="btn-voltar-perfil" class="btn-voltar">
                         <i class="bi bi-arrow-left"></i> Voltar
                     </a>
                 <?php endif; ?>
@@ -60,8 +60,9 @@ if (!$isMeuPerfil) {
                 <div class="perfil-body">
                     <div class="info-grupo">
                         <label>Foto de Perfil</label>
-                        <div class="foto-container">
+                        <div class="foto-container" data-contact-id="<?php echo $perfilId; ?>">
                             <img src="<?php echo '/ClassAI/' . htmlspecialchars($usuario['foto_perfil_url'] ?? 'Images/perfil_padrao.png'); ?>" alt="Foto de Perfil" class="foto-perfil">
+                            <div id="status-indicator-<?php echo $perfilId; ?>" class="status-indicator-profile"></div>
                         </div>
                     </div>
 
@@ -77,8 +78,12 @@ if (!$isMeuPerfil) {
                     </div>
 
                     <div class="perfil-stats">
-                        <div class="stat-item"><strong><?php echo $numSeguindo; ?></strong><span>Seguindo</span></div>
-                        <div class="stat-item"><strong><?php echo $numSeguidores; ?></strong><span>Seguidores</span></div>
+                        <div id="following-link" class="stat-item" data-type="following">
+                            <strong><?php echo $numSeguindo; ?></strong><span>Seguindo</span>
+                        </div>
+                        <div id="followers-link" class="stat-item" data-type="followers">
+                            <strong id="follower-count"><?php echo $numSeguidores; ?></strong><span>Seguidores</span>
+                        </div>
                     </div>
 
                     <div class="info-grupo">
@@ -97,11 +102,11 @@ if (!$isMeuPerfil) {
                             <button type="submit" id="btn-salvar" class="btn-editar edit-mode" style="display: none;">Salvar Alterações</button>
                             <button type="button" id="btn-cancelar" class="btn-cancelar edit-mode" style="display: none;">Cancelar</button>
                         <?php else: ?>
-                            <?php if ($euSigoEstePerfil): ?>
-                                <button type="button" class="btn-amigos btn-unfollow" data-userid="<?php echo $perfilId; ?>">Deixar de Seguir</button>
-                            <?php else: ?>
-                                <button type="button" class="btn-amigos btn-follow" data-userid="<?php echo $perfilId; ?>">Seguir</button>
-                            <?php endif; ?>
+                            <button type="button" id="follow-button" 
+                                    class="btn-amigos <?php echo $euSigoEstePerfil ? 'btn-unfollow' : 'btn-follow'; ?>" 
+                                    data-profile-id="<?php echo $perfilId; ?>">
+                                <?php echo $euSigoEstePerfil ? 'Deixar de Seguir' : 'Seguir'; ?>
+                            </button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -110,5 +115,17 @@ if (!$isMeuPerfil) {
     </div>
 
     <script src="/ClassAI/Templates/js/perfil-dinamico.js"></script>
+
+    <div id="follow-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+                <button id="modal-close-btn" class="modal-close">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body">
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

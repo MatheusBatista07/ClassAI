@@ -1,57 +1,59 @@
 <?php
 require_once __DIR__ . '/../auth.php';
 require_once __DIR__ . '/../Model/UserModel.php';
+require_once __DIR__ . '/../Model/AmigosModel.php';
 
-// Função auxiliar para enviar respostas JSON padronizadas
-function responderJson($status, $message) {
+function responderJson($data) {
     header('Content-Type: application/json');
-    echo json_encode(['status' => $status, 'message' => $message]);
+    echo json_encode($data);
     exit;
 }
 
-// Verifica se o método da requisição é POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responderJson('error', 'Método não permitido.');
+    responderJson(['status' => 'error', 'message' => 'Método não permitido.']);
 }
 
-// Pega os dados enviados pelo JavaScript
 $meuId = $_SESSION['usuario_id'] ?? null;
 $alvoId = $_POST['alvo_id'] ?? null;
 $acao = $_POST['acao'] ?? null;
 
-// Validações básicas
 if (!$meuId) {
-    responderJson('error', 'Usuário não autenticado.');
+    responderJson(['status' => 'error', 'message' => 'Usuário não autenticado.']);
 }
 if (!$alvoId || !$acao) {
-    responderJson('error', 'Dados incompletos.');
+    responderJson(['status' => 'error', 'message' => 'Dados incompletos.']);
 }
 if ($meuId == $alvoId) {
-    responderJson('error', 'Você não pode seguir a si mesmo.');
+    responderJson(['status' => 'error', 'message' => 'Você não pode seguir a si mesmo.']);
 }
 
 try {
     $userModel = new \Model\UserModel();
+    $amigosModel = new \Model\AmigosModel();
     $sucesso = false;
 
-    // Executa a ação com base no que o JavaScript enviou
     if ($acao === 'seguir') {
         $sucesso = $userModel->seguirUsuario($meuId, $alvoId);
     } elseif ($acao === 'deixar_de_seguir') {
         $sucesso = $userModel->deixarDeSeguirUsuario($meuId, $alvoId);
     } else {
-        responderJson('error', 'Ação desconhecida.');
+        responderJson(['status' => 'error', 'message' => 'Ação desconhecida.']);
     }
 
-    // Responde ao JavaScript
     if ($sucesso) {
-        responderJson('success', 'Ação executada com sucesso.');
+        $contagens = $amigosModel->getFollowCounts($alvoId);
+        $novaContagem = $contagens['followers'];
+
+        responderJson([
+            'status' => 'success',
+            'message' => 'Ação executada com sucesso.',
+            'novaContagemSeguidores' => $novaContagem
+        ]);
     } else {
-        responderJson('error', 'Não foi possível completar a ação.');
+        responderJson(['status' => 'error', 'message' => 'Não foi possível completar a ação.']);
     }
 
 } catch (Exception $e) {
-    // Em caso de erro no banco de dados ou outro problema
     error_log("Erro em processar-conexao.php: " . $e->getMessage());
-    responderJson('error', 'Ocorreu um erro no servidor.');
+    responderJson(['status' => 'error', 'message' => 'Ocorreu um erro no servidor.']);
 }

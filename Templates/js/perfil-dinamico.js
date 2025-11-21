@@ -41,15 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.classList.remove('btn-unfollow');
                     button.classList.add('btn-follow');
                 }
-                button.disabled = false;
+                
+                const followerCountSpan = document.getElementById('follower-count');
+                if (followerCountSpan && data.novaContagemSeguidores !== undefined) {
+                    followerCountSpan.textContent = data.novaContagemSeguidores;
+                }
+
             } else {
                 alert(data.message);
                 button.textContent = originalText;
-                button.disabled = false;
             }
         }).catch(() => {
             alert('Erro de comunicação.');
             button.textContent = originalText;
+        }).finally(() => {
             button.disabled = false;
         });
     }
@@ -112,4 +117,59 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    const modal = document.getElementById('follow-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const closeModalBtn = document.getElementById('modal-close-btn');
+    const followersLink = document.getElementById('followers-link');
+    const followingLink = document.getElementById('following-link');
+    const perfilId = document.getElementById('form-editar-perfil').dataset.perfilId;
+
+    async function openModal(type) {
+        modalTitle.textContent = type === 'followers' ? 'Seguidores' : 'Seguindo';
+        modalBody.innerHTML = '<p class="modal-loading">Carregando...</p>';
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('show'), 10);
+
+        try {
+            const response = await fetch(`/ClassAI/api.php?action=getFollowList&userId=${perfilId}&type=${type}`);
+            const data = await response.json();
+
+            if (data.status === 'success' && data.list) {
+                modalBody.innerHTML = '';
+                if (data.list.length === 0) {
+                    modalBody.innerHTML = `<p class="modal-loading">Nenhum usuário encontrado.</p>`;
+                } else {
+                    data.list.forEach(user => {
+                        const userElement = document.createElement('a');
+                        userElement.href = `pagina-perfil.php?id=${user.id}`;
+                        userElement.className = 'modal-user-item';
+                        userElement.innerHTML = `
+                            <img src="${user.foto_perfil_url}" alt="Foto de ${user.nome}">
+                            <span>${user.nome} ${user.sobrenome}</span>
+                        `;
+                        modalBody.appendChild(userElement);
+                    });
+                }
+            } else {
+                modalBody.innerHTML = `<p class="modal-loading">Erro ao carregar a lista.</p>`;
+            }
+        } catch (error) {
+            console.error('Erro ao buscar lista:', error);
+            modalBody.innerHTML = `<p class="modal-loading">Erro de comunicação.</p>`;
+        }
+    }
+
+    function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    if (followersLink) followersLink.addEventListener('click', () => openModal('followers'));
+    if (followingLink) followingLink.addEventListener('click', () => openModal('following'));
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (modal) modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+    });
 });

@@ -29,7 +29,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
 <body data-user-id="<?php echo $currentUserId; ?>" data-initial-contact-id="<?php echo $initialContactId; ?>" data-active-contact-id="">
 
     <div class="sidebar">
-        <img src="/ClassAI/Images/Icones-do-header/Logo ClassAI branca.png" alt="Imagem logo ClassAII" class="img-logo">
+        <img src="/ClassAI/Images/Icones-do-header/Logo-ClassAI-branca.png" alt="Imagem logo ClassAII" class="img-logo">
         <ul class="nav-menu">
             <li class="nav-item"><a href="PaginaHome.php" class="nav-link"><i class="bi bi-house-door"></i> Principal</a></li>
             <li class="nav-item"><a href="paginaChat.php" class="nav-link active"><i class="bi bi-chat"></i> Chat</a></li>
@@ -50,18 +50,20 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
             <div class="header-icons">
                 <div class="header-icon"><img src="/ClassAI/Images/Icones-do-header/lazzo.png" alt="Imagem lazzo" class="lazzo_img"></div>
                 <div class="header-icon"><i class="bi bi-bell"></i></div>
-                <div class="user-profile">
-                    <a href="/ClassAI/logout.php" title="Sair da sua conta">
-                        <?php
-                        $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'] )
-                            ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url'])
-                            : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome'] ) . '&background=random';
-                        ?>
-                        <img src="<?php echo $avatarUsuarioLogado; ?>"
-                            alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
-                            class="user-avatar">
-                        <img src="/ClassAI/Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
-                    </a>
+                
+                <!-- ===================================================================== -->
+                <!-- CORREÇÃO: Removido o link <a> e adicionado o ID para o JavaScript -->
+                <!-- ===================================================================== -->
+                <div class="user-profile" id="user-profile-icon">
+                    <?php
+                    $avatarUsuarioLogado = !empty($usuarioLogado['foto_perfil_url'] )
+                        ? '/ClassAI/' . htmlspecialchars($usuarioLogado['foto_perfil_url'])
+                        : 'https://ui-avatars.com/api/?name=' . urlencode($usuarioLogado['nome'] ) . '&background=random';
+                    ?>
+                    <img src="<?php echo $avatarUsuarioLogado; ?>"
+                        alt="Avatar de <?php echo htmlspecialchars($usuarioLogado['nome']); ?>"
+                        class="user-avatar">
+                    <img src="/ClassAI/Images/Icones-do-header/setinha-perfil.png" alt="Seta" class="arrow-icon">
                 </div>
             </div>
             <div class="header_mobile">
@@ -70,7 +72,13 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
             </div>
         </div>
 
+        <!-- ===================================================================== -->
+        <!-- ADIÇÃO: Incluindo o popup do perfil aqui -->
+        <!-- ===================================================================== -->
+        <?php require_once __DIR__ . '/_popupPerfil.php'; ?>
+
         <div class="chat-wrapper">
+            <!-- ... (o resto do seu HTML do chat continua igual) ... -->
             <div id="contacts-view" class="chat-container">
                 <div class="chat-header">
                     <div class="d-flex align-items-center">
@@ -83,8 +91,11 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                 </div>
                 <div class="chat-list">
                     <?php if (empty($listaDeContatos)): ?>
-                        <div class="text-center text-muted p-4">
-                            <strong>Nenhum outro usuário encontrado.</strong>
+                        <div class="text-center text-muted p-4" style="padding-top: 50px !important;">
+                            <i class="bi bi-people" style="font-size: 3rem; color: #581c87;"></i>
+                            <h5 class="mt-3">Sua lista de contatos está vazia</h5>
+                            <p class="mb-0 mt-2">Para conversar com alguém, você precisa ter uma conexão.</p>
+                            <p>Vá para a página de <a href="pagina-amigos.php#encontrar" style="color: #C37BFF; font-weight: bold;">Amigos</a> para encontrar novas pessoas!</p>
                         </div>
                     <?php else: ?>
                         <?php foreach ($listaDeContatos as $contato):
@@ -101,7 +112,7 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
                                 <div class="chat-avatar-container">
                                     <img src="<?php echo $avatarUrl; ?>"
                                         alt="Avatar de <?php echo htmlspecialchars($contato['nome']); ?>" class="chat-avatar">
-                                    <div class="status-indicator"></div>
+                                    <div id="status-indicator-<?php echo $contato['id']; ?>" class="status-indicator"></div>
                                 </div>
 
                                 <div class="chat-info">
@@ -157,8 +168,31 @@ $listaDeContatos = $chatController->getContactList($currentUserId);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="../Templates/js/globalPresence.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="../Templates/js/globalPresence_v2.js"></script>
     <script src="/ClassAI/Templates/js/paginaChat.js"></script>
+
+    <!-- ===================================================================== -->
+    <!-- ADIÇÃO: JavaScript para controlar o popup do perfil nesta página -->
+    <!-- ===================================================================== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function( ) {
+        const profileIcon = document.getElementById('user-profile-icon');
+        const profilePopup = document.getElementById('profile-popup');
+
+        if (profileIcon && profilePopup) {
+            profileIcon.addEventListener('click', function(event) {
+                event.stopPropagation();
+                profilePopup.classList.toggle('show');
+            });
+
+            window.addEventListener('click', function(event) {
+                if (profilePopup && !profilePopup.contains(event.target) && !profileIcon.contains(event.target)) {
+                    profilePopup.classList.remove('show');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>
