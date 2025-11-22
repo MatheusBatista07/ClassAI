@@ -1,8 +1,8 @@
 <?php
-
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Model/Connection.php';
 require_once __DIR__ . '/../Model/UserModel.php';
+require_once __DIR__ . '/../email_config.php'; // <<< ADICIONADO
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -43,46 +43,37 @@ try {
 $mail = new PHPMailer(true);
 
 try {
-    // ===== BLOCO DE CÓDIGO ALTERADO =====
+    // ===== BLOCO DE CÓDIGO ATUALIZADO PARA USAR A CONFIGURAÇÃO CENTRAL =====
     $mail->isSMTP();
-    $mail->Host       = 'smtp.gmail.com';
+    $mail->Host       = SMTP_HOST;
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'classai.contato@gmail.com';
-    $mail->Password   = 'wwdnkyeatwgkxfcm';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Port       = 465;
+    $mail->Username   = SMTP_USERNAME;
+    $mail->Password   = SMTP_PASSWORD;
+    $mail->SMTPSecure = SMTP_SECURE;
+    $mail->Port       = SMTP_PORT;
     $mail->CharSet    = 'UTF-8';
 
-    $mail->setFrom('classai.contato@gmail.com', 'ClassAI');
-    // =====================================
+    $mail->setFrom(FROM_EMAIL, FROM_NAME);
+    // =======================================================================
 
     $mail->addAddress($email);
-
     $mail->isHTML(true);
     $mail->Subject = 'Recuperação de Senha - ClassAI';
-
     $resetLink = "http://localhost/ClassAI/View/redefinir-senha.php?token=" . $token;
-
     $mail->Body    = "Olá!  
   
 Recebemos uma solicitação para redefinir sua senha na plataforma ClassAI.  
-"
-                   . "Clique no link abaixo para criar uma nova senha:  
+Clique no link abaixo para criar uma nova senha:  
   
-"
-                   . "<a href='" . $resetLink . "'>Redefinir Minha Senha</a>  
+<a href='" . $resetLink . "'>Redefinir Minha Senha</a>  
   
-"
-                   . "Se você não solicitou isso, pode ignorar este e-mail.  
+Se você não solicitou isso, pode ignorar este e-mail.  
   
-"
-                   . "Atenciosamente,  
+Atenciosamente,  
 Equipe ClassAI";
-    
     $mail->AltBody = 'Para redefinir sua senha, copie e cole este link no seu navegador: ' . $resetLink;
 
     $mail->send( );
-
     header('Location: ../View/pagina-esqueci-senha.php?status=success');
     exit;
 

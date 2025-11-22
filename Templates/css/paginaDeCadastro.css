@@ -140,6 +140,42 @@ input::placeholder {
     line-height: 1.2;
 }
 
+.divider-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #8a6aaa;
+}
+
+.divider-line {
+    flex-grow: 1;
+    border-bottom: 1px solid #4a2b70;
+}
+
+.divider-text {
+    padding: 0 15px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.link-professor {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #C37BFF;
+}
+
+.link-professor a {
+    color: #C37BFF;
+    font-weight: 600;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.link-professor a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
 
 

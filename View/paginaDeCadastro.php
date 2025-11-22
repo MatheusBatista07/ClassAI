@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1 style="color: white">Que bom ver você!</h1>
                     <h2 style="color: white">O seu futuro começa aqui!</h2>
 
-                    <?php if ($erro  ): ?>
+                    <?php if ($erro ): ?>
                         <div style="color: red; background-color: #ffdddd; border: 1px solid red; padding: 10px; margin-bottom: 15px; border-radius: 5px; text-align: center;">
                             <?php echo htmlspecialchars($erro); ?>
                         </div>
@@ -75,6 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <p class="nao_tem_conta" style="color: #C37BFF">Já tem conta? <a class="cadastre_se" href="pagina-login.php" style="color: #C37BFF">Entrar</a></p>
+                    
+                    <div class="divider-container">
+                        <span class="divider-line"></span>
+                        <span class="divider-text">OU</span>
+                        <span class="divider-line"></span>
+                    </div>
+
+                    <p class="link-professor">Quer ensinar na ClassAI? <a href="TorneSeProfessor.php">Candidate-se aqui</a></p>
+
                 </form>
 
                 <div class="lazzo">

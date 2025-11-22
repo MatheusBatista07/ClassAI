@@ -75,7 +75,7 @@ class UserModel
             $dados['nome'] ?? null,
             $dados['sobrenome'] ?? null,
             $dados['formacao'] ?? null,
-            'aluno',
+            $dados['funcao'] ?? 'aluno',
             $this->hashCpfParaBusca($dados['cpf'] ?? ''),
             $dados['email'] ?? null,
             $this->hashPassword($dados['senha'] ?? ''),
@@ -147,21 +147,19 @@ class UserModel
         }
     }
 
+    public function encontrarUsuarioPorId(int $id)
+    {
+        $sql = "SELECT id, nome, sobrenome, email, senha, funcao, foto_perfil_url, data_cadastro, status, ultimo_acesso FROM usuarios WHERE id = ?";
 
-public function encontrarUsuarioPorId(int $id)
-{
-    $sql = "SELECT id, nome, sobrenome, email, senha, funcao, foto_perfil_url, data_cadastro, status, ultimo_acesso FROM usuarios WHERE id = ?";
-
-    try {
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (\PDOException $e) {
-        error_log("Erro ao encontrar usuário por ID: " . $e->getMessage());
-        return null;
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao encontrar usuário por ID: " . $e->getMessage());
+            return null;
+        }
     }
-}
-
 
     public function deletarUsuario(int $id): string|false
     {
@@ -244,137 +242,135 @@ public function encontrarUsuarioPorId(int $id)
         }
     }
 
-public function atualizarSenhaPeloId(int $userId, string $novaSenha): bool
-{
-    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-    
-    $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
-    
-    try {
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$senhaHash, $userId]);
-    } catch (\PDOException $e) {
-        error_log("Erro ao atualizar senha pelo ID: " . $e->getMessage());
-        return false;
-    }
-}
-
-
-public function atualizarRememberToken(int $userId, string $token_hash, string $expiry_date): bool
-{
-    $sql = "UPDATE usuarios SET remember_token_hash = ?, remember_token_expires_at = ? WHERE id = ?";
-    try {
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$token_hash, $expiry_date, $userId]);
-    } catch (\PDOException $e) {
-        error_log("Erro ao atualizar remember token: " . $e->getMessage());
-        return false;
-    }
-}
-
-public function atualizarPerfilUsuario($userId, $nome, $sobrenome)
-{
-    if (empty($userId) || empty($nome) || empty($sobrenome)) {
-        return false;
+    public function atualizarSenhaPeloId(int $userId, string $novaSenha): bool
+    {
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+        
+        $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
+        
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$senhaHash, $userId]);
+        } catch (\PDOException $e) {
+            error_log("Erro ao atualizar senha pelo ID: " . $e->getMessage());
+            return false;
+        }
     }
 
-    try {
-        $sql = "UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome WHERE id = :id";
+    public function atualizarRememberToken(int $userId, string $token_hash, string $expiry_date): bool
+    {
+        $sql = "UPDATE usuarios SET remember_token_hash = ?, remember_token_expires_at = ? WHERE id = ?";
+        try {
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$token_hash, $expiry_date, $userId]);
+        } catch (\PDOException $e) {
+            error_log("Erro ao atualizar remember token: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function atualizarPerfilUsuario($userId, $nome, $sobrenome)
+    {
+        if (empty($userId) || empty($nome) || empty($sobrenome)) {
+            return false;
+        }
+
+        try {
+            $sql = "UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':sobrenome', $sobrenome);
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar perfil: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function seguirUsuario($seguidorId, $seguindoId) {
+        if ($seguidorId == $seguindoId) return false;
+        $sql = "INSERT INTO conexoes (seguidor_id, seguindo_id) VALUES (:seguidor_id, :seguindo_id)";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
+        $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':sobrenome', $sobrenome);
-        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-
+    public function deixarDeSeguirUsuario($seguidorId, $seguindoId) {
+        $sql = "DELETE FROM conexoes WHERE seguidor_id = :seguidor_id AND seguindo_id = :seguindo_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
+        $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
         return $stmt->execute();
-    } catch (PDOException $e) {
-        error_log("Erro ao atualizar perfil: " . $e->getMessage());
-        return false;
     }
-}
 
-public function seguirUsuario($seguidorId, $seguindoId) {
-    if ($seguidorId == $seguindoId) return false;
-    $sql = "INSERT INTO conexoes (seguidor_id, seguindo_id) VALUES (:seguidor_id, :seguindo_id)";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
-    $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
-    try {
-        return $stmt->execute();
-    } catch (PDOException $e) {
-        return false;
-    }
-}
-
-public function deixarDeSeguirUsuario($seguidorId, $seguindoId) {
-    $sql = "DELETE FROM conexoes WHERE seguidor_id = :seguidor_id AND seguindo_id = :seguindo_id";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':seguidor_id', $seguidorId, PDO::PARAM_INT);
-    $stmt->bindParam(':seguindo_id', $seguindoId, PDO::PARAM_INT);
-    return $stmt->execute();
-}
-
-public function getSeguindo($userId) {
-    $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
-            FROM usuarios u
-            INNER JOIN conexoes c ON u.id = c.seguindo_id
-            WHERE c.seguidor_id = :userId";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-public function getSeguidores($userId) {
-    $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
-            FROM usuarios u
-            INNER JOIN conexoes c ON u.id = c.seguidor_id
-            WHERE c.seguindo_id = :userId";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-public function buscarNovosUsuarios($userId, $termoBusca, $limit = 10) {
-    $sql = "SELECT id, nome, sobrenome, foto_perfil_url 
-            FROM usuarios 
-            WHERE id != :userId 
-              AND (nome LIKE :termo OR sobrenome LIKE :termo)
-              AND id NOT IN (SELECT seguindo_id FROM conexoes WHERE seguidor_id = :userId)
-            LIMIT :limit";
-    $stmt = $this->db->prepare($sql);
-    $termoLike = "%$termoBusca%";
-    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-    $stmt->bindParam(':termo', $termoLike);
-    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-public function getContatosAmigos(int $userId): array
-{
-    $sql = "
-        SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url
-        FROM usuarios u
-        JOIN (
-            SELECT seguindo_id AS amigo_id FROM conexoes WHERE seguidor_id = :userId
-            UNION
-            SELECT seguidor_id AS amigo_id FROM conexoes WHERE seguindo_id = :userId
-        ) AS amigos ON u.id = amigos.amigo_id
-        WHERE u.id != :userId
-        ORDER BY u.nome, u.sobrenome;
-    ";
-
-    try {
+    public function getSeguindo($userId) {
+        $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
+                FROM usuarios u
+                INNER JOIN conexoes c ON u.id = c.seguindo_id
+                WHERE c.seguidor_id = :userId";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':userId', $userId, \PDO::PARAM_INT);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    } catch (\PDOException $e) {
-        error_log("Erro ao buscar contatos amigos: " . $e->getMessage());
-        return [];
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-}
 
+    public function getSeguidores($userId) {
+        $sql = "SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url 
+                FROM usuarios u
+                INNER JOIN conexoes c ON u.id = c.seguidor_id
+                WHERE c.seguindo_id = :userId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarNovosUsuarios($userId, $termoBusca, $limit = 10) {
+        $sql = "SELECT id, nome, sobrenome, foto_perfil_url 
+                FROM usuarios 
+                WHERE id != :userId 
+                  AND (nome LIKE :termo OR sobrenome LIKE :termo)
+                  AND id NOT IN (SELECT seguindo_id FROM conexoes WHERE seguidor_id = :userId)
+                LIMIT :limit";
+        $stmt = $this->db->prepare($sql);
+        $termoLike = "%$termoBusca%";
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':termo', $termoLike);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getContatosAmigos(int $userId): array
+    {
+        $sql = "
+            SELECT u.id, u.nome, u.sobrenome, u.foto_perfil_url
+            FROM usuarios u
+            JOIN (
+                SELECT seguindo_id AS amigo_id FROM conexoes WHERE seguidor_id = :userId
+                UNION
+                SELECT seguidor_id AS amigo_id FROM conexoes WHERE seguindo_id = :userId
+            ) AS amigos ON u.id = amigos.amigo_id
+            WHERE u.id != :userId
+            ORDER BY u.nome, u.sobrenome;
+        ";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':userId', $userId, \PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao buscar contatos amigos: " . $e->getMessage());
+            return [];
+        }
+    }
 }
